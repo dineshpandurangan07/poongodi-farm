@@ -1,0 +1,4 @@
+node_modules/
+farm.db
+.env
+*.log
