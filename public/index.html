@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>பூங்கொடி இயற்கை பண்ணை — Farm Management</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --forest:#1f4d2c;
@@ -24,16 +24,43 @@
     --border:#e3e9db;
     --danger:#d64550;
     --danger-bg:#fbe6e8;
+    --warning:#b45309;
+    --warning-bg:#fef3c7;
     --shadow: 0 2px 10px rgba(31,77,44,0.08);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   body{
-    font-family:'Poppins',sans-serif;
+    font-family:'Poppins','Noto Sans Tamil',sans-serif;
     background:var(--cream);
     color:var(--text-dark);
     min-height:100vh;
   }
   .ta{ font-family:'Noto Sans Tamil','Poppins',sans-serif; }
+
+  /* ---------- Language Selector Switch ---------- */
+  .lang-switcher-bar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+  }
+  .lang-btn-toggle {
+    background: var(--forest-pale);
+    color: var(--forest);
+    border: 1px solid var(--forest-light);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+  }
+  .lang-btn-toggle:hover {
+    background: var(--forest);
+    color: #fff;
+  }
 
   /* ---------- Login ---------- */
   #loginScreen{
@@ -49,9 +76,10 @@
     background:var(--white);
     border-radius:22px;
     box-shadow:0 10px 40px rgba(31,77,44,0.14);
-    padding:36px 32px 30px;
-    width:100%; max-width:380px;
+    padding:32px 28px 28px;
+    width:100%; max-width:400px;
     text-align:center;
+    position: relative;
   }
   .logo-badge{
     width:78px; height:78px; border-radius:50%;
@@ -73,7 +101,7 @@
     margin-bottom:4px;
   }
   .login-card .sub{
-    color:var(--text-muted); font-size:13px; margin-bottom:22px;
+    color:var(--text-muted); font-size:13px; margin-bottom:18px;
   }
   .field{
     text-align:left; margin-bottom:13px;
@@ -144,12 +172,19 @@
   }
   .brand h2{ font-size:15px; line-height:1.3; }
   .brand p{ font-size:10.5px; opacity:.82; letter-spacing:.2px; }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
   .user-chip{
     display:flex; align-items:center; gap:9px; cursor:pointer;
-    background:rgba(255,255,255,0.08);
+    background:rgba(255,255,255,0.12);
     padding:6px 12px 6px 6px; border-radius:30px;
     position:relative; user-select:none;
-    border:1px solid rgba(255,255,255,0.15);
+    border:1px solid rgba(255,255,255,0.2);
   }
   .user-chip .avatar{
     width:30px; height:30px; border-radius:50%;
@@ -162,13 +197,24 @@
     position:absolute; top:46px; right:0;
     background:#fff; color:var(--text-dark);
     border-radius:14px; box-shadow:0 12px 32px rgba(0,0,0,0.18);
-    width:230px; padding:14px; display:none; z-index:60;
+    width:240px; padding:14px; display:none; z-index:60;
   }
   .user-menu.open{ display:block; }
   .user-menu .who{ display:flex; align-items:center; gap:10px; padding-bottom:12px; margin-bottom:10px; border-bottom:1px solid var(--border); }
   .user-menu .who .avatar{ width:38px; height:38px; border-radius:50%; background:var(--forest-pale); color:var(--forest); display:flex; align-items:center; justify-content:center; font-weight:700; }
   .user-menu .who b{ display:block; font-size:14px; }
   .user-menu .who small{ color:var(--text-muted); font-size:11px; }
+  .role-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 10.5px;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .role-badge.editor { background: #dcfce7; color: #15803d; }
+  .role-badge.viewer { background: #fef3c7; color: #b45309; }
+
   .menu-item{
     display:flex; align-items:center; gap:10px;
     padding:10px 10px; border-radius:9px; font-size:13.5px; font-weight:500;
@@ -202,6 +248,21 @@
     color:var(--forest); font-size:19px; font-weight:700; margin-bottom:3px;
   }
   .page-sub{ color:var(--text-muted); font-size:12.5px; margin-bottom:18px; }
+
+  /* Read-Only Alert Banner */
+  .read-only-banner {
+    background: var(--warning-bg);
+    color: var(--warning);
+    border: 1px solid #fcd34d;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 
   /* stat cards */
   .stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
@@ -312,11 +373,14 @@
     background:var(--forest-deep); color:#fff; padding:12px 20px; border-radius:11px;
     font-size:13.5px; font-weight:500; box-shadow:0 8px 24px rgba(0,0,0,0.25);
     display:none; z-index:200; align-items:center; gap:8px;
+    max-width: 90vw; text-align: center;
   }
   .toast.show{ display:flex; animation:fade .2s ease; }
 
   @media(max-width:520px){
     .stat-grid, .form-grid, .hist-grid, .rep-grid{ grid-template-columns:1fr; }
+    header.topbar { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .header-actions { width: 100%; justify-content: space-between; }
   }
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -326,25 +390,31 @@
 <!-- ================= LOGIN ================= -->
 <div id="loginScreen">
   <div class="login-card">
+    <div class="lang-switcher-bar">
+      <button class="lang-btn-toggle" onclick="toggleLanguage()">
+        <span>🌐</span> <span id="loginLangLabel">English</span>
+      </button>
+    </div>
+
     <div class="logo-badge"><img src="logo.jpg" alt="Logo" onerror="this.style.display='none'"></div>
-    <h1 class="ta">பூங்கொடி இயற்கை பண்ணை</h1>
-    <div class="sub">Family Farm Management</div>
+    <h1 class="ta" id="txt-loginTitle">பூங்கொடி இயற்கை பண்ணை</h1>
+    <div class="sub" id="txt-loginSub">Family Farm Management</div>
 
     <div class="login-error" id="loginError">Please select a family member and enter a password.</div>
 
     <div class="field">
-      <label>👤 Family Member</label>
-      <select id="memberSelect"></select>
+      <label id="txt-lblMember">👤 Family Member</label>
+      <select id="memberSelect" onchange="onMemberSelectChange()"></select>
     </div>
     <div class="field">
-      <label>✉️ Email</label>
-      <input type="email" id="loginEmail" placeholder="you@example.com" value="farm.family@example.com">
+      <label id="txt-lblEmail">✉️ Email ID</label>
+      <input type="email" id="loginEmail" placeholder="you@example.com" value="prabakaran@poongodifarm.com">
     </div>
     <div class="field">
-      <label>🔒 Password</label>
+      <label id="txt-lblPassword">🔒 Password</label>
       <input type="password" id="loginPassword" placeholder="••••••••••" value="farmpassword">
     </div>
-    <button class="btn btn-primary" onclick="doLogin('email')">📧 Login with Email</button>
+    <button class="btn btn-primary" id="txt-btnLogin" onclick="doLogin('email')">📧 Login with Email</button>
 
     <!-- Real Google Sign-In -->
     <div id="g_id_onload"
@@ -365,7 +435,7 @@
            data-width="316">
       </div>
     </div>
-    <div class="login-foot">🔒 Authorized Persons Only</div>
+    <div class="login-foot" id="txt-authorizedOnly">🔒 Authorized Family Members Only</div>
   </div>
 </div>
 
@@ -379,51 +449,58 @@
         <p id="brandSub">Family Farm Management</p>
       </div>
     </div>
-    <div class="user-chip" onclick="toggleUserMenu(event)">
-      <div class="avatar" id="chipAvatar">P</div>
-      <span id="chipName">—</span>
-      <div class="user-menu" id="userMenu">
-        <div class="who">
-          <div class="avatar" id="menuAvatar">P</div>
-          <div>
-            <b id="menuName">—</b>
-            <small>Family Member</small>
+
+    <div class="header-actions">
+      <button class="lang-btn-toggle" style="background:rgba(255,255,255,0.15); color:#fff; border-color:rgba(255,255,255,0.3)" onclick="toggleLanguage()">
+        🌐 <span id="appLangBtnLabel">English</span>
+      </button>
+
+      <div class="user-chip" onclick="toggleUserMenu(event)">
+        <div class="avatar" id="chipAvatar">P</div>
+        <span id="chipName">—</span>
+        <div class="user-menu" id="userMenu">
+          <div class="who">
+            <div class="avatar" id="menuAvatar">P</div>
+            <div>
+              <b id="menuName">—</b>
+              <div class="role-badge" id="menuRoleBadge">Family Member</div>
+            </div>
           </div>
+          <div class="menu-item" onclick="openModal('accountModal')"><span class="ic">👤</span> <span id="txt-menuAccount">Account Details</span></div>
+          <div class="menu-item" onclick="openModal('passwordModal')"><span class="ic">🔑</span> <span id="txt-menuPassword">Change Password</span></div>
+          <div class="menu-item" onclick="toggleLanguage()"><span class="ic">🌐</span> <span id="txt-menuLang">Language (English)</span></div>
+          <div class="menu-item logout" onclick="doLogout()"><span class="ic">🚪</span> <span id="txt-menuLogout">Logout</span></div>
         </div>
-        <div class="menu-item" onclick="openModal('accountModal')"><span class="ic">👤</span> Account Details</div>
-        <div class="menu-item" onclick="openModal('passwordModal')"><span class="ic">🔑</span> Change Password</div>
-        <div class="menu-item" onclick="toggleLanguage()"><span class="ic">🌐</span> Language (<span id="langLabel">EN</span>)</div>
-        <div class="menu-item logout" onclick="doLogout()"><span class="ic">🚪</span> Logout</div>
       </div>
     </div>
   </header>
 
   <nav class="tabs">
-    <button class="tab-btn active" data-tab="dashboard" onclick="showTab('dashboard')">🏠 Dashboard</button>
-    <button class="tab-btn" data-tab="add" onclick="showTab('add')">➕ Add Daily Data</button>
-    <button class="tab-btn" data-tab="history" onclick="showTab('history')">📅 History</button>
-    <button class="tab-btn" data-tab="reports" onclick="showTab('reports')">📊 Reports</button>
+    <button class="tab-btn active" data-tab="dashboard" onclick="showTab('dashboard')" id="tab-dashboard">🏠 Dashboard</button>
+    <button class="tab-btn" data-tab="add" onclick="showTab('add')" id="tab-add">➕ Add Daily Data</button>
+    <button class="tab-btn" data-tab="history" onclick="showTab('history')" id="tab-history">📅 History</button>
+    <button class="tab-btn" data-tab="reports" onclick="showTab('reports')" id="tab-reports">📊 Reports</button>
   </nav>
 
   <main>
     <!-- ---------- DASHBOARD ---------- -->
     <section class="page active" id="page-dashboard">
-      <div class="page-title">🌱 Today's Farm Dashboard</div>
+      <div class="page-title" id="txt-dashTitle">🌱 Today's Farm Dashboard</div>
       <div class="page-sub" id="todayDateLabel">—</div>
 
       <div class="stat-grid">
-        <div class="stat-card"><div class="icon egg">🥚</div><div class="lbl">Quail Eggs Sold</div><div class="val" id="dashQuailEggs">0</div></div>
-        <div class="stat-card"><div class="icon koli">🥚</div><div class="lbl">Nattu Koli Eggs Sold</div><div class="val" id="dashKoliEggs">0</div></div>
-        <div class="stat-card"><div class="icon meat">🍗</div><div class="lbl">Quail Meat Sold</div><div class="val" id="dashMeat">0</div></div>
-        <div class="stat-card"><div class="icon sales">💰</div><div class="lbl">Today's Sales</div><div class="val" id="dashSales">₹0</div></div>
+        <div class="stat-card"><div class="icon egg">🥚</div><div class="lbl" id="txt-lblDashQuailEggs">Quail Eggs Sold</div><div class="val" id="dashQuailEggs">0</div></div>
+        <div class="stat-card"><div class="icon koli">🥚</div><div class="lbl" id="txt-lblDashKoliEggs">Nattu Koli Eggs Sold</div><div class="val" id="dashKoliEggs">0</div></div>
+        <div class="stat-card"><div class="icon meat">🍗</div><div class="lbl" id="txt-lblDashMeat">Quail Meat Sold</div><div class="val" id="dashMeat">0</div></div>
+        <div class="stat-card"><div class="icon sales">💰</div><div class="lbl" id="txt-lblDashSales">Today's Sales</div><div class="val" id="dashSales">₹0</div></div>
       </div>
 
       <div class="section-block">
-        <h3>📦 Today's Stock</h3>
+        <h3 id="txt-stockTitle">📦 Today's Stock</h3>
         <div class="stat-grid">
-          <div class="stat-card"><div class="icon stock">🥚</div><div class="lbl">Quail Eggs Remaining</div><div class="val" id="stockQuailEggs">0</div></div>
-          <div class="stat-card"><div class="icon stock">🥚</div><div class="lbl">Nattu Koli Eggs Remaining</div><div class="val" id="stockKoliEggs">0</div></div>
-          <div class="stat-card"><div class="icon stock">🍖</div><div class="lbl">Quail Meat Remaining</div><div class="val" id="stockMeat">0</div></div>
+          <div class="stat-card"><div class="icon stock">🥚</div><div class="lbl" id="txt-lblStockQuailEggs">Quail Eggs Remaining</div><div class="val" id="stockQuailEggs">0</div></div>
+          <div class="stat-card"><div class="icon stock">🥚</div><div class="lbl" id="txt-lblStockKoliEggs">Nattu Koli Eggs Remaining</div><div class="val" id="stockKoliEggs">0</div></div>
+          <div class="stat-card"><div class="icon stock">🍖</div><div class="lbl" id="txt-lblStockMeat">Quail Meat Remaining</div><div class="val" id="stockMeat">0</div></div>
         </div>
       </div>
     </section>
@@ -431,77 +508,86 @@
     <!-- ---------- ADD DAILY DATA ---------- -->
     <section class="page" id="page-add">
       <div class="page-title" id="addTitle">➕ Add / Update Daily Farm Details</div>
-      <div class="page-sub">Enter today's figures — totals are calculated automatically.</div>
+      <div class="page-sub" id="txt-addSub">Enter today's figures — totals are calculated automatically.</div>
+
+      <div id="readOnlyBanner" class="read-only-banner" style="display:none;">
+        🔒 <span id="txt-readOnlyNotice">View Only Mode: Only Poongodi can enter or edit farm data.</span>
+      </div>
 
       <div class="form-card">
         <input type="hidden" id="editId">
         <div class="form-grid">
-          <div class="field"><label>📅 Date</label><input type="date" id="f_date"></div>
-          <div class="field"><label>🐦 Quail Produced</label><input type="number" id="f_quailProduced" placeholder="0" min="0"></div>
+          <div class="field"><label id="txt-fDate">📅 Date</label><input type="date" id="f_date"></div>
+          <div class="field"><label id="txt-fQuailProduced">🐦 Quail Produced</label><input type="number" id="f_quailProduced" placeholder="0" min="0"></div>
 
-          <div class="field"><label>🥚 Quail Eggs Sold</label><input type="number" id="f_quailEggsSold" placeholder="0" min="0"></div>
-          <div class="field"><label>🥚 Quail Egg Rate (₹ each)</label><input type="number" id="f_quailEggRate" placeholder="Example: 4" min="0"></div>
+          <div class="field"><label id="txt-fQuailEggsSold">🥚 Quail Eggs Sold</label><input type="number" id="f_quailEggsSold" placeholder="0" min="0"></div>
+          <div class="field"><label id="txt-fQuailEggRate">🥚 Quail Egg Rate (₹ each)</label><input type="number" id="f_quailEggRate" placeholder="Example: 4" min="0"></div>
 
-          <div class="field"><label>🥚 Nattu Koli Eggs Produced</label><input type="number" id="f_koliEggsProduced" placeholder="0" min="0"></div>
-          <div class="field"><label>🥚 Nattu Koli Eggs Sold</label><input type="number" id="f_koliEggsSold" placeholder="0" min="0"></div>
+          <div class="field"><label id="txt-fKoliEggsProduced">🥚 Nattu Koli Eggs Produced</label><input type="number" id="f_koliEggsProduced" placeholder="0" min="0"></div>
+          <div class="field"><label id="txt-fKoliEggsSold">🥚 Nattu Koli Eggs Sold</label><input type="number" id="f_koliEggsSold" placeholder="0" min="0"></div>
 
-          <div class="field"><label>🥚 Nattu Koli Egg Rate (₹ each)</label><input type="number" id="f_koliEggRate" placeholder="Example: 15" min="0"></div>
-          <div class="field"><label>🩸 Quail Mortality</label><input type="number" id="f_mortality" placeholder="0" min="0"></div>
+          <div class="field"><label id="txt-fKoliEggRate">🥚 Nattu Koli Egg Rate (₹ each)</label><input type="number" id="f_koliEggRate" placeholder="Example: 15" min="0"></div>
+          <div class="field"><label id="txt-fMortality">🩸 Quail Mortality</label><input type="number" id="f_mortality" placeholder="0" min="0"></div>
 
-          <div class="field"><label>🍖 Quail Meat Available (kg)</label><input type="number" id="f_meatAvailable" placeholder="0" min="0"></div>
-          <div class="field"><label>🍗 Quail Meat Sold (kg)</label><input type="number" id="f_meatSold" placeholder="0" min="0"></div>
+          <div class="field"><label id="txt-fMeatAvailable">🍖 Quail Meat Available (kg)</label><input type="number" id="f_meatAvailable" placeholder="0" min="0"></div>
+          <div class="field"><label id="txt-fMeatSold">🍗 Quail Meat Sold (kg)</label><input type="number" id="f_meatSold" placeholder="0" min="0"></div>
 
-          <div class="field"><label>🍖 Quail Meat Rate (₹/kg)</label><input type="number" id="f_meatRate" placeholder="Example: 70" min="0"></div>
-          <div class="field"><label>💊 Medicine (₹)</label><input type="number" id="f_medicine" placeholder="0" min="0"></div>
+          <div class="field"><label id="txt-fMeatRate">🍖 Quail Meat Rate (₹/kg)</label><input type="number" id="f_meatRate" placeholder="Example: 70" min="0"></div>
+          <div class="field"><label id="txt-fMedicine">💊 Medicine (₹)</label><input type="number" id="f_medicine" placeholder="0" min="0"></div>
 
-          <div class="field"><label>🏷️ Tray Stickers (₹)</label><input type="number" id="f_trayStickers" placeholder="0" min="0"></div>
-          <div class="field"><label>🌿 Other Expenses (₹)</label><input type="number" id="f_otherExpenses" placeholder="0" min="0"></div>
+          <div class="field"><label id="txt-fTrayStickers">🏷️ Tray Stickers (₹)</label><input type="number" id="f_trayStickers" placeholder="0" min="0"></div>
+          <div class="field"><label id="txt-fOtherExpenses">🌿 Other Expenses (₹)</label><input type="number" id="f_otherExpenses" placeholder="0" min="0"></div>
 
           <div class="field full">
-            <label>💰 Total Sales ₹ (auto-calculated, you can adjust)</label>
+            <label id="txt-fTotalSales">💰 Total Sales ₹ (auto-calculated)</label>
             <input type="number" id="f_totalSales" placeholder="0">
           </div>
 
           <div class="field full">
-            <label>📝 Farm Notes</label>
+            <label id="txt-fNotes">📝 Farm Notes</label>
             <textarea id="f_notes" rows="3" placeholder="Today's farm details..."></textarea>
           </div>
         </div>
 
-        <div class="form-actions">
-          <button class="btn btn-clear" onclick="clearForm()">Clear</button>
-          <button class="btn btn-primary" onclick="saveRecord()">💾 Save Data</button>
+        <div class="form-actions" id="formActions">
+          <button class="btn btn-clear" id="txt-btnClear" onclick="clearForm()">Clear</button>
+          <button class="btn btn-primary" id="txt-btnSave" onclick="saveRecord()">💾 Save Data</button>
         </div>
       </div>
     </section>
 
     <!-- ---------- HISTORY ---------- -->
     <section class="page" id="page-history">
-      <div class="page-title">📅 Farm History</div>
-      <div class="page-sub">Previous daily records</div>
+      <div class="page-title" id="txt-histTitle">📅 Farm History</div>
+      <div class="page-sub" id="txt-histSub">Previous daily records</div>
       <div id="historyList"></div>
     </section>
 
     <!-- ---------- REPORTS ---------- -->
     <section class="page" id="page-reports">
-      <div class="page-title">📊 Farm Reports</div>
-      <div class="page-sub">Complete farm sales summary</div>
+      <div class="page-title" id="txt-repTitle">📊 Farm Reports</div>
+      <div class="page-sub" id="txt-repSub">Complete farm sales summary</div>
 
       <div class="rep-grid">
-        <div class="rep-box sales"><div class="l">Total Sales</div><div class="v" id="repSales">₹0</div></div>
-        <div class="rep-box expenses"><div class="l">Total Expenses</div><div class="v" id="repExpenses">₹0</div></div>
-        <div class="rep-box profit"><div class="l">Profit</div><div class="v" id="repProfit">₹0</div></div>
-        <div class="rep-box loss"><div class="l">Loss</div><div class="v" id="repLoss">₹0</div></div>
+        <div class="rep-box sales"><div class="l" id="txt-repSales">Total Sales</div><div class="v" id="repSalesVal">₹0</div></div>
+        <div class="rep-box expenses"><div class="l" id="txt-repExpenses">Total Expenses</div><div class="v" id="repExpensesVal">₹0</div></div>
+        <div class="rep-box profit"><div class="l" id="txt-repProfit">Profit</div><div class="v" id="repProfitVal">₹0</div></div>
+        <div class="rep-box loss"><div class="l" id="txt-repLoss">Loss</div><div class="v" id="repLossVal">₹0</div></div>
       </div>
 
       <div class="section-block">
-        <h3>📋 Daily Summary</h3>
+        <h3 id="txt-dailySummary">📋 Daily Summary</h3>
         <div class="table-wrap">
           <table class="summary">
             <thead>
               <tr>
-                <th>📅 Date</th><th>🥚 Quail Sold</th><th>🥚 Nattu Sold</th>
-                <th>🩸 Mortality</th><th>🍗 Quail Meat</th><th>💰 Total Sales ₹</th><th>🌿 Expenses ₹</th>
+                <th id="thDate">📅 Date</th>
+                <th id="thQuailSold">🥚 Quail Sold</th>
+                <th id="thKoliSold">🥚 Nattu Sold</th>
+                <th id="thMortality">🩸 Mortality</th>
+                <th id="thMeat">🍗 Quail Meat</th>
+                <th id="thSales">💰 Total Sales ₹</th>
+                <th id="thExpenses">🌿 Expenses ₹</th>
               </tr>
             </thead>
             <tbody id="summaryBody"></tbody>
@@ -515,11 +601,11 @@
 <!-- ---------- Account modal ---------- -->
 <div class="modal-bg" id="accountModal">
   <div class="modal">
-    <h3>Account Details <span class="x" onclick="closeModal('accountModal')">✕</span></h3>
+    <h3><span id="txt-modalAccTitle">Account Details</span> <span class="x" onclick="closeModal('accountModal')">✕</span></h3>
     <div class="profile-pic" id="modalAvatar">P</div>
-    <div class="field"><label>Name</label><input class="readonly" id="modalName" readonly></div>
-    <div class="field"><label>Login Method</label><input class="readonly" id="modalMethod" readonly></div>
-    <div class="field"><label>Selected Family Member</label><input class="readonly" id="modalMember" readonly></div>
+    <div class="field"><label id="txt-mName">Name</label><input class="readonly" id="modalName" readonly></div>
+    <div class="field"><label id="txt-mRole">Access Level</label><input class="readonly" id="modalRole" readonly></div>
+    <div class="field"><label id="txt-mMethod">Login Method</label><input class="readonly" id="modalMethod" readonly></div>
     <button class="btn btn-clear" style="margin-top:6px" onclick="closeModal('accountModal')">Close</button>
   </div>
 </div>
@@ -527,10 +613,10 @@
 <!-- ---------- Password modal ---------- -->
 <div class="modal-bg" id="passwordModal">
   <div class="modal">
-    <h3>Change Password <span class="x" onclick="closeModal('passwordModal')">✕</span></h3>
-    <div class="field"><label>Current Password</label><input type="password" placeholder="••••••••"></div>
-    <div class="field"><label>New Password</label><input type="password" placeholder="••••••••"></div>
-    <button class="btn btn-primary" onclick="closeModal('passwordModal'); showToast('Password updated (demo only)')">Update Password</button>
+    <h3><span id="txt-modalPassTitle">Change Password</span> <span class="x" onclick="closeModal('passwordModal')">✕</span></h3>
+    <div class="field"><label id="txt-mCurrPass">Current Password</label><input type="password" placeholder="••••••••"></div>
+    <div class="field"><label id="txt-mNewPass">New Password</label><input type="password" placeholder="••••••••"></div>
+    <button class="btn btn-primary" id="txt-mUpdatePassBtn" onclick="closeModal('passwordModal'); showToast('Password updated')">Update Password</button>
   </div>
 </div>
 
@@ -539,17 +625,316 @@
 <script>
 /* ---------------- State ---------------- */
 let records = [];
-let members = ['Prabakaran','Sajindharan'];
+let members = ['Prabakaran', 'Poongodi', 'Rajindharan', 'Sajindharan'];
 let currentUser = null;
-let lang = 'en';
+let lang = localStorage.getItem('farm_lang') || 'ta'; // Default to Tamil as requested
 
-const TXT = {
-  en: { brand:"Poongodi Natural Farm", sub:"Family Farm Management" },
-  ta: { brand:"பூங்கொடி இயற்கை பண்ணை", sub:"குடும்ப பண்ணை மேலாண்மை" }
+const MEMBER_EMAILS = {
+  'Prabakaran': 'prabakaran@poongodifarm.com',
+  'Poongodi': 'poongodi@poongodifarm.com',
+  'Rajindharan': 'rajindharan@poongodifarm.com',
+  'Sajindharan': 'sajindharan@poongodifarm.com'
 };
 
-const STORE_KEY = 'poongodi_records_v1';
-const MEMBERS_KEY = 'poongodi_members_v1';
+const I18N = {
+  en: {
+    brand: "Poongodi Natural Farm",
+    sub: "Family Farm Management",
+    loginTitle: "Poongodi Natural Farm",
+    loginSub: "Family Farm Management",
+    loginError: "Please select a family member and enter a password.",
+    lblMember: "👤 Family Member",
+    lblEmail: "✉️ Email ID",
+    lblPassword: "🔒 Password",
+    btnLogin: "📧 Login with Email",
+    authorizedOnly: "🔒 Authorized Family Members Only",
+    roleEditor: "Editor (Data Entry)",
+    roleViewer: "Family Viewer (Read Only)",
+    menuAccount: "Account Details",
+    menuPassword: "Change Password",
+    menuLang: "Language (English)",
+    menuLogout: "Logout",
+    langBtnLabel: "தமிழ்",
+    // Tabs
+    tabDashboard: "🏠 Dashboard",
+    tabAdd: "➕ Add Daily Data",
+    tabHistory: "📅 History",
+    tabReports: "📊 Reports",
+    // Dashboard
+    dashTitle: "🌱 Today's Farm Dashboard",
+    lblDashQuailEggs: "Quail Eggs Sold",
+    lblDashKoliEggs: "Nattu Koli Eggs Sold",
+    lblDashMeat: "Quail Meat Sold",
+    lblDashSales: "Today's Sales",
+    stockTitle: "📦 Today's Stock",
+    lblStockQuailEggs: "Quail Eggs Remaining",
+    lblStockKoliEggs: "Nattu Koli Eggs Remaining",
+    lblStockMeat: "Quail Meat Remaining",
+    // Add Form
+    addTitle: "➕ Add / Update Daily Farm Details",
+    addSub: "Enter today's figures — totals are calculated automatically.",
+    readOnlyNotice: "🔒 Read Only Access: Only Poongodi can enter or edit farm data.",
+    fDate: "📅 Date",
+    fQuailProduced: "🐦 Quail Produced",
+    fQuailEggsSold: "🥚 Quail Eggs Sold",
+    fQuailEggRate: "🥚 Quail Egg Rate (₹ each)",
+    fKoliEggsProduced: "🥚 Nattu Koli Eggs Produced",
+    fKoliEggsSold: "🥚 Nattu Koli Eggs Sold",
+    fKoliEggRate: "🥚 Nattu Koli Egg Rate (₹ each)",
+    fMortality: "🩸 Quail Mortality",
+    fMeatAvailable: "🍖 Quail Meat Available (kg)",
+    fMeatSold: "🍗 Quail Meat Sold (kg)",
+    fMeatRate: "🍖 Quail Meat Rate (₹/kg)",
+    fMedicine: "💊 Medicine (₹)",
+    fTrayStickers: "🏷️ Tray Stickers (₹)",
+    fOtherExpenses: "🌿 Other Expenses (₹)",
+    fTotalSales: "💰 Total Sales ₹ (auto-calculated)",
+    fNotes: "📝 Farm Notes",
+    btnClear: "Clear",
+    btnSave: "💾 Save Data",
+    // History
+    histTitle: "📅 Farm History",
+    histSub: "Previous daily records",
+    btnEdit: "✏️ Edit",
+    btnDelete: "🗑️ Delete",
+    updatedBy: "Updated By",
+    updatedAt: "Updated At",
+    noRecords: "No records yet. Add today's farm data to get started.",
+    // Reports
+    repTitle: "📊 Farm Reports",
+    repSub: "Complete farm sales summary",
+    repSales: "Total Sales",
+    repExpenses: "Total Expenses",
+    repProfit: "Profit",
+    repLoss: "Loss",
+    dailySummary: "📋 Daily Summary",
+    thDate: "📅 Date",
+    thQuailSold: "🥚 Quail Sold",
+    thKoliSold: "🥚 Nattu Sold",
+    thMortality: "🩸 Mortality",
+    thMeat: "🍗 Quail Meat",
+    thSales: "💰 Total Sales ₹",
+    thExpenses: "🌿 Expenses ₹",
+    // Modals
+    modalAccTitle: "Account Details",
+    mName: "Name",
+    mRole: "Access Level",
+    mMethod: "Login Method",
+    modalPassTitle: "Change Password",
+    mCurrPass: "Current Password",
+    mNewPass: "New Password",
+    mUpdatePassBtn: "Update Password",
+    // Alerts
+    savedSuccess: "Daily farm data saved successfully!",
+    deletedSuccess: "Record deleted successfully",
+    poongodiOnlyError: "Access Restricted: Only Poongodi can enter, edit, or delete data."
+  },
+  ta: {
+    brand: "பூங்கொடி இயற்கை பண்ணை",
+    sub: "குடும்ப பண்ணை மேலாண்மை",
+    loginTitle: "பூங்கொடி இயற்கை பண்ணை",
+    loginSub: "குடும்ப பண்ணை மேலாண்மை",
+    loginError: "தயவுசெய்து குடும்ப உறுப்பினரைத் தேர்ந்தெடுத்து மின்னஞ்சல்/கடவுச்சொல்லை உள்ளிடவும்.",
+    lblMember: "👤 குடும்ப உறுப்பினர்",
+    lblEmail: "✉️ மின்னஞ்சல் ஐடி",
+    lblPassword: "🔒 கடவுச்சொல்",
+    btnLogin: "📧 மின்னஞ்சல் மூலம் உள்நுழைக",
+    authorizedOnly: "🔒 அனுமதி பெற்ற குடும்ப உறுப்பினர்கள் மட்டும்",
+    roleEditor: "நிர்வாகி (தரவு சேர்க்கலாம்)",
+    roleViewer: "குடும்ப பார்வையாளர் (பார்க்க மட்டும்)",
+    menuAccount: "கணக்கு விவரங்கள்",
+    menuPassword: "கடவுச்சொல்லை மாற்றுக",
+    menuLang: "Language (English)",
+    menuLogout: "வெளியேறு",
+    langBtnLabel: "English",
+    // Tabs
+    tabDashboard: "🏠 முகப்பு",
+    tabAdd: "➕ தரவு சேர்க்க",
+    tabHistory: "📅 வரலாறு",
+    tabReports: "📊 அறிக்கைகள்",
+    // Dashboard
+    dashTitle: "🌱 இன்றைய பண்ணை நிலவரம்",
+    lblDashQuailEggs: "விற்பனையான காடை முட்டைகள்",
+    lblDashKoliEggs: "விற்பனையான நாட்டுக்கோழி முட்டைகள்",
+    lblDashMeat: "விற்பனையான காடை இறைச்சி",
+    lblDashSales: "இன்றைய விற்பனை",
+    stockTitle: "📦 இன்றைய இருப்பு",
+    lblStockQuailEggs: "மீதமுள்ள காடை முட்டைகள்",
+    lblStockKoliEggs: "மீதமுள்ள நாட்டுக்கோழி முட்டைகள்",
+    lblStockMeat: "மீதமுள்ள காடை இறைச்சி",
+    // Add Form
+    addTitle: "➕ தினசரி பண்ணை விபரங்களை சேர்க்க / புதுப்பிக்க",
+    addSub: "இன்றைய விபரங்களை உள்ளிடவும் — மொத்தம் தானாகவே கணக்கிடப்படும்.",
+    readOnlyNotice: "🔒 பார்வையாளர் பயன்முறை: பூங்கொடி மட்டுமே பண்ணை விபரங்களை சேர்க்க அல்லது திருத்த முடியும்.",
+    fDate: "📅 தேதி",
+    fQuailProduced: "🐦 உற்பத்தி செய்த காடைகள்",
+    fQuailEggsSold: "🥚 விற்பனை செய்த காடை முட்டைகள்",
+    fQuailEggRate: "🥚 காடை முட்டை விலை (₹ 1 எண்ணம்)",
+    fKoliEggsProduced: "🥚 உற்பத்தி செய்த நாட்டுக்கோழி முட்டைகள்",
+    fKoliEggsSold: "🥚 விற்பனை செய்த நாட்டுக்கோழி முட்டைகள்",
+    fKoliEggRate: "🥚 நாட்டுக்கோழி முட்டை விலை (₹ 1 எண்ணம்)",
+    fMortality: "🩸 காடை இறப்பு",
+    fMeatAvailable: "🍖 இருப்பு காடை இறைச்சி (கிலோ)",
+    fMeatSold: "🍗 விற்பனை செய்த காடை இறைச்சி (கிலோ)",
+    fMeatRate: "🍖 காடை இறைச்சி விலை (₹/கிலோ)",
+    fMedicine: "💊 மருந்து செலவு (₹)",
+    fTrayStickers: "🏷️ அட்டை ஸ்டிக்கர்கள் (₹)",
+    fOtherExpenses: "🌿 இதர செலவுகள் (₹)",
+    fTotalSales: "💰 மொத்த விற்பனை ₹ (தானாக கணக்கிடப்பட்டது)",
+    fNotes: "📝 பண்ணை குறிப்புகள்",
+    btnClear: "அழி",
+    btnSave: "💾 தரவை சேமி",
+    // History
+    histTitle: "📅 பண்ணை வரலாறு",
+    histSub: "முந்தைய தினசரி பதிவுகள்",
+    btnEdit: "✏️ திருத்து",
+    btnDelete: "🗑️ நீக்கு",
+    updatedBy: "புதுப்பித்தவர்",
+    updatedAt: "புதுப்பித்த நேரம்",
+    noRecords: "பதிவுகள் எதுவுமில்லை. தொடங்குவதற்கு இன்றைய பண்ணை தரவைச் சேர்க்கவும்.",
+    // Reports
+    repTitle: "📊 பண்ணை அறிக்கைகள்",
+    repSub: "முழுமையான பண்ணை விற்பனை சுருக்கம்",
+    repSales: "மொத்த விற்பனை",
+    repExpenses: "மொத்த செலவுகள்",
+    repProfit: "லாபம்",
+    repLoss: "நஷ்டம்",
+    dailySummary: "📋 தினசரி சுருக்கம்",
+    thDate: "📅 தேதி",
+    thQuailSold: "🥚 காடை விற்பனை",
+    thKoliSold: "🥚 நாட்டுக்கோழி விற்பனை",
+    thMortality: "🩸 இறப்பு",
+    thMeat: "🍗 காடை இறைச்சி",
+    thSales: "💰 மொத்த விற்பனை ₹",
+    thExpenses: "🌿 செலவுகள் ₹",
+    // Modals
+    modalAccTitle: "கணக்கு விவரங்கள்",
+    mName: "பெயர்",
+    mRole: "அனுமதி நிலை",
+    mMethod: "உள்நுழைவு முறை",
+    modalPassTitle: "கடவுச்சொல்லை மாற்றுக",
+    mCurrPass: "தற்போதைய கடவுச்சொல்",
+    mNewPass: "புதிய கடவுச்சொல்",
+    mUpdatePassBtn: "கடவுச்சொல்லை புதுப்பி",
+    // Alerts
+    savedSuccess: "தினசரி பண்ணை தரவு வெற்றிகரமாக சேமிக்கப்பட்டது!",
+    deletedSuccess: "பதிவு வெற்றிகரமாக நீக்கப்பட்டது",
+    poongodiOnlyError: "அனுமதி மறுக்கப்பட்டது: பூங்கொடி மட்டுமே தரவை சேர்க்க, திருத்த அல்லது நீக்க முடியும்."
+  }
+};
+
+function isPoongodi() {
+  return currentUser && currentUser.name && currentUser.name.toLowerCase().trim() === 'poongodi';
+}
+
+function applyLanguage() {
+  const t = I18N[lang];
+  document.documentElement.lang = lang;
+
+  // Buttons/Labels
+  document.getElementById('loginLangLabel').textContent = t.langBtnLabel;
+  document.getElementById('appLangBtnLabel').textContent = t.langBtnLabel;
+
+  // Header / Brand
+  document.getElementById('brandTitle').textContent = t.brand;
+  document.getElementById('brandSub').textContent = t.sub;
+
+  // Login
+  document.getElementById('txt-loginTitle').textContent = t.loginTitle;
+  document.getElementById('txt-loginSub').textContent = t.loginSub;
+  document.getElementById('txt-lblMember').textContent = t.lblMember;
+  document.getElementById('txt-lblEmail').textContent = t.lblEmail;
+  document.getElementById('txt-lblPassword').textContent = t.lblPassword;
+  document.getElementById('txt-btnLogin').textContent = t.btnLogin;
+  document.getElementById('txt-authorizedOnly').textContent = t.authorizedOnly;
+
+  // Menu items
+  document.getElementById('txt-menuAccount').textContent = t.menuAccount;
+  document.getElementById('txt-menuPassword').textContent = t.menuPassword;
+  document.getElementById('txt-menuLang').textContent = t.menuLang;
+  document.getElementById('txt-menuLogout').textContent = t.menuLogout;
+
+  // Tabs
+  document.getElementById('tab-dashboard').textContent = t.tabDashboard;
+  document.getElementById('tab-add').textContent = t.tabAdd;
+  document.getElementById('tab-history').textContent = t.tabHistory;
+  document.getElementById('tab-reports').textContent = t.tabReports;
+
+  // Dashboard
+  document.getElementById('txt-dashTitle').textContent = t.dashTitle;
+  document.getElementById('txt-lblDashQuailEggs').textContent = t.lblDashQuailEggs;
+  document.getElementById('txt-lblDashKoliEggs').textContent = t.lblDashKoliEggs;
+  document.getElementById('txt-lblDashMeat').textContent = t.lblDashMeat;
+  document.getElementById('txt-lblDashSales').textContent = t.lblDashSales;
+  document.getElementById('txt-stockTitle').textContent = t.stockTitle;
+  document.getElementById('txt-lblStockQuailEggs').textContent = t.lblStockQuailEggs;
+  document.getElementById('txt-lblStockKoliEggs').textContent = t.lblStockKoliEggs;
+  document.getElementById('txt-lblStockMeat').textContent = t.lblStockMeat;
+
+  // Add Form
+  document.getElementById('txt-addSub').textContent = t.addSub;
+  document.getElementById('txt-readOnlyNotice').textContent = t.readOnlyNotice;
+  document.getElementById('txt-fDate').textContent = t.fDate;
+  document.getElementById('txt-fQuailProduced').textContent = t.fQuailProduced;
+  document.getElementById('txt-fQuailEggsSold').textContent = t.fQuailEggsSold;
+  document.getElementById('txt-fQuailEggRate').textContent = t.fQuailEggRate;
+  document.getElementById('txt-fKoliEggsProduced').textContent = t.fKoliEggsProduced;
+  document.getElementById('txt-fKoliEggsSold').textContent = t.fKoliEggsSold;
+  document.getElementById('txt-fKoliEggRate').textContent = t.fKoliEggRate;
+  document.getElementById('txt-fMortality').textContent = t.fMortality;
+  document.getElementById('txt-fMeatAvailable').textContent = t.fMeatAvailable;
+  document.getElementById('txt-fMeatSold').textContent = t.fMeatSold;
+  document.getElementById('txt-fMeatRate').textContent = t.fMeatRate;
+  document.getElementById('txt-fMedicine').textContent = t.fMedicine;
+  document.getElementById('txt-fTrayStickers').textContent = t.fTrayStickers;
+  document.getElementById('txt-fOtherExpenses').textContent = t.fOtherExpenses;
+  document.getElementById('txt-fTotalSales').textContent = t.fTotalSales;
+  document.getElementById('txt-fNotes').textContent = t.fNotes;
+  document.getElementById('txt-btnClear').textContent = t.btnClear;
+  document.getElementById('txt-btnSave').textContent = t.btnSave;
+
+  // History
+  document.getElementById('txt-histTitle').textContent = t.histTitle;
+  document.getElementById('txt-histSub').textContent = t.histSub;
+
+  // Reports
+  document.getElementById('txt-repTitle').textContent = t.repTitle;
+  document.getElementById('txt-repSub').textContent = t.repSub;
+  document.getElementById('txt-repSales').textContent = t.repSales;
+  document.getElementById('txt-repExpenses').textContent = t.repExpenses;
+  document.getElementById('txt-repProfit').textContent = t.repProfit;
+  document.getElementById('txt-repLoss').textContent = t.repLoss;
+  document.getElementById('txt-dailySummary').textContent = t.dailySummary;
+  document.getElementById('thDate').textContent = t.thDate;
+  document.getElementById('thQuailSold').textContent = t.thQuailSold;
+  document.getElementById('thKoliSold').textContent = t.thKoliSold;
+  document.getElementById('thMortality').textContent = t.thMortality;
+  document.getElementById('thMeat').textContent = t.thMeat;
+  document.getElementById('thSales').textContent = t.thSales;
+  document.getElementById('thExpenses').textContent = t.thExpenses;
+
+  // Modals
+  document.getElementById('txt-modalAccTitle').textContent = t.modalAccTitle;
+  document.getElementById('txt-mName').textContent = t.mName;
+  document.getElementById('txt-mRole').textContent = t.mRole;
+  document.getElementById('txt-mMethod').textContent = t.mMethod;
+  document.getElementById('txt-modalPassTitle').textContent = t.modalPassTitle;
+  document.getElementById('txt-mCurrPass').textContent = t.mCurrPass;
+  document.getElementById('txt-mNewPass').textContent = t.mNewPass;
+  document.getElementById('txt-mUpdatePassBtn').textContent = t.mUpdatePassBtn;
+
+  if (currentUser) {
+    refreshUserUI();
+    renderAll();
+  }
+}
+
+function toggleLanguage() {
+  lang = lang === 'en' ? 'ta' : 'en';
+  localStorage.setItem('farm_lang', lang);
+  applyLanguage();
+  document.getElementById('userMenu').classList.remove('open');
+}
 
 /* ---------------- Storage helpers ---------------- */
 async function loadData(){
@@ -559,18 +944,29 @@ async function loadData(){
   }catch(e){ records = []; }
   try{
     const res = await fetch('/api/members');
-    if(res.ok) members = await res.json();
+    if(res.ok) {
+      const serverMembers = await res.json();
+      members = Array.from(new Set(['Prabakaran', 'Poongodi', 'Rajindharan', 'Sajindharan', ...serverMembers]));
+    }
   }catch(e){ /* keep defaults */ }
   populateMemberSelect();
 }
 
-
-/* ---------------- Login ---------------- */
 function populateMemberSelect(){
   const sel = document.getElementById('memberSelect');
   sel.innerHTML = members.map(m=>`<option value="${m}">${m}</option>`).join('');
+  onMemberSelectChange();
 }
 
+function onMemberSelectChange() {
+  const selectedName = document.getElementById('memberSelect').value;
+  const emailInput = document.getElementById('loginEmail');
+  if (MEMBER_EMAILS[selectedName]) {
+    emailInput.value = MEMBER_EMAILS[selectedName];
+  }
+}
+
+/* ---------------- Login ---------------- */
 function doLogin(method){
   const name = document.getElementById('memberSelect').value;
   const email = document.getElementById('loginEmail').value.trim();
@@ -583,7 +979,7 @@ function doLogin(method){
   fetch('/api/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, email: email || 'farm.family@example.com', method: method==='google' ? 'Google Account' : 'Email & Password', password: pass })
+    body: JSON.stringify({ name, email: email || MEMBER_EMAILS[name] || 'farm.family@example.com', method: method==='google' ? 'Google Account' : 'Email & Password', password: pass })
   })
   .then(res => res.json())
   .then(data => {
@@ -605,40 +1001,7 @@ function doLogin(method){
   });
 }
 
-function doLoginGoogle() {
-  // Show a clean Google-style account picker
-  const name = document.getElementById('memberSelect').value;
-  const email = document.getElementById('loginEmail').value.trim() || 'farm.family@example.com';
-
-  fetch('/api/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, email, method: 'Google Account', password: '' })
-  })
-  .then(res => res.json())
-  .then(data => {
-    if(data.success){
-      document.getElementById('loginError').style.display='none';
-      currentUser = data.user;
-      currentUser.method = 'Google Account';
-      document.getElementById('loginScreen').style.display='none';
-      document.getElementById('app').style.display='block';
-      refreshUserUI();
-      renderAll();
-      showToast('Signed in with Google successfully!');
-    } else {
-      document.getElementById('loginError').style.display='block';
-      document.getElementById('loginError').textContent = data.error || 'Google Login failed';
-    }
-  })
-  .catch(err => {
-    document.getElementById('loginError').style.display='block';
-    document.getElementById('loginError').textContent = 'Network error';
-  });
-}
-
 function handleCredentialResponse(response) {
-  // Real Google Sign-In: send JWT token to backend
   fetch('/api/login/google', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -666,7 +1029,6 @@ function handleCredentialResponse(response) {
   });
 }
 
-
 function doLogout(){
   currentUser = null;
   document.getElementById('app').style.display='none';
@@ -675,6 +1037,7 @@ function doLogout(){
 }
 
 function refreshUserUI(){
+  if (!currentUser) return;
   const initial = currentUser.name.charAt(0).toUpperCase();
   document.getElementById('chipAvatar').textContent = initial;
   document.getElementById('menuAvatar').textContent = initial;
@@ -682,8 +1045,33 @@ function refreshUserUI(){
   document.getElementById('chipName').textContent = currentUser.name;
   document.getElementById('menuName').textContent = currentUser.name;
   document.getElementById('modalName').value = currentUser.name;
-  document.getElementById('modalMethod').value = currentUser.method;
-  document.getElementById('modalMember').value = currentUser.name;
+  document.getElementById('modalMethod').value = currentUser.method || 'Email & Password';
+
+  const t = I18N[lang];
+  const roleBadge = document.getElementById('menuRoleBadge');
+  const modalRole = document.getElementById('modalRole');
+  
+  if (isPoongodi()) {
+    roleBadge.textContent = t.roleEditor;
+    roleBadge.className = 'role-badge editor';
+    modalRole.value = t.roleEditor;
+  } else {
+    roleBadge.textContent = t.roleViewer;
+    roleBadge.className = 'role-badge viewer';
+    modalRole.value = t.roleViewer;
+  }
+
+  // Update Form Card Read-Only state for non-Poongodi users
+  const isEd = isPoongodi();
+  document.getElementById('readOnlyBanner').style.display = isEd ? 'none' : 'flex';
+  document.getElementById('formActions').style.display = isEd ? 'flex' : 'none';
+  
+  const formInputs = document.querySelectorAll('#page-add input, #page-add textarea');
+  formInputs.forEach(input => {
+    if (input.id !== 'editId') {
+      input.disabled = !isEd;
+    }
+  });
 }
 
 /* ---------------- Menu / modal ---------------- */
@@ -696,14 +1084,6 @@ document.addEventListener('click', ()=> document.getElementById('userMenu').clas
 function openModal(id){ document.getElementById(id).classList.add('open'); document.getElementById('userMenu').classList.remove('open'); }
 function closeModal(id){ document.getElementById(id).classList.remove('open'); }
 
-function toggleLanguage(){
-  lang = lang==='en' ? 'ta' : 'en';
-  document.getElementById('langLabel').textContent = lang.toUpperCase();
-  document.getElementById('brandTitle').textContent = TXT[lang].brand;
-  document.getElementById('brandSub').textContent = TXT[lang].sub;
-  document.getElementById('userMenu').classList.remove('open');
-}
-
 /* ---------------- Tabs ---------------- */
 function showTab(tab){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
@@ -712,6 +1092,11 @@ function showTab(tab){
   if(tab==='history') renderHistory();
   if(tab==='reports') renderReports();
   if(tab==='dashboard') renderDashboard();
+  if(tab==='add') {
+    if (!isPoongodi() && !document.getElementById('editId').value) {
+      document.getElementById('addTitle').innerHTML = I18N[lang].addTitle;
+    }
+  }
 }
 
 /* ---------------- Form helpers ---------------- */
@@ -738,7 +1123,7 @@ function recalcTotal(){
 
 function clearForm(){
   document.getElementById('editId').value='';
-  document.getElementById('addTitle').innerHTML = '➕ Add / Update Daily Farm Details';
+  document.getElementById('addTitle').innerHTML = I18N[lang].addTitle;
   document.getElementById('f_date').value = new Date().toISOString().slice(0,10);
   numFields.forEach(f=> document.getElementById('f_'+f).value='');
   document.getElementById('f_totalSales').value='';
@@ -746,6 +1131,10 @@ function clearForm(){
 }
 
 async function saveRecord(){
+  if (!isPoongodi()) {
+    showToast(I18N[lang].poongodiOnlyError, true);
+    return;
+  }
   const v = getFormValues();
   if(!v.date){ showToast('Please choose a date', true); return; }
   const editId = document.getElementById('editId').value;
@@ -764,10 +1153,15 @@ async function saveRecord(){
   try {
     const res = await fetch(url, {
       method: method,
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'x-user-name': currentUser.name
+      },
       body: JSON.stringify(recordData)
     });
     
+    const resData = await res.json();
+
     if(res.ok){
       if(editId){
         const idx = records.findIndex(r=>r.id===editId);
@@ -775,12 +1169,12 @@ async function saveRecord(){
       } else {
         records.unshift(recordData);
       }
-      showToast('Daily farm data saved successfully!');
+      showToast(I18N[lang].savedSuccess);
       clearForm();
       renderAll();
       showTab('dashboard');
     } else {
-      showToast('Error saving data', true);
+      showToast(resData.error || 'Error saving data', true);
     }
   } catch(e) {
     showToast('Network error', true);
@@ -788,6 +1182,10 @@ async function saveRecord(){
 }
 
 function editRecord(id){
+  if (!isPoongodi()) {
+    showToast(I18N[lang].poongodiOnlyError, true);
+    return;
+  }
   const r = records.find(x=>x.id===id);
   if(!r) return;
   document.getElementById('editId').value = r.id;
@@ -800,15 +1198,23 @@ function editRecord(id){
 }
 
 async function deleteRecord(id){
+  if (!isPoongodi()) {
+    showToast(I18N[lang].poongodiOnlyError, true);
+    return;
+  }
   if(!confirm('Delete this record? This cannot be undone.')) return;
   try {
-    const res = await fetch('/api/records/' + id, { method: 'DELETE' });
+    const res = await fetch('/api/records/' + id, {
+      method: 'DELETE',
+      headers: { 'x-user-name': currentUser.name }
+    });
+    const resData = await res.json();
     if (res.ok) {
       records = records.filter(r=>r.id!==id);
       renderAll();
-      showToast('Record deleted');
+      showToast(I18N[lang].deletedSuccess);
     } else {
-      showToast('Error deleting record', true);
+      showToast(resData.error || 'Error deleting record', true);
     }
   } catch(e) {
     showToast('Network error', true);
@@ -819,7 +1225,8 @@ async function deleteRecord(id){
 function fmtDate(d){
   if(!d) return '';
   const dt = new Date(d+'T00:00:00');
-  return dt.toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+  const locale = lang === 'ta' ? 'ta-IN' : 'en-GB';
+  return dt.toLocaleDateString(locale, { weekday:'long', day:'numeric', month:'long', year:'numeric' });
 }
 function money(n){ return '₹'+ (Math.round((n||0)*100)/100).toLocaleString('en-IN'); }
 
@@ -834,9 +1241,9 @@ function renderDashboard(){
   document.getElementById('dashSales').textContent = money(today ? today.totalSales : 0);
 
   const totals = records.reduce((a,r)=>{
-    a.quailProduced += r.quailProduced; a.quailEggsSold += r.quailEggsSold;
-    a.koliEggsProduced += r.koliEggsProduced; a.koliEggsSold += r.koliEggsSold;
-    a.meatAvailable += r.meatAvailable; a.meatSold += r.meatSold;
+    a.quailProduced += (r.quailProduced||0); a.quailEggsSold += (r.quailEggsSold||0);
+    a.koliEggsProduced += (r.koliEggsProduced||0); a.koliEggsSold += (r.koliEggsSold||0);
+    a.meatAvailable += (r.meatAvailable||0); a.meatSold += (r.meatSold||0);
     return a;
   }, {quailProduced:0,quailEggsSold:0,koliEggsProduced:0,koliEggsSold:0,meatAvailable:0,meatSold:0});
 
@@ -847,32 +1254,37 @@ function renderDashboard(){
 
 function renderHistory(){
   const list = document.getElementById('historyList');
+  const t = I18N[lang];
   if(records.length===0){
-    list.innerHTML = `<div class="empty"><div class="e">🌾</div>No records yet. Add today's farm data to get started.</div>`;
+    list.innerHTML = `<div class="empty"><div class="e">🌾</div>${t.noRecords}</div>`;
     return;
   }
+  const isEd = isPoongodi();
   list.innerHTML = records.map(r=>{
     const expenses = (r.medicine||0)+(r.trayStickers||0)+(r.otherExpenses||0);
+    const actionButtons = isEd ? `
+        <div class="hist-actions">
+          <button class="chip-btn edit" onclick="editRecord('${r.id}')">${t.btnEdit}</button>
+          <button class="chip-btn del" onclick="deleteRecord('${r.id}')">${t.btnDelete}</button>
+        </div>` : '';
+
     return `
     <div class="hist-card">
       <div class="hist-head">
         <div class="hist-date">📅 ${fmtDate(r.date)}</div>
-        <div class="hist-actions">
-          <button class="chip-btn edit" onclick="editRecord('${r.id}')">✏️ Edit</button>
-          <button class="chip-btn del" onclick="deleteRecord('${r.id}')">🗑️ Delete</button>
-        </div>
+        ${actionButtons}
       </div>
       <div class="hist-grid">
-        <div class="hist-item"><div class="l">Quail Sold</div><div class="v">${r.quailEggsSold}</div></div>
-        <div class="hist-item"><div class="l">Nattu Sold</div><div class="v">${r.koliEggsSold}</div></div>
-        <div class="hist-item"><div class="l">Quail Meat</div><div class="v">${r.meatSold}</div></div>
-        <div class="hist-item"><div class="l">Sales</div><div class="v">${money(r.totalSales)}</div></div>
-        <div class="hist-item"><div class="l">Expenses</div><div class="v">${money(expenses)}</div></div>
-        <div class="hist-item"><div class="l">Mortality</div><div class="v">${r.mortality}</div></div>
+        <div class="hist-item"><div class="l">${t.fQuailEggsSold}</div><div class="v">${r.quailEggsSold}</div></div>
+        <div class="hist-item"><div class="l">${t.fKoliEggsSold}</div><div class="v">${r.koliEggsSold}</div></div>
+        <div class="hist-item"><div class="l">${t.fMeatSold}</div><div class="v">${r.meatSold}</div></div>
+        <div class="hist-item"><div class="l">${t.repSales}</div><div class="v">${money(r.totalSales)}</div></div>
+        <div class="hist-item"><div class="l">${t.repExpenses}</div><div class="v">${money(expenses)}</div></div>
+        <div class="hist-item"><div class="l">${t.fMortality}</div><div class="v">${r.mortality}</div></div>
       </div>
       <div class="hist-foot">
-        <div>Updated By <b>${r.updatedBy||'—'}</b></div>
-        <div>Updated At <b>${r.updatedAt ? new Date(r.updatedAt).toLocaleString('en-IN') : '—'}</b></div>
+        <div>${t.updatedBy} <b>${r.updatedBy||'—'}</b></div>
+        <div>${t.updatedAt} <b>${r.updatedAt ? new Date(r.updatedAt).toLocaleString(lang === 'ta' ? 'ta-IN' : 'en-IN') : '—'}</b></div>
       </div>
     </div>`;
   }).join('');
@@ -885,10 +1297,10 @@ function renderReports(){
     totalExpenses += (r.medicine||0)+(r.trayStickers||0)+(r.otherExpenses||0);
   });
   const profit = totalSales - totalExpenses;
-  document.getElementById('repSales').textContent = money(totalSales);
-  document.getElementById('repExpenses').textContent = money(totalExpenses);
-  document.getElementById('repProfit').textContent = money(Math.max(0,profit));
-  document.getElementById('repLoss').textContent = money(profit<0 ? Math.abs(profit) : 0);
+  document.getElementById('repSalesVal').textContent = money(totalSales);
+  document.getElementById('repExpensesVal').textContent = money(totalExpenses);
+  document.getElementById('repProfitVal').textContent = money(Math.max(0,profit));
+  document.getElementById('repLossVal').textContent = money(profit<0 ? Math.abs(profit) : 0);
 
   const body = document.getElementById('summaryBody');
   if(records.length===0){
@@ -920,6 +1332,7 @@ function showToast(msg, isError){
 /* ---------------- Init ---------------- */
 (async function init(){
   clearForm();
+  applyLanguage();
   await loadData();
 })();
 </script>

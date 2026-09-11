@@ -16,14 +16,27 @@ app.use(express.static(path.join(__dirname, 'public')));
 // --- API Endpoints ---
 
 // Get all members
+const FAMILY_MEMBERS = ['Prabakaran', 'Poongodi', 'Rajindharan', 'Sajindharan'];
+
 app.get('/api/members', (req, res) => {
     db.all("SELECT name FROM members", [], (err, rows) => {
         if (err) {
-            return res.status(500).json({ error: err.message });
+            return res.json(FAMILY_MEMBERS);
         }
-        res.json(rows.map(row => row.name));
+        const dbNames = rows.map(r => r.name);
+        const combined = Array.from(new Set([...FAMILY_MEMBERS, ...dbNames]));
+        res.json(combined);
     });
 });
+
+// Middleware to authorize Poongodi for write actions
+function authorizePoongodi(req, res, next) {
+    const userName = req.body.updatedBy || req.headers['x-user-name'] || '';
+    if (userName.toLowerCase().trim() === 'poongodi') {
+        return next();
+    }
+    return res.status(403).json({ error: "Only Poongodi has access to enter or modify data. Remaining family members have view-only access." });
+}
 
 // Login
 app.post('/api/login', (req, res) => {
@@ -33,7 +46,7 @@ app.post('/api/login', (req, res) => {
             return res.status(500).json({ error: err.message });
         }
         if (row) {
-            res.json({ success: true, user: row });
+            res.json({ success: true, user: { ...row, email: email || row.email } });
         } else {
             db.run("INSERT INTO members (name, method, email) VALUES (?, ?, ?)", [name, method, email], function(err) {
                 if (err) {
@@ -78,8 +91,8 @@ app.get('/api/records', (req, res) => {
     });
 });
 
-// Create a new record
-app.post('/api/records', (req, res) => {
+// Create a new record (Poongodi only)
+app.post('/api/records', authorizePoongodi, (req, res) => {
     const r = req.body;
     db.run(
         `INSERT INTO records (id, date, quailProduced, quailEggsSold, quailEggRate, koliEggsProduced, koliEggsSold, koliEggRate, mortality, meatAvailable, meatSold, meatRate, medicine, trayStickers, otherExpenses, totalSales, notes, updatedBy, updatedAt) 
@@ -94,8 +107,8 @@ app.post('/api/records', (req, res) => {
     );
 });
 
-// Update an existing record
-app.put('/api/records/:id', (req, res) => {
+// Update an existing record (Poongodi only)
+app.put('/api/records/:id', authorizePoongodi, (req, res) => {
     const id = req.params.id;
     const r = req.body;
     db.run(
@@ -115,8 +128,8 @@ app.put('/api/records/:id', (req, res) => {
     );
 });
 
-// Delete a record
-app.delete('/api/records/:id', (req, res) => {
+// Delete a record (Poongodi only)
+app.delete('/api/records/:id', authorizePoongodi, (req, res) => {
     const id = req.params.id;
     db.run("DELETE FROM records WHERE id = ?", id, function(err) {
         if (err) {

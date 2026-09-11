@@ -16,8 +16,10 @@ db.serialize(() => {
     `);
 
     // Insert default members if they don't exist
-    db.run(`INSERT OR IGNORE INTO members (name, method, email) VALUES ('Prabakaran', 'Email & Password', 'farm.family@example.com')`);
-    db.run(`INSERT OR IGNORE INTO members (name, method, email) VALUES ('Sajindharan', 'Email & Password', 'farm.family@example.com')`);
+    db.run(`INSERT OR IGNORE INTO members (name, method, email) VALUES ('Prabakaran', 'Email & Password', 'prabakaran@poongodifarm.com')`);
+    db.run(`INSERT OR IGNORE INTO members (name, method, email) VALUES ('Poongodi', 'Email & Password', 'poongodi@poongodifarm.com')`);
+    db.run(`INSERT OR IGNORE INTO members (name, method, email) VALUES ('Rajindharan', 'Email & Password', 'rajindharan@poongodifarm.com')`);
+    db.run(`INSERT OR IGNORE INTO members (name, method, email) VALUES ('Sajindharan', 'Email & Password', 'sajindharan@poongodifarm.com')`);
 
     // Create records table
     db.run(`
