@@ -8,438 +8,273 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --forest:#1f4d2c;
-    --forest-deep:#163a21;
-    --forest-light:#3f7d4a;
-    --forest-pale:#e7f0e4;
-    --cream:#f4f7ef;
-    --white:#ffffff;
-    --egg:#d98a3d;
-    --koli:#c7841f;
-    --meat:#c9486a;
-    --sales:#d9a012;
-    --stock:#7a8f52;
-    --text-dark:#20301f;
-    --text-muted:#6d7c68;
-    --border:#e3e9db;
-    --danger:#d64550;
-    --danger-bg:#fbe6e8;
-    --warning:#b45309;
-    --warning-bg:#fef3c7;
-    --shadow: 0 2px 10px rgba(31,77,44,0.08);
+    --forest:#1f4d2c;--forest-deep:#163a21;--forest-light:#3f7d4a;--forest-pale:#e7f0e4;
+    --cream:#f4f7ef;--white:#fff;--egg:#d98a3d;--koli:#c7841f;--meat:#c9486a;
+    --sales:#d9a012;--stock:#7a8f52;--text-dark:#20301f;--text-muted:#6d7c68;
+    --border:#e3e9db;--danger:#d64550;--danger-bg:#fbe6e8;--warning:#b45309;
+    --warning-bg:#fef3c7;--shadow:0 2px 10px rgba(31,77,44,0.08);
   }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  body{
-    font-family:'Poppins','Noto Sans Tamil',sans-serif;
-    background:var(--cream);
-    color:var(--text-dark);
-    min-height:100vh;
-  }
-  .ta{ font-family:'Noto Sans Tamil','Poppins',sans-serif; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Poppins','Noto Sans Tamil',sans-serif;background:var(--cream);color:var(--text-dark);min-height:100vh;}
+  .ta{font-family:'Noto Sans Tamil','Poppins',sans-serif;}
 
-  /* ---------- Language Selector Switch ---------- */
-  .lang-switcher-bar {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 12px;
-  }
-  .lang-btn-toggle {
-    background: var(--forest-pale);
-    color: var(--forest);
-    border: 1px solid var(--forest-light);
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 12.5px;
-    font-weight: 600;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.2s ease;
-  }
-  .lang-btn-toggle:hover {
-    background: var(--forest);
-    color: #fff;
-  }
+  /* Lang button */
+  .lang-switcher-bar{display:flex;justify-content:flex-end;margin-bottom:12px;}
+  .lang-btn-toggle{background:var(--forest-pale);color:var(--forest);border:1px solid var(--forest-light);
+    padding:6px 12px;border-radius:20px;font-size:12.5px;font-weight:600;cursor:pointer;
+    display:inline-flex;align-items:center;gap:6px;transition:all .2s;}
+  .lang-btn-toggle:hover{background:var(--forest);color:#fff;}
 
-  /* ---------- Login ---------- */
-  #loginScreen{
-    min-height:100vh;
-    display:flex; align-items:center; justify-content:center;
-    background:
-      radial-gradient(circle at 15% 20%, rgba(63,125,74,0.12), transparent 40%),
-      radial-gradient(circle at 85% 80%, rgba(217,138,61,0.10), transparent 40%),
-      var(--cream);
-    padding:24px;
-  }
-  .login-card{
-    background:var(--white);
-    border-radius:22px;
-    box-shadow:0 10px 40px rgba(31,77,44,0.14);
-    padding:32px 28px 28px;
-    width:100%; max-width:400px;
-    text-align:center;
-    position: relative;
-  }
-  .logo-badge{
-    width:78px; height:78px; border-radius:50%;
-    background:var(--forest-pale);
-    display:flex; align-items:center; justify-content:center;
-    margin:0 auto 14px;
-    font-size:36px;
-    border:2px solid var(--forest-light);
-    overflow: hidden;
-  }
-  .logo-badge img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .login-card h1{
-    font-size:21px; color:var(--forest);
-    line-height:1.35;
-    margin-bottom:4px;
-  }
-  .login-card .sub{
-    color:var(--text-muted); font-size:13px; margin-bottom:18px;
-  }
-  .field{
-    text-align:left; margin-bottom:13px;
-  }
-  .field label{
-    display:block; font-size:12.5px; font-weight:600; color:var(--text-dark); margin-bottom:5px;
-  }
-  select, input, textarea{
-    width:100%;
-    font-family:inherit;
-    font-size:14px;
-    padding:11px 13px;
-    border:1.5px solid var(--border);
-    border-radius:10px;
-    background:var(--white);
-    color:var(--text-dark);
-    outline:none;
-    transition:border-color .15s;
-  }
-  select:focus, input:focus, textarea:focus{ border-color:var(--forest-light); }
-  .btn{
-    width:100%;
-    border:none; border-radius:10px;
-    padding:12px 16px;
-    font-family:inherit; font-size:14.5px; font-weight:600;
-    cursor:pointer;
-    display:flex; align-items:center; justify-content:center; gap:8px;
-    transition:transform .08s, opacity .15s;
-  }
-  .btn:active{ transform:scale(0.98); }
-  .btn-primary{ background:var(--forest); color:#fff; margin-top:6px; }
-  .btn-primary:hover{ background:var(--forest-deep); }
-  .btn-google{ background:var(--white); color:var(--text-dark); border:1.5px solid var(--border); margin-top:10px; }
-  .btn-google:hover{ background:#fafbf8; }
-  .dot{ width:9px; height:9px; border-radius:50%; display:inline-block; }
-  .login-foot{
-    margin-top:18px; font-size:11.5px; color:#9aa694;
-    display:flex; align-items:center; justify-content:center; gap:6px;
-  }
-  .login-error{
-    background:var(--danger-bg); color:var(--danger); font-size:12.5px;
-    border-radius:8px; padding:8px 10px; margin-bottom:12px; display:none;
-    text-align:left;
-  }
+  /* Login */
+  #loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle at 15% 20%,rgba(63,125,74,.12),transparent 40%),
+    radial-gradient(circle at 85% 80%,rgba(217,138,61,.10),transparent 40%),var(--cream);padding:24px;}
+  .login-card{background:var(--white);border-radius:22px;box-shadow:0 10px 40px rgba(31,77,44,.14);
+    padding:32px 28px 28px;width:100%;max-width:400px;text-align:center;position:relative;}
+  .logo-badge{width:78px;height:78px;border-radius:50%;background:var(--forest-pale);display:flex;
+    align-items:center;justify-content:center;margin:0 auto 14px;font-size:36px;
+    border:2px solid var(--forest-light);overflow:hidden;}
+  .logo-badge img{width:100%;height:100%;object-fit:cover;}
+  .login-card h1{font-size:21px;color:var(--forest);line-height:1.35;margin-bottom:4px;}
+  .login-card .sub{color:var(--text-muted);font-size:13px;margin-bottom:18px;}
+  .field{text-align:left;margin-bottom:13px;}
+  .field label{display:block;font-size:12.5px;font-weight:600;color:var(--text-dark);margin-bottom:5px;}
+  select,input,textarea{width:100%;font-family:inherit;font-size:14px;padding:11px 13px;
+    border:1.5px solid var(--border);border-radius:10px;background:var(--white);
+    color:var(--text-dark);outline:none;transition:border-color .15s;}
+  select:focus,input:focus,textarea:focus{border-color:var(--forest-light);}
+  .btn{width:100%;border:none;border-radius:10px;padding:12px 16px;font-family:inherit;
+    font-size:14.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;
+    justify-content:center;gap:8px;transition:transform .08s,opacity .15s;}
+  .btn:active{transform:scale(.98);}
+  .btn-primary{background:var(--forest);color:#fff;margin-top:6px;}
+  .btn-primary:hover{background:var(--forest-deep);}
+  .login-foot{margin-top:18px;font-size:11.5px;color:#9aa694;display:flex;align-items:center;justify-content:center;gap:6px;}
+  .login-error{background:var(--danger-bg);color:var(--danger);font-size:12.5px;border-radius:8px;
+    padding:8px 10px;margin-bottom:12px;display:none;text-align:left;}
 
-  /* ---------- App shell ---------- */
-  #app{ display:none; min-height:100vh; }
-  header.topbar{
-    background:linear-gradient(180deg,var(--forest),var(--forest-deep));
-    color:#fff;
-    padding:12px 22px;
-    display:flex; align-items:center; justify-content:space-between;
-    position:sticky; top:0; z-index:40;
-    box-shadow:0 3px 12px rgba(0,0,0,0.12);
-  }
-  .brand{ display:flex; align-items:center; gap:11px; }
-  .brand .mark{
-    width:42px; height:42px; border-radius:50%;
-    background:var(--forest-pale);
-    display:flex; align-items:center; justify-content:center;
-    font-size:21px; flex-shrink:0;
-    overflow: hidden;
-  }
-  .brand .mark img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .brand h2{ font-size:15px; line-height:1.3; }
-  .brand p{ font-size:10.5px; opacity:.82; letter-spacing:.2px; }
+  /* App */
+  #app{display:none;min-height:100vh;}
+  header.topbar{background:linear-gradient(180deg,var(--forest),var(--forest-deep));color:#fff;
+    padding:12px 22px;display:flex;align-items:center;justify-content:space-between;
+    position:sticky;top:0;z-index:40;box-shadow:0 3px 12px rgba(0,0,0,.12);}
+  .brand{display:flex;align-items:center;gap:11px;}
+  .brand .mark{width:42px;height:42px;border-radius:50%;background:var(--forest-pale);
+    display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0;overflow:hidden;}
+  .brand .mark img{width:100%;height:100%;object-fit:cover;}
+  .brand h2{font-size:15px;line-height:1.3;}
+  .brand p{font-size:10.5px;opacity:.82;letter-spacing:.2px;}
+  .header-actions{display:flex;align-items:center;gap:10px;}
 
-  .header-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+  .user-chip{display:flex;align-items:center;gap:9px;cursor:pointer;background:rgba(255,255,255,.12);
+    padding:6px 12px 6px 6px;border-radius:30px;position:relative;user-select:none;
+    border:1px solid rgba(255,255,255,.2);}
+  .user-chip .avatar{width:30px;height:30px;border-radius:50%;background:#fff;color:var(--forest);
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;overflow:hidden;}
+  .user-chip .avatar img{width:100%;height:100%;object-fit:cover;}
+  .user-chip span{font-size:13.5px;font-weight:500;}
+  .user-menu{position:absolute;top:46px;right:0;background:#fff;color:var(--text-dark);
+    border-radius:14px;box-shadow:0 12px 32px rgba(0,0,0,.18);width:240px;padding:14px;display:none;z-index:60;}
+  .user-menu.open{display:block;}
+  .user-menu .who{display:flex;align-items:center;gap:10px;padding-bottom:12px;margin-bottom:10px;border-bottom:1px solid var(--border);}
+  .user-menu .who .avatar{width:46px;height:46px;border-radius:50%;background:var(--forest-pale);
+    color:var(--forest);display:flex;align-items:center;justify-content:center;font-weight:700;
+    font-size:18px;overflow:hidden;flex-shrink:0;}
+  .user-menu .who .avatar img{width:100%;height:100%;object-fit:cover;}
+  .user-menu .who b{display:block;font-size:14px;}
+  .role-badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:10.5px;font-weight:600;margin-top:2px;}
+  .role-badge.editor{background:#dcfce7;color:#15803d;}
+  .role-badge.viewer{background:#fef3c7;color:#b45309;}
+  .menu-item{display:flex;align-items:center;gap:10px;padding:10px;border-radius:9px;font-size:13.5px;
+    font-weight:500;cursor:pointer;margin-bottom:4px;background:var(--forest-pale);color:var(--forest);}
+  .menu-item:hover{filter:brightness(.96);}
+  .menu-item.logout{background:var(--danger-bg);color:var(--danger);}
+  .menu-item .ic{font-size:15px;}
 
-  .user-chip{
-    display:flex; align-items:center; gap:9px; cursor:pointer;
-    background:rgba(255,255,255,0.12);
-    padding:6px 12px 6px 6px; border-radius:30px;
-    position:relative; user-select:none;
-    border:1px solid rgba(255,255,255,0.2);
-  }
-  .user-chip .avatar{
-    width:30px; height:30px; border-radius:50%;
-    background:#fff; color:var(--forest);
-    display:flex; align-items:center; justify-content:center;
-    font-weight:700; font-size:13px;
-  }
-  .user-chip span{ font-size:13.5px; font-weight:500; }
-  .user-menu{
-    position:absolute; top:46px; right:0;
-    background:#fff; color:var(--text-dark);
-    border-radius:14px; box-shadow:0 12px 32px rgba(0,0,0,0.18);
-    width:240px; padding:14px; display:none; z-index:60;
-  }
-  .user-menu.open{ display:block; }
-  .user-menu .who{ display:flex; align-items:center; gap:10px; padding-bottom:12px; margin-bottom:10px; border-bottom:1px solid var(--border); }
-  .user-menu .who .avatar{ width:38px; height:38px; border-radius:50%; background:var(--forest-pale); color:var(--forest); display:flex; align-items:center; justify-content:center; font-weight:700; }
-  .user-menu .who b{ display:block; font-size:14px; }
-  .user-menu .who small{ color:var(--text-muted); font-size:11px; }
-  .role-badge {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 10.5px;
-    font-weight: 600;
-    margin-top: 2px;
-  }
-  .role-badge.editor { background: #dcfce7; color: #15803d; }
-  .role-badge.viewer { background: #fef3c7; color: #b45309; }
+  nav.tabs{display:flex;gap:10px;padding:14px 22px 0;max-width:960px;margin:0 auto;flex-wrap:wrap;}
+  .tab-btn{border:1.5px solid var(--border);background:var(--white);color:var(--text-dark);
+    font-family:inherit;font-weight:600;font-size:13.5px;padding:10px 16px;border-radius:11px;
+    cursor:pointer;display:flex;align-items:center;gap:7px;transition:all .15s;}
+  .tab-btn:hover{border-color:var(--forest-light);}
+  .tab-btn.active{background:var(--forest);border-color:var(--forest);color:#fff;}
 
-  .menu-item{
-    display:flex; align-items:center; gap:10px;
-    padding:10px 10px; border-radius:9px; font-size:13.5px; font-weight:500;
-    cursor:pointer; margin-bottom:4px; background:var(--forest-pale); color:var(--forest);
-  }
-  .menu-item:hover{ filter:brightness(0.96); }
-  .menu-item.logout{ background:var(--danger-bg); color:var(--danger); }
-  .menu-item .ic{ font-size:15px; }
+  main{max-width:960px;margin:0 auto;padding:20px 22px 60px;}
+  .page{display:none;animation:fade .25s ease;}
+  .page.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+  .page-title{display:flex;align-items:center;gap:9px;color:var(--forest);font-size:19px;font-weight:700;margin-bottom:3px;}
+  .page-sub{color:var(--text-muted);font-size:12.5px;margin-bottom:18px;}
 
-  nav.tabs{
-    display:flex; gap:10px; padding:14px 22px 0;
-    max-width:960px; margin:0 auto; flex-wrap:wrap;
-  }
-  .tab-btn{
-    border:1.5px solid var(--border); background:var(--white);
-    color:var(--text-dark); font-family:inherit; font-weight:600; font-size:13.5px;
-    padding:10px 16px; border-radius:11px; cursor:pointer;
-    display:flex; align-items:center; gap:7px;
-    transition:all .15s;
-  }
-  .tab-btn:hover{ border-color:var(--forest-light); }
-  .tab-btn.active{ background:var(--forest); border-color:var(--forest); color:#fff; }
+  .read-only-banner{background:var(--warning-bg);color:var(--warning);border:1px solid #fcd34d;
+    padding:12px 16px;border-radius:12px;font-size:13px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
 
-  main{ max-width:960px; margin:0 auto; padding:20px 22px 60px; }
-  .page{ display:none; animation:fade .25s ease; }
-  .page.active{ display:block; }
-  @keyframes fade{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
+  /* Stat cards */
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .stat-card{background:var(--white);border-radius:16px;padding:16px;box-shadow:var(--shadow);border:1px solid var(--border);}
+  .stat-card .icon{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:10px;}
+  .stat-card .lbl{font-size:12.5px;color:var(--text-muted);font-weight:500;margin-bottom:4px;}
+  .stat-card .val{font-size:22px;font-weight:700;color:var(--text-dark);}
+  .icon.egg{background:#fbead9;color:var(--egg);}
+  .icon.koli{background:#f9ecd2;color:var(--koli);}
+  .icon.meat{background:#fbe1e8;color:var(--meat);}
+  .icon.sales{background:#fbf0cf;color:var(--sales);}
+  .icon.stock{background:#eef2e4;color:var(--stock);}
+  .icon.profit{background:#dcfce7;color:#16a34a;}
+  .icon.loss{background:var(--danger-bg);color:var(--danger);}
 
-  .page-title{
-    display:flex; align-items:center; gap:9px;
-    color:var(--forest); font-size:19px; font-weight:700; margin-bottom:3px;
-  }
-  .page-sub{ color:var(--text-muted); font-size:12.5px; margin-bottom:18px; }
+  .section-block{background:var(--white);border-radius:16px;padding:18px;margin-top:18px;box-shadow:var(--shadow);border:1px solid var(--border);}
+  .section-block h3{font-size:15px;color:var(--forest);margin-bottom:14px;display:flex;align-items:center;gap:7px;}
 
-  /* Read-Only Alert Banner */
-  .read-only-banner {
-    background: var(--warning-bg);
-    color: var(--warning);
-    border: 1px solid #fcd34d;
-    padding: 12px 16px;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  /* Form */
+  .form-card{background:var(--white);border-radius:18px;padding:22px;box-shadow:var(--shadow);border:1px solid var(--border);}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px;}
+  .form-grid .full{grid-column:1/-1;}
+  .form-actions{display:flex;gap:12px;margin-top:18px;}
+  .btn-clear{background:var(--forest-pale);color:var(--forest);flex:0 0 120px;}
+  .form-actions .btn-primary{flex:1;margin-top:0;}
 
-  /* stat cards */
-  .stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-  .stat-card{
-    background:var(--white); border-radius:16px; padding:16px 16px;
-    box-shadow:var(--shadow); border:1px solid var(--border);
-  }
-  .stat-card .icon{
-    width:40px; height:40px; border-radius:11px;
-    display:flex; align-items:center; justify-content:center; font-size:19px;
-    margin-bottom:10px;
-  }
-  .stat-card .lbl{ font-size:12.5px; color:var(--text-muted); font-weight:500; margin-bottom:4px; }
-  .stat-card .val{ font-size:22px; font-weight:700; color:var(--text-dark); }
-  .icon.egg{ background:#fbead9; color:var(--egg); }
-  .icon.koli{ background:#f9ecd2; color:var(--koli); }
-  .icon.meat{ background:#fbe1e8; color:var(--meat); }
-  .icon.sales{ background:#fbf0cf; color:var(--sales); }
-  .icon.stock{ background:#eef2e4; color:var(--stock); }
-  .icon.mort{ background:#fbe1e8; color:var(--meat); }
-  .icon.exp{ background:#e7f0e4; color:var(--forest-light); }
+  /* Live calculation panel */
+  .calc-panel{background:linear-gradient(135deg,var(--forest-pale),#f0f7ea);border-radius:14px;
+    padding:16px 18px;margin-top:16px;border:1px solid var(--border);}
+  .calc-panel h4{font-size:13px;color:var(--forest);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+  .calc-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;
+    border-bottom:1px dashed var(--border);font-size:13px;}
+  .calc-row:last-child{border-bottom:none;}
+  .calc-row.total-sales{background:rgba(31,77,44,.06);border-radius:8px;padding:8px 10px;margin-top:6px;
+    font-weight:700;color:var(--forest);font-size:14px;border:none;}
+  .calc-row.total-exp{background:rgba(214,69,80,.06);border-radius:8px;padding:8px 10px;margin-top:4px;
+    font-weight:700;color:var(--danger);font-size:14px;border:none;}
+  .calc-row.net-profit{background:rgba(22,163,74,.1);border-radius:8px;padding:10px 12px;margin-top:6px;
+    font-weight:700;color:#16a34a;font-size:15px;border:none;}
+  .calc-row.net-loss{background:rgba(214,69,80,.1);border-radius:8px;padding:10px 12px;margin-top:6px;
+    font-weight:700;color:var(--danger);font-size:15px;border:none;}
+  .calc-lbl{color:var(--text-muted);}
+  .calc-val{font-weight:600;color:var(--text-dark);}
 
-  .section-block{
-    background:var(--white); border-radius:16px; padding:18px;
-    margin-top:18px; box-shadow:var(--shadow); border:1px solid var(--border);
-  }
-  .section-block h3{
-    font-size:15px; color:var(--forest); margin-bottom:14px;
-    display:flex; align-items:center; gap:7px;
-  }
+  /* History */
+  .hist-card{background:var(--white);border-radius:16px;padding:18px;box-shadow:var(--shadow);border:1px solid var(--border);margin-bottom:14px;}
+  .hist-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+  .hist-date{font-weight:700;color:var(--forest);display:flex;align-items:center;gap:7px;font-size:14.5px;}
+  .hist-actions{display:flex;gap:8px;}
+  .chip-btn{border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px;}
+  .chip-btn.edit{background:#eaf1e4;color:var(--forest-light);}
+  .chip-btn.del{background:var(--danger-bg);color:var(--danger);}
+  .hist-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+  .hist-item{background:var(--cream);border-radius:10px;padding:10px 12px;}
+  .hist-item .l{font-size:11px;color:var(--text-muted);margin-bottom:3px;}
+  .hist-item .v{font-size:15px;font-weight:700;color:var(--text-dark);}
+  .hist-item.profit-item{background:#dcfce7;}
+  .hist-item.profit-item .v{color:#16a34a;}
+  .hist-item.loss-item{background:var(--danger-bg);}
+  .hist-item.loss-item .v{color:var(--danger);}
+  .hist-foot{display:flex;justify-content:space-between;border-top:1px solid var(--border);padding-top:10px;font-size:11.5px;color:var(--text-muted);}
+  .hist-foot b{color:var(--text-dark);font-size:12.5px;display:block;}
+  .empty{text-align:center;padding:40px 20px;color:var(--text-muted);}
+  .empty .e{font-size:34px;margin-bottom:10px;}
 
-  /* form */
-  .form-card{
-    background:var(--white); border-radius:18px; padding:22px;
-    box-shadow:var(--shadow); border:1px solid var(--border);
-  }
-  .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px 16px; }
-  .form-grid .full{ grid-column:1/-1; }
-  .field label .ic{ margin-right:5px; }
-  .form-actions{ display:flex; gap:12px; margin-top:18px; }
-  .btn-clear{ background:var(--forest-pale); color:var(--forest); flex:0 0 120px; }
-  .form-actions .btn-primary{ flex:1; margin-top:0; }
-  .live-total{
-    background:var(--forest-pale); border-radius:11px; padding:11px 14px;
-    display:flex; justify-content:space-between; align-items:center;
-    margin-top:2px; font-weight:600; color:var(--forest);
-  }
+  /* Reports */
+  .rep-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .rep-box{border-radius:15px;padding:16px;color:#fff;}
+  .rep-box .l{font-size:12px;opacity:.88;margin-bottom:6px;}
+  .rep-box .v{font-size:21px;font-weight:700;}
+  .rep-box.sales{background:linear-gradient(135deg,var(--forest),var(--forest-light));}
+  .rep-box.expenses{background:linear-gradient(135deg,var(--forest-deep),var(--forest));}
+  .rep-box.profit{background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;}
+  .rep-box.loss{background:var(--danger-bg);color:var(--danger);}
 
-  /* history */
-  .hist-card{
-    background:var(--white); border-radius:16px; padding:18px;
-    box-shadow:var(--shadow); border:1px solid var(--border); margin-bottom:14px;
-  }
-  .hist-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
-  .hist-date{ font-weight:700; color:var(--forest); display:flex; align-items:center; gap:7px; font-size:14.5px; }
-  .hist-actions{ display:flex; gap:8px; }
-  .chip-btn{
-    border:none; border-radius:8px; padding:7px 12px; font-size:12px; font-weight:600;
-    cursor:pointer; display:flex; align-items:center; gap:5px;
-  }
-  .chip-btn.edit{ background:#eaf1e4; color:var(--forest-light); }
-  .chip-btn.del{ background:var(--danger-bg); color:var(--danger); }
-  .hist-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
-  .hist-item{ background:var(--cream); border-radius:10px; padding:10px 12px; }
-  .hist-item .l{ font-size:11px; color:var(--text-muted); margin-bottom:3px; }
-  .hist-item .v{ font-size:15px; font-weight:700; color:var(--text-dark); }
-  .hist-foot{ display:flex; justify-content:space-between; border-top:1px solid var(--border); padding-top:10px; font-size:11.5px; color:var(--text-muted); }
-  .hist-foot b{ color:var(--text-dark); font-size:12.5px; display:block; }
-  .empty{ text-align:center; padding:40px 20px; color:var(--text-muted); }
-  .empty .e{ font-size:34px; margin-bottom:10px; }
+  table.summary{width:100%;border-collapse:collapse;margin-top:6px;font-size:12.5px;}
+  table.summary th{text-align:left;color:var(--forest);font-size:11px;padding:9px 8px;border-bottom:2px solid var(--border);white-space:nowrap;}
+  table.summary td{padding:10px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
+  table.summary tr:hover td{background:var(--cream);}
+  .td-profit{color:#16a34a;font-weight:700;}
+  .td-loss{color:var(--danger);font-weight:700;}
+  .table-wrap{overflow-x:auto;}
 
-  /* reports */
-  .rep-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-  .rep-box{ border-radius:15px; padding:16px; color:#fff; }
-  .rep-box .l{ font-size:12px; opacity:.88; margin-bottom:6px; }
-  .rep-box .v{ font-size:21px; font-weight:700; }
-  .rep-box.sales{ background:linear-gradient(135deg,var(--forest),var(--forest-light)); }
-  .rep-box.expenses{ background:linear-gradient(135deg,var(--forest-deep),var(--forest)); }
-  .rep-box.profit{ background:var(--forest-pale); color:var(--forest); }
-  .rep-box.loss{ background:var(--danger-bg); color:var(--danger); }
+  /* Member activity */
+  .member-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:6px;}
+  .member-card{background:var(--cream);border-radius:14px;padding:14px;text-align:center;border:1px solid var(--border);}
+  .member-card .m-pic{width:52px;height:52px;border-radius:50%;margin:0 auto 8px;background:var(--forest-pale);
+    color:var(--forest);display:flex;align-items:center;justify-content:center;font-size:20px;
+    font-weight:700;border:2px solid var(--forest-light);overflow:hidden;}
+  .member-card .m-pic img{width:100%;height:100%;object-fit:cover;}
+  .member-card .m-name{font-size:13px;font-weight:700;color:var(--text-dark);}
+  .member-card .m-role{font-size:11px;color:var(--text-muted);margin-top:2px;}
+  .member-card .m-last{font-size:10.5px;color:var(--text-muted);margin-top:4px;}
+  .online-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;margin-right:4px;}
 
-  table.summary{ width:100%; border-collapse:collapse; margin-top:6px; font-size:12.5px; }
-  table.summary th{ text-align:left; color:var(--forest); font-size:11px; padding:9px 8px; border-bottom:2px solid var(--border); white-space:nowrap; }
-  table.summary td{ padding:10px 8px; border-bottom:1px solid var(--border); white-space:nowrap; }
-  .table-wrap{ overflow-x:auto; }
+  /* Modal */
+  .modal-bg{position:fixed;inset:0;background:rgba(20,30,18,.45);display:none;
+    align-items:center;justify-content:center;z-index:100;padding:20px;}
+  .modal-bg.open{display:flex;}
+  .modal{background:#fff;border-radius:18px;padding:24px;width:100%;max-width:400px;
+    box-shadow:0 20px 50px rgba(0,0,0,.25);max-height:90vh;overflow-y:auto;}
+  .modal h3{color:var(--forest);font-size:17px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;}
+  .modal h3 .x{cursor:pointer;color:var(--text-muted);font-size:18px;}
+  .profile-pic-wrap{text-align:center;margin-bottom:18px;position:relative;display:inline-block;cursor:pointer;}
+  .profile-pic{width:90px;height:90px;border-radius:50%;margin:0 auto;background:var(--forest-pale);color:var(--forest);
+    display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;
+    border:3px solid var(--forest-light);overflow:hidden;}
+  .profile-pic img{width:100%;height:100%;object-fit:cover;}
+  .profile-pic-edit{position:absolute;bottom:0;right:0;background:var(--forest);color:#fff;
+    width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;}
+  .modal-section{background:var(--cream);border-radius:12px;padding:14px;margin-bottom:12px;}
+  .modal-section h4{font-size:12px;color:var(--text-muted);font-weight:600;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;}
+  .modal .field{margin-bottom:12px;}
+  .modal .readonly{background:var(--cream);color:var(--text-muted);}
+  .modal-actions{display:flex;gap:10px;margin-top:6px;}
+  .modal-actions .btn{flex:1;padding:10px;font-size:13.5px;}
+  .modal-actions .btn-clear{margin-top:0;}
 
-  /* modal */
-  .modal-bg{
-    position:fixed; inset:0; background:rgba(20,30,18,0.45);
-    display:none; align-items:center; justify-content:center; z-index:100; padding:20px;
-  }
-  .modal-bg.open{ display:flex; }
-  .modal{
-    background:#fff; border-radius:18px; padding:24px; width:100%; max-width:360px;
-    box-shadow:0 20px 50px rgba(0,0,0,0.25);
-  }
-  .modal h3{ color:var(--forest); font-size:17px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center;}
-  .modal h3 .x{ cursor:pointer; color:var(--text-muted); font-size:18px; }
-  .profile-pic{
-    width:74px; height:74px; border-radius:50%; margin:0 auto 16px;
-    background:var(--forest-pale); color:var(--forest);
-    display:flex; align-items:center; justify-content:center; font-size:26px; font-weight:700;
-  }
-  .modal .field{ margin-bottom:12px; }
-  .modal .readonly{ background:var(--cream); color:var(--text-muted); }
-  .toast{
-    position:fixed; bottom:26px; left:50%; transform:translateX(-50%);
-    background:var(--forest-deep); color:#fff; padding:12px 20px; border-radius:11px;
-    font-size:13.5px; font-weight:500; box-shadow:0 8px 24px rgba(0,0,0,0.25);
-    display:none; z-index:200; align-items:center; gap:8px;
-    max-width: 90vw; text-align: center;
-  }
-  .toast.show{ display:flex; animation:fade .2s ease; }
+  .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:var(--forest-deep);
+    color:#fff;padding:12px 20px;border-radius:11px;font-size:13.5px;font-weight:500;
+    box-shadow:0 8px 24px rgba(0,0,0,.25);display:none;z-index:200;align-items:center;gap:8px;max-width:90vw;text-align:center;}
+  .toast.show{display:flex;animation:fade .2s ease;}
 
   @media(max-width:520px){
-    .stat-grid, .form-grid, .hist-grid, .rep-grid{ grid-template-columns:1fr; }
-    header.topbar { flex-direction: column; align-items: flex-start; gap: 10px; }
-    .header-actions { width: 100%; justify-content: space-between; }
+    .stat-grid,.form-grid,.hist-grid,.rep-grid{grid-template-columns:1fr;}
+    header.topbar{flex-direction:column;align-items:flex-start;gap:10px;}
+    .header-actions{width:100%;justify-content:space-between;}
+    .member-grid{grid-template-columns:1fr 1fr;}
   }
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
-<!-- ================= LOGIN ================= -->
+<!-- LOGIN -->
 <div id="loginScreen">
   <div class="login-card">
     <div class="lang-switcher-bar">
-      <button class="lang-btn-toggle" onclick="toggleLanguage()">
-        <span>🌐</span> <span id="loginLangLabel">English</span>
-      </button>
+      <button class="lang-btn-toggle" onclick="toggleLanguage()">🌐 <span id="loginLangLabel">English</span></button>
     </div>
-
     <div class="logo-badge"><img src="logo.jpg" alt="Logo" onerror="this.style.display='none'"></div>
     <h1 class="ta" id="txt-loginTitle">பூங்கொடி இயற்கை பண்ணை</h1>
     <div class="sub" id="txt-loginSub">Family Farm Management</div>
-
     <div class="login-error" id="loginError">Please select a family member and enter a password.</div>
-
     <div class="field">
       <label id="txt-lblMember">👤 Family Member</label>
       <select id="memberSelect" onchange="onMemberSelectChange()"></select>
     </div>
     <div class="field">
       <label id="txt-lblEmail">✉️ Email ID</label>
-      <input type="email" id="loginEmail" placeholder="you@example.com" value="prabakaran@poongodifarm.com">
+      <input type="email" id="loginEmail" placeholder="you@poongodifarm.com">
     </div>
     <div class="field">
       <label id="txt-lblPassword">🔒 Password</label>
       <input type="password" id="loginPassword" placeholder="••••••••••" value="farmpassword">
     </div>
     <button class="btn btn-primary" id="txt-btnLogin" onclick="doLogin('email')">📧 Login with Email</button>
-
-    <!-- Real Google Sign-In -->
-    <div id="g_id_onload"
-         data-client_id="853179439869-fsg77es1jj3a2332rjc95l27ppmomnnk.apps.googleusercontent.com"
-         data-context="signin"
-         data-ux_mode="popup"
-         data-callback="handleCredentialResponse"
-         data-auto_prompt="false">
-    </div>
-    <div style="margin-top:10px; display:flex; justify-content:center;">
-      <div class="g_id_signin"
-           data-type="standard"
-           data-shape="rectangular"
-           data-theme="outline"
-           data-text="signin_with"
-           data-size="large"
-           data-logo_alignment="left"
-           data-width="316">
-      </div>
+    <div id="g_id_onload" data-client_id="853179439869-fsg77es1jj3a2332rjc95l27ppmomnnk.apps.googleusercontent.com"
+         data-context="signin" data-ux_mode="popup" data-callback="handleCredentialResponse" data-auto_prompt="false"></div>
+    <div style="margin-top:10px;display:flex;justify-content:center;">
+      <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline"
+           data-text="signin_with" data-size="large" data-logo_alignment="left" data-width="316"></div>
     </div>
     <div class="login-foot" id="txt-authorizedOnly">🔒 Authorized Family Members Only</div>
   </div>
 </div>
 
-<!-- ================= APP ================= -->
+<!-- APP -->
 <div id="app">
   <header class="topbar">
     <div class="brand">
@@ -449,12 +284,10 @@
         <p id="brandSub">Family Farm Management</p>
       </div>
     </div>
-
     <div class="header-actions">
-      <button class="lang-btn-toggle" style="background:rgba(255,255,255,0.15); color:#fff; border-color:rgba(255,255,255,0.3)" onclick="toggleLanguage()">
+      <button class="lang-btn-toggle" style="background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.3)" onclick="toggleLanguage()">
         🌐 <span id="appLangBtnLabel">English</span>
       </button>
-
       <div class="user-chip" onclick="toggleUserMenu(event)">
         <div class="avatar" id="chipAvatar">P</div>
         <span id="chipName">—</span>
@@ -467,8 +300,8 @@
             </div>
           </div>
           <div class="menu-item" onclick="openModal('accountModal')"><span class="ic">👤</span> <span id="txt-menuAccount">Account Details</span></div>
-          <div class="menu-item" onclick="openModal('passwordModal')"><span class="ic">🔑</span> <span id="txt-menuPassword">Change Password</span></div>
-          <div class="menu-item" onclick="toggleLanguage()"><span class="ic">🌐</span> <span id="txt-menuLang">Language (English)</span></div>
+          <div class="menu-item" onclick="openModal('editProfileModal')"><span class="ic">✏️</span> <span id="txt-menuEditProfile">Edit Profile</span></div>
+          <div class="menu-item" onclick="toggleLanguage()"><span class="ic">🌐</span> <span id="txt-menuLang">Language</span></div>
           <div class="menu-item logout" onclick="doLogout()"><span class="ic">🚪</span> <span id="txt-menuLogout">Logout</span></div>
         </div>
       </div>
@@ -480,73 +313,79 @@
     <button class="tab-btn" data-tab="add" onclick="showTab('add')" id="tab-add">➕ Add Daily Data</button>
     <button class="tab-btn" data-tab="history" onclick="showTab('history')" id="tab-history">📅 History</button>
     <button class="tab-btn" data-tab="reports" onclick="showTab('reports')" id="tab-reports">📊 Reports</button>
+    <button class="tab-btn" data-tab="members" onclick="showTab('members')" id="tab-members">👨‍👩‍👦 Family</button>
   </nav>
 
   <main>
-    <!-- ---------- DASHBOARD ---------- -->
+    <!-- DASHBOARD -->
     <section class="page active" id="page-dashboard">
       <div class="page-title" id="txt-dashTitle">🌱 Today's Farm Dashboard</div>
       <div class="page-sub" id="todayDateLabel">—</div>
-
       <div class="stat-grid">
         <div class="stat-card"><div class="icon egg">🥚</div><div class="lbl" id="txt-lblDashQuailEggs">Quail Eggs Sold</div><div class="val" id="dashQuailEggs">0</div></div>
         <div class="stat-card"><div class="icon koli">🥚</div><div class="lbl" id="txt-lblDashKoliEggs">Nattu Koli Eggs Sold</div><div class="val" id="dashKoliEggs">0</div></div>
         <div class="stat-card"><div class="icon meat">🍗</div><div class="lbl" id="txt-lblDashMeat">Quail Meat Sold</div><div class="val" id="dashMeat">0</div></div>
         <div class="stat-card"><div class="icon sales">💰</div><div class="lbl" id="txt-lblDashSales">Today's Sales</div><div class="val" id="dashSales">₹0</div></div>
       </div>
-
+      <div class="stat-grid" style="margin-top:14px;">
+        <div class="stat-card"><div class="icon profit">📈</div><div class="lbl" id="txt-lblTodayProfit">Today's Profit</div><div class="val" id="dashTodayProfit" style="color:#16a34a;">₹0</div></div>
+        <div class="stat-card"><div class="icon loss">📉</div><div class="lbl" id="txt-lblTodayLoss">Today's Loss</div><div class="val" id="dashTodayLoss" style="color:var(--danger);">₹0</div></div>
+      </div>
       <div class="section-block">
-        <h3 id="txt-stockTitle">📦 Today's Stock</h3>
+        <h3 id="txt-stockTitle">📦 Overall Stock (Cumulative)</h3>
         <div class="stat-grid">
           <div class="stat-card"><div class="icon stock">🥚</div><div class="lbl" id="txt-lblStockQuailEggs">Quail Eggs Remaining</div><div class="val" id="stockQuailEggs">0</div></div>
           <div class="stat-card"><div class="icon stock">🥚</div><div class="lbl" id="txt-lblStockKoliEggs">Nattu Koli Eggs Remaining</div><div class="val" id="stockKoliEggs">0</div></div>
-          <div class="stat-card"><div class="icon stock">🍖</div><div class="lbl" id="txt-lblStockMeat">Quail Meat Remaining</div><div class="val" id="stockMeat">0</div></div>
+          <div class="stat-card"><div class="icon stock">🍖</div><div class="lbl" id="txt-lblStockMeat">Quail Meat Remaining (kg)</div><div class="val" id="stockMeat">0</div></div>
         </div>
       </div>
     </section>
 
-    <!-- ---------- ADD DAILY DATA ---------- -->
+    <!-- ADD DAILY DATA -->
     <section class="page" id="page-add">
       <div class="page-title" id="addTitle">➕ Add / Update Daily Farm Details</div>
       <div class="page-sub" id="txt-addSub">Enter today's figures — totals are calculated automatically.</div>
-
-      <div id="readOnlyBanner" class="read-only-banner" style="display:none;">
-        🔒 <span id="txt-readOnlyNotice">View Only Mode: Only Poongodi can enter or edit farm data.</span>
-      </div>
-
+      <div id="readOnlyBanner" class="read-only-banner" style="display:none;">🔒 <span id="txt-readOnlyNotice">View Only Mode: Only Poongodi can enter or edit farm data.</span></div>
       <div class="form-card">
         <input type="hidden" id="editId">
         <div class="form-grid">
           <div class="field"><label id="txt-fDate">📅 Date</label><input type="date" id="f_date"></div>
-          <div class="field"><label id="txt-fQuailProduced">🐦 Quail Produced</label><input type="number" id="f_quailProduced" placeholder="0" min="0"></div>
-
-          <div class="field"><label id="txt-fQuailEggsSold">🥚 Quail Eggs Sold</label><input type="number" id="f_quailEggsSold" placeholder="0" min="0"></div>
-          <div class="field"><label id="txt-fQuailEggRate">🥚 Quail Egg Rate (₹ each)</label><input type="number" id="f_quailEggRate" placeholder="Example: 4" min="0"></div>
-
-          <div class="field"><label id="txt-fKoliEggsProduced">🥚 Nattu Koli Eggs Produced</label><input type="number" id="f_koliEggsProduced" placeholder="0" min="0"></div>
-          <div class="field"><label id="txt-fKoliEggsSold">🥚 Nattu Koli Eggs Sold</label><input type="number" id="f_koliEggsSold" placeholder="0" min="0"></div>
-
-          <div class="field"><label id="txt-fKoliEggRate">🥚 Nattu Koli Egg Rate (₹ each)</label><input type="number" id="f_koliEggRate" placeholder="Example: 15" min="0"></div>
-          <div class="field"><label id="txt-fMortality">🩸 Quail Mortality</label><input type="number" id="f_mortality" placeholder="0" min="0"></div>
-
-          <div class="field"><label id="txt-fMeatAvailable">🍖 Quail Meat Available (kg)</label><input type="number" id="f_meatAvailable" placeholder="0" min="0"></div>
-          <div class="field"><label id="txt-fMeatSold">🍗 Quail Meat Sold (kg)</label><input type="number" id="f_meatSold" placeholder="0" min="0"></div>
-
-          <div class="field"><label id="txt-fMeatRate">🍖 Quail Meat Rate (₹/kg)</label><input type="number" id="f_meatRate" placeholder="Example: 70" min="0"></div>
-          <div class="field"><label id="txt-fMedicine">💊 Medicine (₹)</label><input type="number" id="f_medicine" placeholder="0" min="0"></div>
-
-          <div class="field"><label id="txt-fTrayStickers">🏷️ Tray Stickers (₹)</label><input type="number" id="f_trayStickers" placeholder="0" min="0"></div>
-          <div class="field"><label id="txt-fOtherExpenses">🌿 Other Expenses (₹)</label><input type="number" id="f_otherExpenses" placeholder="0" min="0"></div>
-
+          <div class="field"><label id="txt-fQuailProduced">🐦 Quail Eggs Produced</label><input type="number" id="f_quailProduced" placeholder="0" min="0" oninput="recalcAll()"></div>
+          <div class="field"><label id="txt-fQuailEggsSold">🥚 Quail Eggs Sold</label><input type="number" id="f_quailEggsSold" placeholder="0" min="0" oninput="recalcAll()"></div>
+          <div class="field"><label id="txt-fQuailEggRate">🥚 Quail Egg Rate (₹ each)</label><input type="number" id="f_quailEggRate" placeholder="e.g. 4" min="0" oninput="recalcAll()"></div>
+          <div class="field"><label id="txt-fKoliEggsProduced">🥚 Nattu Koli Eggs Produced</label><input type="number" id="f_koliEggsProduced" placeholder="0" min="0" oninput="recalcAll()"></div>
+          <div class="field"><label id="txt-fKoliEggsSold">🥚 Nattu Koli Eggs Sold</label><input type="number" id="f_koliEggsSold" placeholder="0" min="0" oninput="recalcAll()"></div>
+          <div class="field"><label id="txt-fKoliEggRate">🥚 Nattu Koli Egg Rate (₹ each)</label><input type="number" id="f_koliEggRate" placeholder="e.g. 15" min="0" oninput="recalcAll()"></div>
+          <div class="field"><label id="txt-fMortality">🩸 Quail Mortality (count)</label><input type="number" id="f_mortality" placeholder="0" min="0" oninput="recalcAll()"></div>
+          <div class="field"><label id="txt-fMeatAvailable">🍖 Quail Meat Available (kg)</label><input type="number" id="f_meatAvailable" placeholder="0" min="0" oninput="recalcAll()"></div>
+          <div class="field"><label id="txt-fMeatSold">🍗 Quail Meat Sold (kg)</label><input type="number" id="f_meatSold" placeholder="0" min="0" oninput="recalcAll()"></div>
+          <div class="field"><label id="txt-fMeatRate">🍖 Quail Meat Rate (₹/kg)</label><input type="number" id="f_meatRate" placeholder="e.g. 700" min="0" oninput="recalcAll()"></div>
+          <div class="field"><label id="txt-fMedicine">💊 Medicine Expense (₹)</label><input type="number" id="f_medicine" placeholder="0" min="0" oninput="recalcAll()"></div>
+          <div class="field"><label id="txt-fTrayStickers">🏷️ Tray / Sticker Expense (₹)</label><input type="number" id="f_trayStickers" placeholder="0" min="0" oninput="recalcAll()"></div>
+          <div class="field"><label id="txt-fOtherExpenses">🌿 Other Expenses (₹)</label><input type="number" id="f_otherExpenses" placeholder="0" min="0" oninput="recalcAll()"></div>
           <div class="field full">
-            <label id="txt-fTotalSales">💰 Total Sales ₹ (auto-calculated)</label>
-            <input type="number" id="f_totalSales" placeholder="0">
+            <label id="txt-fTotalSales">💰 Total Sales ₹ <small style="font-weight:400;color:var(--text-muted)">(auto-calculated — you can adjust)</small></label>
+            <input type="number" id="f_totalSales" placeholder="0" oninput="recalcAll()">
           </div>
-
           <div class="field full">
             <label id="txt-fNotes">📝 Farm Notes</label>
             <textarea id="f_notes" rows="3" placeholder="Today's farm details..."></textarea>
           </div>
+        </div>
+
+        <!-- LIVE CALCULATION PANEL -->
+        <div class="calc-panel" id="calcPanel">
+          <h4>🧮 <span id="txt-liveCalcTitle">Live Calculation</span></h4>
+          <div class="calc-row"><span class="calc-lbl" id="txt-cQuailSales">🥚 Quail Egg Sales</span><span class="calc-val" id="cQuailSales">₹0</span></div>
+          <div class="calc-row"><span class="calc-lbl" id="txt-cKoliSales">🥚 Nattu Koli Sales</span><span class="calc-val" id="cKoliSales">₹0</span></div>
+          <div class="calc-row"><span class="calc-lbl" id="txt-cMeatSales">🍗 Meat Sales</span><span class="calc-val" id="cMeatSales">₹0</span></div>
+          <div class="calc-row total-sales"><span id="txt-cTotalSales">💰 Total Sales</span><span id="cTotalSales">₹0</span></div>
+          <div class="calc-row" style="margin-top:10px;"><span class="calc-lbl" id="txt-cMedicine">💊 Medicine</span><span class="calc-val" id="cMedicine">₹0</span></div>
+          <div class="calc-row"><span class="calc-lbl" id="txt-cTray">🏷️ Tray / Stickers</span><span class="calc-val" id="cTray">₹0</span></div>
+          <div class="calc-row"><span class="calc-lbl" id="txt-cOther">🌿 Other</span><span class="calc-val" id="cOther">₹0</span></div>
+          <div class="calc-row total-exp"><span id="txt-cTotalExp">📤 Total Expenses</span><span id="cTotalExp">₹0</span></div>
+          <div class="calc-row net-profit" id="netProfitRow"><span id="txt-cNetProfit">📈 Net Profit</span><span id="cNetProfit">₹0</span></div>
+          <div class="calc-row net-loss" id="netLossRow" style="display:none"><span id="txt-cNetLoss">📉 Net Loss</span><span id="cNetLoss">₹0</span></div>
         </div>
 
         <div class="form-actions" id="formActions">
@@ -556,25 +395,23 @@
       </div>
     </section>
 
-    <!-- ---------- HISTORY ---------- -->
+    <!-- HISTORY -->
     <section class="page" id="page-history">
       <div class="page-title" id="txt-histTitle">📅 Farm History</div>
       <div class="page-sub" id="txt-histSub">Previous daily records</div>
       <div id="historyList"></div>
     </section>
 
-    <!-- ---------- REPORTS ---------- -->
+    <!-- REPORTS -->
     <section class="page" id="page-reports">
       <div class="page-title" id="txt-repTitle">📊 Farm Reports</div>
       <div class="page-sub" id="txt-repSub">Complete farm sales summary</div>
-
       <div class="rep-grid">
         <div class="rep-box sales"><div class="l" id="txt-repSales">Total Sales</div><div class="v" id="repSalesVal">₹0</div></div>
         <div class="rep-box expenses"><div class="l" id="txt-repExpenses">Total Expenses</div><div class="v" id="repExpensesVal">₹0</div></div>
-        <div class="rep-box profit"><div class="l" id="txt-repProfit">Profit</div><div class="v" id="repProfitVal">₹0</div></div>
-        <div class="rep-box loss"><div class="l" id="txt-repLoss">Loss</div><div class="v" id="repLossVal">₹0</div></div>
+        <div class="rep-box profit"><div class="l" id="txt-repProfit">Net Profit</div><div class="v" id="repProfitVal">₹0</div></div>
+        <div class="rep-box loss"><div class="l" id="txt-repLoss">Net Loss</div><div class="v" id="repLossVal">₹0</div></div>
       </div>
-
       <div class="section-block">
         <h3 id="txt-dailySummary">📋 Daily Summary</h3>
         <div class="table-wrap">
@@ -584,10 +421,10 @@
                 <th id="thDate">📅 Date</th>
                 <th id="thQuailSold">🥚 Quail Sold</th>
                 <th id="thKoliSold">🥚 Nattu Sold</th>
-                <th id="thMortality">🩸 Mortality</th>
-                <th id="thMeat">🍗 Quail Meat</th>
-                <th id="thSales">💰 Total Sales ₹</th>
-                <th id="thExpenses">🌿 Expenses ₹</th>
+                <th id="thMeat">🍗 Meat Sold</th>
+                <th id="thSales">💰 Sales ₹</th>
+                <th id="thExpenses">📤 Expenses ₹</th>
+                <th id="thNet">📈 Net ₹</th>
               </tr>
             </thead>
             <tbody id="summaryBody"></tbody>
@@ -595,741 +432,788 @@
         </div>
       </div>
     </section>
+
+    <!-- FAMILY MEMBERS -->
+    <section class="page" id="page-members">
+      <div class="page-title" id="txt-membersTitle">👨‍👩‍👦 Family Members</div>
+      <div class="page-sub" id="txt-membersSub">All family members & their access</div>
+      <div class="member-grid" id="memberGrid"></div>
+    </section>
   </main>
 </div>
 
-<!-- ---------- Account modal ---------- -->
+<!-- Account Details Modal -->
 <div class="modal-bg" id="accountModal">
   <div class="modal">
     <h3><span id="txt-modalAccTitle">Account Details</span> <span class="x" onclick="closeModal('accountModal')">✕</span></h3>
-    <div class="profile-pic" id="modalAvatar">P</div>
-    <div class="field"><label id="txt-mName">Name</label><input class="readonly" id="modalName" readonly></div>
-    <div class="field"><label id="txt-mRole">Access Level</label><input class="readonly" id="modalRole" readonly></div>
-    <div class="field"><label id="txt-mMethod">Login Method</label><input class="readonly" id="modalMethod" readonly></div>
-    <button class="btn btn-clear" style="margin-top:6px" onclick="closeModal('accountModal')">Close</button>
+    <div style="text-align:center;margin-bottom:16px;">
+      <div class="profile-pic" id="modalAvatarLarge" style="margin:0 auto 8px;width:80px;height:80px;font-size:28px;">P</div>
+      <b id="modalAccName" style="display:block;font-size:16px;color:var(--forest);"></b>
+      <span class="role-badge" id="modalAccRole" style="margin-top:4px;display:inline-block;"></span>
+    </div>
+    <div class="modal-section">
+      <h4 id="txt-accInfoTitle">Account Info</h4>
+      <div class="field"><label id="txt-mMethod">Login Method</label><input class="readonly" id="modalMethod" readonly></div>
+      <div class="field"><label id="txt-mEmail">Email</label><input class="readonly" id="modalEmail" readonly></div>
+    </div>
+    <button class="btn btn-primary" style="margin-top:4px;" onclick="closeModal('accountModal');openModal('editProfileModal')">✏️ <span id="txt-goEditProfile">Edit Profile</span></button>
+    <button class="btn btn-clear" style="margin-top:8px;" onclick="closeModal('accountModal')">Close</button>
   </div>
 </div>
 
-<!-- ---------- Password modal ---------- -->
-<div class="modal-bg" id="passwordModal">
+<!-- Edit Profile Modal -->
+<div class="modal-bg" id="editProfileModal">
   <div class="modal">
-    <h3><span id="txt-modalPassTitle">Change Password</span> <span class="x" onclick="closeModal('passwordModal')">✕</span></h3>
-    <div class="field"><label id="txt-mCurrPass">Current Password</label><input type="password" placeholder="••••••••"></div>
-    <div class="field"><label id="txt-mNewPass">New Password</label><input type="password" placeholder="••••••••"></div>
-    <button class="btn btn-primary" id="txt-mUpdatePassBtn" onclick="closeModal('passwordModal'); showToast('Password updated')">Update Password</button>
+    <h3><span id="txt-editProfileTitle">Edit Profile</span> <span class="x" onclick="closeModal('editProfileModal')">✕</span></h3>
+    <div style="text-align:center;margin-bottom:20px;">
+      <div style="position:relative;display:inline-block;cursor:pointer;" onclick="document.getElementById('profilePicInput').click()">
+        <div class="profile-pic" id="editProfilePic" style="margin:0 auto;width:90px;height:90px;font-size:32px;">P</div>
+        <div class="profile-pic-edit">📷</div>
+      </div>
+      <input type="file" id="profilePicInput" accept="image/*" style="display:none" onchange="handleProfilePicChange(event)">
+      <p style="font-size:11px;color:var(--text-muted);margin-top:8px;" id="txt-tapToChange">Tap photo to change</p>
+    </div>
+    <div class="field">
+      <label id="txt-epName">Display Name</label>
+      <input type="text" id="epName" placeholder="Your name">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-clear" onclick="closeModal('editProfileModal')" id="txt-epCancel">Cancel</button>
+      <button class="btn btn-primary" onclick="saveProfile()" id="txt-epSave" style="margin-top:0;">💾 Save</button>
+    </div>
   </div>
 </div>
 
 <div class="toast" id="toast"><span>✅</span><span id="toastMsg">Saved</span></div>
 
 <script>
-/* ---------------- State ---------------- */
+/* ===== STATE ===== */
 let records = [];
-let members = ['Prabakaran', 'Poongodi', 'Rajindharan', 'Sajindharan'];
+let members = ['Prabakaran','Poongodi','Rajindharan','Sajindharan'];
 let currentUser = null;
-let lang = localStorage.getItem('farm_lang') || 'ta'; // Default to Tamil as requested
+let lang = localStorage.getItem('farm_lang') || 'ta';
 
 const MEMBER_EMAILS = {
-  'Prabakaran': 'prabakaran@poongodifarm.com',
-  'Poongodi': 'poongodi@poongodifarm.com',
-  'Rajindharan': 'rajindharan@poongodifarm.com',
-  'Sajindharan': 'sajindharan@poongodifarm.com'
+  'Prabakaran':'prabakaran@poongodifarm.com',
+  'Poongodi':'poongodi@poongodifarm.com',
+  'Rajindharan':'rajindharan@poongodifarm.com',
+  'Sajindharan':'sajindharan@poongodifarm.com'
 };
 
+/* ===== i18n ===== */
 const I18N = {
-  en: {
-    brand: "Poongodi Natural Farm",
-    sub: "Family Farm Management",
-    loginTitle: "Poongodi Natural Farm",
-    loginSub: "Family Farm Management",
-    loginError: "Please select a family member and enter a password.",
-    lblMember: "👤 Family Member",
-    lblEmail: "✉️ Email ID",
-    lblPassword: "🔒 Password",
-    btnLogin: "📧 Login with Email",
-    authorizedOnly: "🔒 Authorized Family Members Only",
-    roleEditor: "Editor (Data Entry)",
-    roleViewer: "Family Viewer (Read Only)",
-    menuAccount: "Account Details",
-    menuPassword: "Change Password",
-    menuLang: "Language (English)",
-    menuLogout: "Logout",
-    langBtnLabel: "தமிழ்",
-    // Tabs
-    tabDashboard: "🏠 Dashboard",
-    tabAdd: "➕ Add Daily Data",
-    tabHistory: "📅 History",
-    tabReports: "📊 Reports",
-    // Dashboard
-    dashTitle: "🌱 Today's Farm Dashboard",
-    lblDashQuailEggs: "Quail Eggs Sold",
-    lblDashKoliEggs: "Nattu Koli Eggs Sold",
-    lblDashMeat: "Quail Meat Sold",
-    lblDashSales: "Today's Sales",
-    stockTitle: "📦 Today's Stock",
-    lblStockQuailEggs: "Quail Eggs Remaining",
-    lblStockKoliEggs: "Nattu Koli Eggs Remaining",
-    lblStockMeat: "Quail Meat Remaining",
-    // Add Form
-    addTitle: "➕ Add / Update Daily Farm Details",
-    addSub: "Enter today's figures — totals are calculated automatically.",
-    readOnlyNotice: "🔒 Read Only Access: Only Poongodi can enter or edit farm data.",
-    fDate: "📅 Date",
-    fQuailProduced: "🐦 Quail Produced",
-    fQuailEggsSold: "🥚 Quail Eggs Sold",
-    fQuailEggRate: "🥚 Quail Egg Rate (₹ each)",
-    fKoliEggsProduced: "🥚 Nattu Koli Eggs Produced",
-    fKoliEggsSold: "🥚 Nattu Koli Eggs Sold",
-    fKoliEggRate: "🥚 Nattu Koli Egg Rate (₹ each)",
-    fMortality: "🩸 Quail Mortality",
-    fMeatAvailable: "🍖 Quail Meat Available (kg)",
-    fMeatSold: "🍗 Quail Meat Sold (kg)",
-    fMeatRate: "🍖 Quail Meat Rate (₹/kg)",
-    fMedicine: "💊 Medicine (₹)",
-    fTrayStickers: "🏷️ Tray Stickers (₹)",
-    fOtherExpenses: "🌿 Other Expenses (₹)",
-    fTotalSales: "💰 Total Sales ₹ (auto-calculated)",
-    fNotes: "📝 Farm Notes",
-    btnClear: "Clear",
-    btnSave: "💾 Save Data",
-    // History
-    histTitle: "📅 Farm History",
-    histSub: "Previous daily records",
-    btnEdit: "✏️ Edit",
-    btnDelete: "🗑️ Delete",
-    updatedBy: "Updated By",
-    updatedAt: "Updated At",
-    noRecords: "No records yet. Add today's farm data to get started.",
-    // Reports
-    repTitle: "📊 Farm Reports",
-    repSub: "Complete farm sales summary",
-    repSales: "Total Sales",
-    repExpenses: "Total Expenses",
-    repProfit: "Profit",
-    repLoss: "Loss",
-    dailySummary: "📋 Daily Summary",
-    thDate: "📅 Date",
-    thQuailSold: "🥚 Quail Sold",
-    thKoliSold: "🥚 Nattu Sold",
-    thMortality: "🩸 Mortality",
-    thMeat: "🍗 Quail Meat",
-    thSales: "💰 Total Sales ₹",
-    thExpenses: "🌿 Expenses ₹",
-    // Modals
-    modalAccTitle: "Account Details",
-    mName: "Name",
-    mRole: "Access Level",
-    mMethod: "Login Method",
-    modalPassTitle: "Change Password",
-    mCurrPass: "Current Password",
-    mNewPass: "New Password",
-    mUpdatePassBtn: "Update Password",
-    // Alerts
-    savedSuccess: "Daily farm data saved successfully!",
-    deletedSuccess: "Record deleted successfully",
-    poongodiOnlyError: "Access Restricted: Only Poongodi can enter, edit, or delete data."
+  en:{
+    brand:"Poongodi Natural Farm",sub:"Family Farm Management",
+    loginTitle:"Poongodi Natural Farm",loginSub:"Family Farm Management",
+    lblMember:"👤 Family Member",lblEmail:"✉️ Email ID",lblPassword:"🔒 Password",
+    btnLogin:"📧 Login with Email",authorizedOnly:"🔒 Authorized Family Members Only",
+    roleEditor:"Editor (Data Entry)",roleViewer:"Family Viewer (Read Only)",
+    menuAccount:"Account Details",menuEditProfile:"Edit Profile",menuLang:"Language (தமிழ்)",menuLogout:"Logout",
+    langBtnLabel:"தமிழ்",
+    tabDashboard:"🏠 Dashboard",tabAdd:"➕ Add Daily Data",tabHistory:"📅 History",tabReports:"📊 Reports",tabMembers:"👨‍👩‍👦 Family",
+    dashTitle:"🌱 Today's Farm Dashboard",
+    lblDashQuailEggs:"Quail Eggs Sold",lblDashKoliEggs:"Nattu Koli Eggs Sold",
+    lblDashMeat:"Quail Meat Sold (kg)",lblDashSales:"Today's Total Sales",
+    lblTodayProfit:"Today's Profit",lblTodayLoss:"Today's Loss",
+    stockTitle:"📦 Overall Stock (Cumulative)",
+    lblStockQuailEggs:"Quail Eggs Remaining",lblStockKoliEggs:"Nattu Koli Eggs Remaining",lblStockMeat:"Quail Meat Remaining (kg)",
+    addTitle:"➕ Add / Update Daily Farm Details",
+    addSub:"Enter today's figures — totals are auto-calculated below.",
+    readOnlyNotice:"🔒 View Only: Only Poongodi can enter or edit farm data.",
+    fDate:"📅 Date",fQuailProduced:"🐦 Quail Eggs Produced",
+    fQuailEggsSold:"🥚 Quail Eggs Sold",fQuailEggRate:"🥚 Quail Egg Rate (₹ each)",
+    fKoliEggsProduced:"🥚 Nattu Koli Eggs Produced",fKoliEggsSold:"🥚 Nattu Koli Eggs Sold",
+    fKoliEggRate:"🥚 Nattu Koli Egg Rate (₹ each)",fMortality:"🩸 Quail Mortality (count)",
+    fMeatAvailable:"🍖 Quail Meat Available (kg)",fMeatSold:"🍗 Quail Meat Sold (kg)",
+    fMeatRate:"🍖 Quail Meat Rate (₹/kg)",fMedicine:"💊 Medicine Expense (₹)",
+    fTrayStickers:"🏷️ Tray / Sticker Expense (₹)",fOtherExpenses:"🌿 Other Expenses (₹)",
+    fTotalSales:"💰 Total Sales ₹",fNotes:"📝 Farm Notes",
+    btnClear:"Clear",btnSave:"💾 Save Data",
+    liveCalcTitle:"Live Calculation",
+    cQuailSales:"🥚 Quail Egg Sales",cKoliSales:"🥚 Nattu Koli Sales",cMeatSales:"🍗 Meat Sales",
+    cTotalSales:"💰 Total Sales",cMedicine:"💊 Medicine",cTray:"🏷️ Tray / Stickers",
+    cOther:"🌿 Other",cTotalExp:"📤 Total Expenses",cNetProfit:"📈 Net Profit",cNetLoss:"📉 Net Loss",
+    histTitle:"📅 Farm History",histSub:"Previous daily records",
+    btnEdit:"✏️ Edit",btnDelete:"🗑️ Delete",
+    updatedBy:"Updated By",updatedAt:"Updated At",
+    noRecords:"No records yet. Add today's farm data to get started.",
+    repTitle:"📊 Farm Reports",repSub:"Complete farm sales summary",
+    repSales:"Total Sales",repExpenses:"Total Expenses",repProfit:"Net Profit",repLoss:"Net Loss",
+    dailySummary:"📋 Daily Summary",
+    thDate:"📅 Date",thQuailSold:"🥚 Quail Sold",thKoliSold:"🥚 Nattu Sold",
+    thMeat:"🍗 Meat Sold",thSales:"💰 Sales ₹",thExpenses:"📤 Exp ₹",thNet:"📈 Net ₹",
+    membersTitle:"👨‍👩‍👦 Family Members",membersSub:"All family members & their access",
+    modalAccTitle:"Account Details",mMethod:"Login Method",mEmail:"Email",
+    accInfoTitle:"Account Info",goEditProfile:"Edit Profile",
+    editProfileTitle:"Edit Profile",epName:"Display Name",tapToChange:"Tap photo to change",
+    epCancel:"Cancel",epSave:"💾 Save",
+    savedSuccess:"Daily farm data saved successfully!",deletedSuccess:"Record deleted",
+    poongodiOnlyError:"🔒 Access Restricted: Only Poongodi can enter, edit, or delete data.",
+    profileSaved:"Profile saved!"
   },
-  ta: {
-    brand: "பூங்கொடி இயற்கை பண்ணை",
-    sub: "குடும்ப பண்ணை மேலாண்மை",
-    loginTitle: "பூங்கொடி இயற்கை பண்ணை",
-    loginSub: "குடும்ப பண்ணை மேலாண்மை",
-    loginError: "தயவுசெய்து குடும்ப உறுப்பினரைத் தேர்ந்தெடுத்து மின்னஞ்சல்/கடவுச்சொல்லை உள்ளிடவும்.",
-    lblMember: "👤 குடும்ப உறுப்பினர்",
-    lblEmail: "✉️ மின்னஞ்சல் ஐடி",
-    lblPassword: "🔒 கடவுச்சொல்",
-    btnLogin: "📧 மின்னஞ்சல் மூலம் உள்நுழைக",
-    authorizedOnly: "🔒 அனுமதி பெற்ற குடும்ப உறுப்பினர்கள் மட்டும்",
-    roleEditor: "நிர்வாகி (தரவு சேர்க்கலாம்)",
-    roleViewer: "குடும்ப பார்வையாளர் (பார்க்க மட்டும்)",
-    menuAccount: "கணக்கு விவரங்கள்",
-    menuPassword: "கடவுச்சொல்லை மாற்றுக",
-    menuLang: "Language (English)",
-    menuLogout: "வெளியேறு",
-    langBtnLabel: "English",
-    // Tabs
-    tabDashboard: "🏠 முகப்பு",
-    tabAdd: "➕ தரவு சேர்க்க",
-    tabHistory: "📅 வரலாறு",
-    tabReports: "📊 அறிக்கைகள்",
-    // Dashboard
-    dashTitle: "🌱 இன்றைய பண்ணை நிலவரம்",
-    lblDashQuailEggs: "விற்பனையான காடை முட்டைகள்",
-    lblDashKoliEggs: "விற்பனையான நாட்டுக்கோழி முட்டைகள்",
-    lblDashMeat: "விற்பனையான காடை இறைச்சி",
-    lblDashSales: "இன்றைய விற்பனை",
-    stockTitle: "📦 இன்றைய இருப்பு",
-    lblStockQuailEggs: "மீதமுள்ள காடை முட்டைகள்",
-    lblStockKoliEggs: "மீதமுள்ள நாட்டுக்கோழி முட்டைகள்",
-    lblStockMeat: "மீதமுள்ள காடை இறைச்சி",
-    // Add Form
-    addTitle: "➕ தினசரி பண்ணை விபரங்களை சேர்க்க / புதுப்பிக்க",
-    addSub: "இன்றைய விபரங்களை உள்ளிடவும் — மொத்தம் தானாகவே கணக்கிடப்படும்.",
-    readOnlyNotice: "🔒 பார்வையாளர் பயன்முறை: பூங்கொடி மட்டுமே பண்ணை விபரங்களை சேர்க்க அல்லது திருத்த முடியும்.",
-    fDate: "📅 தேதி",
-    fQuailProduced: "🐦 உற்பத்தி செய்த காடைகள்",
-    fQuailEggsSold: "🥚 விற்பனை செய்த காடை முட்டைகள்",
-    fQuailEggRate: "🥚 காடை முட்டை விலை (₹ 1 எண்ணம்)",
-    fKoliEggsProduced: "🥚 உற்பத்தி செய்த நாட்டுக்கோழி முட்டைகள்",
-    fKoliEggsSold: "🥚 விற்பனை செய்த நாட்டுக்கோழி முட்டைகள்",
-    fKoliEggRate: "🥚 நாட்டுக்கோழி முட்டை விலை (₹ 1 எண்ணம்)",
-    fMortality: "🩸 காடை இறப்பு",
-    fMeatAvailable: "🍖 இருப்பு காடை இறைச்சி (கிலோ)",
-    fMeatSold: "🍗 விற்பனை செய்த காடை இறைச்சி (கிலோ)",
-    fMeatRate: "🍖 காடை இறைச்சி விலை (₹/கிலோ)",
-    fMedicine: "💊 மருந்து செலவு (₹)",
-    fTrayStickers: "🏷️ அட்டை ஸ்டிக்கர்கள் (₹)",
-    fOtherExpenses: "🌿 இதர செலவுகள் (₹)",
-    fTotalSales: "💰 மொத்த விற்பனை ₹ (தானாக கணக்கிடப்பட்டது)",
-    fNotes: "📝 பண்ணை குறிப்புகள்",
-    btnClear: "அழி",
-    btnSave: "💾 தரவை சேமி",
-    // History
-    histTitle: "📅 பண்ணை வரலாறு",
-    histSub: "முந்தைய தினசரி பதிவுகள்",
-    btnEdit: "✏️ திருத்து",
-    btnDelete: "🗑️ நீக்கு",
-    updatedBy: "புதுப்பித்தவர்",
-    updatedAt: "புதுப்பித்த நேரம்",
-    noRecords: "பதிவுகள் எதுவுமில்லை. தொடங்குவதற்கு இன்றைய பண்ணை தரவைச் சேர்க்கவும்.",
-    // Reports
-    repTitle: "📊 பண்ணை அறிக்கைகள்",
-    repSub: "முழுமையான பண்ணை விற்பனை சுருக்கம்",
-    repSales: "மொத்த விற்பனை",
-    repExpenses: "மொத்த செலவுகள்",
-    repProfit: "லாபம்",
-    repLoss: "நஷ்டம்",
-    dailySummary: "📋 தினசரி சுருக்கம்",
-    thDate: "📅 தேதி",
-    thQuailSold: "🥚 காடை விற்பனை",
-    thKoliSold: "🥚 நாட்டுக்கோழி விற்பனை",
-    thMortality: "🩸 இறப்பு",
-    thMeat: "🍗 காடை இறைச்சி",
-    thSales: "💰 மொத்த விற்பனை ₹",
-    thExpenses: "🌿 செலவுகள் ₹",
-    // Modals
-    modalAccTitle: "கணக்கு விவரங்கள்",
-    mName: "பெயர்",
-    mRole: "அனுமதி நிலை",
-    mMethod: "உள்நுழைவு முறை",
-    modalPassTitle: "கடவுச்சொல்லை மாற்றுக",
-    mCurrPass: "தற்போதைய கடவுச்சொல்",
-    mNewPass: "புதிய கடவுச்சொல்",
-    mUpdatePassBtn: "கடவுச்சொல்லை புதுப்பி",
-    // Alerts
-    savedSuccess: "தினசரி பண்ணை தரவு வெற்றிகரமாக சேமிக்கப்பட்டது!",
-    deletedSuccess: "பதிவு வெற்றிகரமாக நீக்கப்பட்டது",
-    poongodiOnlyError: "அனுமதி மறுக்கப்பட்டது: பூங்கொடி மட்டுமே தரவை சேர்க்க, திருத்த அல்லது நீக்க முடியும்."
+  ta:{
+    brand:"பூங்கொடி இயற்கை பண்ணை",sub:"குடும்ப பண்ணை மேலாண்மை",
+    loginTitle:"பூங்கொடி இயற்கை பண்ணை",loginSub:"குடும்ப பண்ணை மேலாண்மை",
+    lblMember:"👤 குடும்ப உறுப்பினர்",lblEmail:"✉️ மின்னஞ்சல் ஐடி",lblPassword:"🔒 கடவுச்சொல்",
+    btnLogin:"📧 மின்னஞ்சல் மூலம் உள்நுழைக",authorizedOnly:"🔒 அனுமதி பெற்ற குடும்ப உறுப்பினர்கள் மட்டும்",
+    roleEditor:"நிர்வாகி (தரவு சேர்க்கலாம்)",roleViewer:"பார்வையாளர் (பார்க்க மட்டும்)",
+    menuAccount:"கணக்கு விவரங்கள்",menuEditProfile:"சுயவிவரம் திருத்து",menuLang:"Language (English)",menuLogout:"வெளியேறு",
+    langBtnLabel:"English",
+    tabDashboard:"🏠 முகப்பு",tabAdd:"➕ தரவு சேர்க்க",tabHistory:"📅 வரலாறு",tabReports:"📊 அறிக்கை",tabMembers:"👨‍👩‍👦 குடும்பம்",
+    dashTitle:"🌱 இன்றைய பண்ணை நிலவரம்",
+    lblDashQuailEggs:"விற்பனையான காடை முட்டைகள்",lblDashKoliEggs:"விற்பனையான நாட்டுக்கோழி முட்டைகள்",
+    lblDashMeat:"விற்பனையான காடை இறைச்சி (கிலோ)",lblDashSales:"இன்றைய மொத்த விற்பனை",
+    lblTodayProfit:"இன்றைய லாபம்",lblTodayLoss:"இன்றைய நஷ்டம்",
+    stockTitle:"📦 மொத்த இருப்பு",
+    lblStockQuailEggs:"மீதமுள்ள காடை முட்டைகள்",lblStockKoliEggs:"மீதமுள்ள நாட்டுக்கோழி முட்டைகள்",lblStockMeat:"மீதமுள்ள காடை இறைச்சி (கிலோ)",
+    addTitle:"➕ தினசரி பண்ணை விபரங்களை சேர்க்க",
+    addSub:"இன்றைய விபரங்களை உள்ளிடவும் — மொத்தம் தானாகவே கணக்கிடப்படும்.",
+    readOnlyNotice:"🔒 பார்வையாளர் பயன்முறை: பூங்கொடி மட்டுமே தரவை சேர்க்க முடியும்.",
+    fDate:"📅 தேதி",fQuailProduced:"🐦 உற்பத்தி செய்த காடை முட்டைகள்",
+    fQuailEggsSold:"🥚 விற்பனை செய்த காடை முட்டைகள்",fQuailEggRate:"🥚 காடை முட்டை விலை (₹ 1 எண்ணம்)",
+    fKoliEggsProduced:"🥚 உற்பத்தி செய்த நாட்டுக்கோழி முட்டைகள்",fKoliEggsSold:"🥚 விற்பனை செய்த நாட்டுக்கோழி முட்டைகள்",
+    fKoliEggRate:"🥚 நாட்டுக்கோழி முட்டை விலை (₹ 1 எண்ணம்)",fMortality:"🩸 காடை இறப்பு (எண்ணிக்கை)",
+    fMeatAvailable:"🍖 இருப்பு காடை இறைச்சி (கிலோ)",fMeatSold:"🍗 விற்பனை செய்த காடை இறைச்சி (கிலோ)",
+    fMeatRate:"🍖 காடை இறைச்சி விலை (₹/கிலோ)",fMedicine:"💊 மருந்து செலவு (₹)",
+    fTrayStickers:"🏷️ அட்டை/ஸ்டிக்கர் செலவு (₹)",fOtherExpenses:"🌿 இதர செலவுகள் (₹)",
+    fTotalSales:"💰 மொத்த விற்பனை ₹",fNotes:"📝 பண்ணை குறிப்புகள்",
+    btnClear:"அழி",btnSave:"💾 தரவை சேமி",
+    liveCalcTitle:"நேரடி கணக்கீடு",
+    cQuailSales:"🥚 காடை முட்டை விற்பனை",cKoliSales:"🥚 நாட்டுக்கோழி விற்பனை",cMeatSales:"🍗 இறைச்சி விற்பனை",
+    cTotalSales:"💰 மொத்த விற்பனை",cMedicine:"💊 மருந்து",cTray:"🏷️ அட்டை/ஸ்டிக்கர்",
+    cOther:"🌿 இதர",cTotalExp:"📤 மொத்த செலவு",cNetProfit:"📈 நிகர லாபம்",cNetLoss:"📉 நிகர நஷ்டம்",
+    histTitle:"📅 பண்ணை வரலாறு",histSub:"முந்தைய தினசரி பதிவுகள்",
+    btnEdit:"✏️ திருத்து",btnDelete:"🗑️ நீக்கு",
+    updatedBy:"புதுப்பித்தவர்",updatedAt:"புதுப்பித்த நேரம்",
+    noRecords:"பதிவுகள் எதுவுமில்லை. இன்றைய பண்ணை தரவைச் சேர்க்கவும்.",
+    repTitle:"📊 பண்ணை அறிக்கைகள்",repSub:"முழுமையான பண்ணை விற்பனை சுருக்கம்",
+    repSales:"மொத்த விற்பனை",repExpenses:"மொத்த செலவுகள்",repProfit:"நிகர லாபம்",repLoss:"நிகர நஷ்டம்",
+    dailySummary:"📋 தினசரி சுருக்கம்",
+    thDate:"📅 தேதி",thQuailSold:"🥚 காடை விற்பனை",thKoliSold:"🥚 நாட்டுக்கோழி",
+    thMeat:"🍗 இறைச்சி",thSales:"💰 விற்பனை ₹",thExpenses:"📤 செலவு ₹",thNet:"📈 நிகரம் ₹",
+    membersTitle:"👨‍👩‍👦 குடும்ப உறுப்பினர்கள்",membersSub:"அனைத்து குடும்ப உறுப்பினர்களும் அவர்களின் அணுகல் நிலையும்",
+    modalAccTitle:"கணக்கு விவரங்கள்",mMethod:"உள்நுழைவு முறை",mEmail:"மின்னஞ்சல்",
+    accInfoTitle:"கணக்கு தகவல்",goEditProfile:"சுயவிவரம் திருத்து",
+    editProfileTitle:"சுயவிவரம் திருத்து",epName:"காட்டும் பெயர்",tapToChange:"படத்தை மாற்ற தட்டவும்",
+    epCancel:"ரத்து",epSave:"💾 சேமி",
+    savedSuccess:"தினசரி பண்ணை தரவு வெற்றிகரமாக சேமிக்கப்பட்டது!",deletedSuccess:"பதிவு நீக்கப்பட்டது",
+    poongodiOnlyError:"🔒 அனுமதி மறுக்கப்பட்டது: பூங்கொடி மட்டுமே தரவை சேர்க்க, திருத்த அல்லது நீக்க முடியும்.",
+    profileSaved:"சுயவிவரம் சேமிக்கப்பட்டது!"
   }
 };
 
-function isPoongodi() {
-  return currentUser && currentUser.name && currentUser.name.toLowerCase().trim() === 'poongodi';
-}
+function T(key){ return (I18N[lang]||I18N.en)[key]||key; }
+function money(n){ return '₹'+(Math.round((n||0)*100)/100).toLocaleString('en-IN'); }
+function todayStr(){ return new Date().toISOString().slice(0,10); }
+function isPoongodi(){ return currentUser&&currentUser.name&&currentUser.name.toLowerCase().trim()==='poongodi'; }
 
-function applyLanguage() {
-  const t = I18N[lang];
-  document.documentElement.lang = lang;
+/* ===== PROFILE STORAGE ===== */
+function getProfilePic(name){ return localStorage.getItem('profile_pic_'+name)||null; }
+function setProfilePic(name,dataUrl){ localStorage.setItem('profile_pic_'+name,dataUrl); }
+function getDisplayName(name){ return localStorage.getItem('display_name_'+name)||name; }
+function setDisplayName(name,val){ localStorage.setItem('display_name_'+name,val); }
+function setLastLogin(name){ localStorage.setItem('last_login_'+name, new Date().toISOString()); }
+function getLastLogin(name){ return localStorage.getItem('last_login_'+name)||null; }
 
-  // Buttons/Labels
-  document.getElementById('loginLangLabel').textContent = t.langBtnLabel;
-  document.getElementById('appLangBtnLabel').textContent = t.langBtnLabel;
-
-  // Header / Brand
-  document.getElementById('brandTitle').textContent = t.brand;
-  document.getElementById('brandSub').textContent = t.sub;
-
-  // Login
-  document.getElementById('txt-loginTitle').textContent = t.loginTitle;
-  document.getElementById('txt-loginSub').textContent = t.loginSub;
-  document.getElementById('txt-lblMember').textContent = t.lblMember;
-  document.getElementById('txt-lblEmail').textContent = t.lblEmail;
-  document.getElementById('txt-lblPassword').textContent = t.lblPassword;
-  document.getElementById('txt-btnLogin').textContent = t.btnLogin;
-  document.getElementById('txt-authorizedOnly').textContent = t.authorizedOnly;
-
-  // Menu items
-  document.getElementById('txt-menuAccount').textContent = t.menuAccount;
-  document.getElementById('txt-menuPassword').textContent = t.menuPassword;
-  document.getElementById('txt-menuLang').textContent = t.menuLang;
-  document.getElementById('txt-menuLogout').textContent = t.menuLogout;
-
-  // Tabs
-  document.getElementById('tab-dashboard').textContent = t.tabDashboard;
-  document.getElementById('tab-add').textContent = t.tabAdd;
-  document.getElementById('tab-history').textContent = t.tabHistory;
-  document.getElementById('tab-reports').textContent = t.tabReports;
-
-  // Dashboard
-  document.getElementById('txt-dashTitle').textContent = t.dashTitle;
-  document.getElementById('txt-lblDashQuailEggs').textContent = t.lblDashQuailEggs;
-  document.getElementById('txt-lblDashKoliEggs').textContent = t.lblDashKoliEggs;
-  document.getElementById('txt-lblDashMeat').textContent = t.lblDashMeat;
-  document.getElementById('txt-lblDashSales').textContent = t.lblDashSales;
-  document.getElementById('txt-stockTitle').textContent = t.stockTitle;
-  document.getElementById('txt-lblStockQuailEggs').textContent = t.lblStockQuailEggs;
-  document.getElementById('txt-lblStockKoliEggs').textContent = t.lblStockKoliEggs;
-  document.getElementById('txt-lblStockMeat').textContent = t.lblStockMeat;
-
-  // Add Form
-  document.getElementById('txt-addSub').textContent = t.addSub;
-  document.getElementById('txt-readOnlyNotice').textContent = t.readOnlyNotice;
-  document.getElementById('txt-fDate').textContent = t.fDate;
-  document.getElementById('txt-fQuailProduced').textContent = t.fQuailProduced;
-  document.getElementById('txt-fQuailEggsSold').textContent = t.fQuailEggsSold;
-  document.getElementById('txt-fQuailEggRate').textContent = t.fQuailEggRate;
-  document.getElementById('txt-fKoliEggsProduced').textContent = t.fKoliEggsProduced;
-  document.getElementById('txt-fKoliEggsSold').textContent = t.fKoliEggsSold;
-  document.getElementById('txt-fKoliEggRate').textContent = t.fKoliEggRate;
-  document.getElementById('txt-fMortality').textContent = t.fMortality;
-  document.getElementById('txt-fMeatAvailable').textContent = t.fMeatAvailable;
-  document.getElementById('txt-fMeatSold').textContent = t.fMeatSold;
-  document.getElementById('txt-fMeatRate').textContent = t.fMeatRate;
-  document.getElementById('txt-fMedicine').textContent = t.fMedicine;
-  document.getElementById('txt-fTrayStickers').textContent = t.fTrayStickers;
-  document.getElementById('txt-fOtherExpenses').textContent = t.fOtherExpenses;
-  document.getElementById('txt-fTotalSales').textContent = t.fTotalSales;
-  document.getElementById('txt-fNotes').textContent = t.fNotes;
-  document.getElementById('txt-btnClear').textContent = t.btnClear;
-  document.getElementById('txt-btnSave').textContent = t.btnSave;
-
-  // History
-  document.getElementById('txt-histTitle').textContent = t.histTitle;
-  document.getElementById('txt-histSub').textContent = t.histSub;
-
-  // Reports
-  document.getElementById('txt-repTitle').textContent = t.repTitle;
-  document.getElementById('txt-repSub').textContent = t.repSub;
-  document.getElementById('txt-repSales').textContent = t.repSales;
-  document.getElementById('txt-repExpenses').textContent = t.repExpenses;
-  document.getElementById('txt-repProfit').textContent = t.repProfit;
-  document.getElementById('txt-repLoss').textContent = t.repLoss;
-  document.getElementById('txt-dailySummary').textContent = t.dailySummary;
-  document.getElementById('thDate').textContent = t.thDate;
-  document.getElementById('thQuailSold').textContent = t.thQuailSold;
-  document.getElementById('thKoliSold').textContent = t.thKoliSold;
-  document.getElementById('thMortality').textContent = t.thMortality;
-  document.getElementById('thMeat').textContent = t.thMeat;
-  document.getElementById('thSales').textContent = t.thSales;
-  document.getElementById('thExpenses').textContent = t.thExpenses;
-
-  // Modals
-  document.getElementById('txt-modalAccTitle').textContent = t.modalAccTitle;
-  document.getElementById('txt-mName').textContent = t.mName;
-  document.getElementById('txt-mRole').textContent = t.mRole;
-  document.getElementById('txt-mMethod').textContent = t.mMethod;
-  document.getElementById('txt-modalPassTitle').textContent = t.modalPassTitle;
-  document.getElementById('txt-mCurrPass').textContent = t.mCurrPass;
-  document.getElementById('txt-mNewPass').textContent = t.mNewPass;
-  document.getElementById('txt-mUpdatePassBtn').textContent = t.mUpdatePassBtn;
-
-  if (currentUser) {
-    refreshUserUI();
-    renderAll();
+/* ===== AVATAR RENDERER ===== */
+function renderAvatar(el, name){
+  if(!el) return;
+  const pic = getProfilePic(name);
+  if(pic){
+    el.innerHTML = `<img src="${pic}" alt="${name}">`;
+  } else {
+    el.textContent = name.charAt(0).toUpperCase();
   }
 }
 
-function toggleLanguage() {
-  lang = lang === 'en' ? 'ta' : 'en';
-  localStorage.setItem('farm_lang', lang);
+/* ===== LANGUAGE ===== */
+function applyLanguage(){
+  document.documentElement.lang = lang;
+  const t = I18N[lang];
+  const setT = (id,v)=>{ const el=document.getElementById(id); if(el) el.textContent=v; };
+
+  setT('loginLangLabel',t.langBtnLabel);
+  setT('appLangBtnLabel',t.langBtnLabel);
+  setT('brandTitle',t.brand);
+  setT('brandSub',t.sub);
+  setT('txt-loginTitle',t.loginTitle);
+  setT('txt-loginSub',t.loginSub);
+  setT('txt-lblMember',t.lblMember);
+  setT('txt-lblEmail',t.lblEmail);
+  setT('txt-lblPassword',t.lblPassword);
+  setT('txt-btnLogin',t.btnLogin);
+  setT('txt-authorizedOnly',t.authorizedOnly);
+  setT('txt-menuAccount',t.menuAccount);
+  setT('txt-menuEditProfile',t.menuEditProfile);
+  setT('txt-menuLang',t.menuLang);
+  setT('txt-menuLogout',t.menuLogout);
+  setT('tab-dashboard',t.tabDashboard);
+  setT('tab-add',t.tabAdd);
+  setT('tab-history',t.tabHistory);
+  setT('tab-reports',t.tabReports);
+  setT('tab-members',t.tabMembers);
+  setT('txt-dashTitle',t.dashTitle);
+  setT('txt-lblDashQuailEggs',t.lblDashQuailEggs);
+  setT('txt-lblDashKoliEggs',t.lblDashKoliEggs);
+  setT('txt-lblDashMeat',t.lblDashMeat);
+  setT('txt-lblDashSales',t.lblDashSales);
+  setT('txt-lblTodayProfit',t.lblTodayProfit);
+  setT('txt-lblTodayLoss',t.lblTodayLoss);
+  setT('txt-stockTitle',t.stockTitle);
+  setT('txt-lblStockQuailEggs',t.lblStockQuailEggs);
+  setT('txt-lblStockKoliEggs',t.lblStockKoliEggs);
+  setT('txt-lblStockMeat',t.lblStockMeat);
+  setT('txt-addSub',t.addSub);
+  setT('txt-readOnlyNotice',t.readOnlyNotice);
+  setT('txt-fDate',t.fDate);
+  setT('txt-fQuailProduced',t.fQuailProduced);
+  setT('txt-fQuailEggsSold',t.fQuailEggsSold);
+  setT('txt-fQuailEggRate',t.fQuailEggRate);
+  setT('txt-fKoliEggsProduced',t.fKoliEggsProduced);
+  setT('txt-fKoliEggsSold',t.fKoliEggsSold);
+  setT('txt-fKoliEggRate',t.fKoliEggRate);
+  setT('txt-fMortality',t.fMortality);
+  setT('txt-fMeatAvailable',t.fMeatAvailable);
+  setT('txt-fMeatSold',t.fMeatSold);
+  setT('txt-fMeatRate',t.fMeatRate);
+  setT('txt-fMedicine',t.fMedicine);
+  setT('txt-fTrayStickers',t.fTrayStickers);
+  setT('txt-fOtherExpenses',t.fOtherExpenses);
+  setT('txt-fNotes',t.fNotes);
+  setT('txt-btnClear',t.btnClear);
+  setT('txt-btnSave',t.btnSave);
+  setT('txt-liveCalcTitle',t.liveCalcTitle);
+  setT('txt-cQuailSales',t.cQuailSales);
+  setT('txt-cKoliSales',t.cKoliSales);
+  setT('txt-cMeatSales',t.cMeatSales);
+  setT('txt-cTotalSales',t.cTotalSales);
+  setT('txt-cMedicine',t.cMedicine);
+  setT('txt-cTray',t.cTray);
+  setT('txt-cOther',t.cOther);
+  setT('txt-cTotalExp',t.cTotalExp);
+  setT('txt-cNetProfit',t.cNetProfit);
+  setT('txt-cNetLoss',t.cNetLoss);
+  setT('txt-histTitle',t.histTitle);
+  setT('txt-histSub',t.histSub);
+  setT('txt-repTitle',t.repTitle);
+  setT('txt-repSub',t.repSub);
+  setT('txt-repSales',t.repSales);
+  setT('txt-repExpenses',t.repExpenses);
+  setT('txt-repProfit',t.repProfit);
+  setT('txt-repLoss',t.repLoss);
+  setT('txt-dailySummary',t.dailySummary);
+  setT('thDate',t.thDate);
+  setT('thQuailSold',t.thQuailSold);
+  setT('thKoliSold',t.thKoliSold);
+  setT('thMeat',t.thMeat);
+  setT('thSales',t.thSales);
+  setT('thExpenses',t.thExpenses);
+  setT('thNet',t.thNet);
+  setT('txt-membersTitle',t.membersTitle);
+  setT('txt-membersSub',t.membersSub);
+  setT('txt-modalAccTitle',t.modalAccTitle);
+  setT('txt-mMethod',t.mMethod);
+  setT('txt-mEmail',t.mEmail);
+  setT('txt-accInfoTitle',t.accInfoTitle);
+  setT('txt-goEditProfile',t.goEditProfile);
+  setT('txt-editProfileTitle',t.editProfileTitle);
+  setT('txt-epName',t.epName);
+  setT('txt-tapToChange',t.tapToChange);
+  setT('txt-epCancel',t.epCancel);
+  setT('txt-epSave',t.epSave);
+
+  // addTitle handled separately
+  const atEl = document.getElementById('addTitle');
+  if(atEl && !document.getElementById('editId').value) atEl.textContent = t.addTitle;
+
+  if(currentUser){ refreshUserUI(); renderAll(); }
+}
+
+function toggleLanguage(){
+  lang = lang==='en'?'ta':'en';
+  localStorage.setItem('farm_lang',lang);
   applyLanguage();
   document.getElementById('userMenu').classList.remove('open');
 }
 
-/* ---------------- Storage helpers ---------------- */
+/* ===== DATA LOADING ===== */
 async function loadData(){
   try{
-    const res = await fetch('/api/records');
-    if(res.ok) records = await res.json();
-  }catch(e){ records = []; }
+    const res=await fetch('/api/records');
+    if(res.ok) records=await res.json();
+  }catch(e){ records=[]; }
   try{
-    const res = await fetch('/api/members');
-    if(res.ok) {
-      const serverMembers = await res.json();
-      members = Array.from(new Set(['Prabakaran', 'Poongodi', 'Rajindharan', 'Sajindharan', ...serverMembers]));
+    const res=await fetch('/api/members');
+    if(res.ok){
+      const sm=await res.json();
+      members=Array.from(new Set(['Prabakaran','Poongodi','Rajindharan','Sajindharan',...sm]));
     }
-  }catch(e){ /* keep defaults */ }
+  }catch(e){}
   populateMemberSelect();
 }
 
 function populateMemberSelect(){
-  const sel = document.getElementById('memberSelect');
-  sel.innerHTML = members.map(m=>`<option value="${m}">${m}</option>`).join('');
+  const sel=document.getElementById('memberSelect');
+  sel.innerHTML=members.map(m=>`<option value="${m}">${m}</option>`).join('');
   onMemberSelectChange();
 }
 
-function onMemberSelectChange() {
-  const selectedName = document.getElementById('memberSelect').value;
-  const emailInput = document.getElementById('loginEmail');
-  if (MEMBER_EMAILS[selectedName]) {
-    emailInput.value = MEMBER_EMAILS[selectedName];
-  }
+function onMemberSelectChange(){
+  const name=document.getElementById('memberSelect').value;
+  const emailInput=document.getElementById('loginEmail');
+  if(MEMBER_EMAILS[name]) emailInput.value=MEMBER_EMAILS[name];
 }
 
-/* ---------------- Login ---------------- */
+/* ===== LOGIN ===== */
 function doLogin(method){
-  const name = document.getElementById('memberSelect').value;
-  const email = document.getElementById('loginEmail').value.trim();
-  const pass = document.getElementById('loginPassword').value.trim();
-  if(!name || (method==='email' && (!email || !pass))){
+  const name=document.getElementById('memberSelect').value;
+  const email=document.getElementById('loginEmail').value.trim();
+  const pass=document.getElementById('loginPassword').value.trim();
+  if(!name||(method==='email'&&(!email||!pass))){
     document.getElementById('loginError').style.display='block';
+    document.getElementById('loginError').textContent=T('loginError')||'Please fill all fields.';
     return;
   }
-  
-  fetch('/api/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, email: email || MEMBER_EMAILS[name] || 'farm.family@example.com', method: method==='google' ? 'Google Account' : 'Email & Password', password: pass })
+  fetch('/api/login',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({name,email:email||MEMBER_EMAILS[name]||'',method:'Email & Password',password:pass})
   })
-  .then(res => res.json())
-  .then(data => {
+  .then(r=>r.json())
+  .then(data=>{
     if(data.success){
       document.getElementById('loginError').style.display='none';
-      currentUser = data.user;
-      document.getElementById('loginScreen').style.display='none';
-      document.getElementById('app').style.display='block';
-      refreshUserUI();
-      renderAll();
+      currentUser={...data.user,name};
+      setLastLogin(name);
+      enterApp();
     } else {
       document.getElementById('loginError').style.display='block';
-      document.getElementById('loginError').textContent = data.error || 'Login failed';
+      document.getElementById('loginError').textContent=data.error||'Login failed';
     }
   })
-  .catch(err => {
-      document.getElementById('loginError').style.display='block';
-      document.getElementById('loginError').textContent = 'Network error';
+  .catch(()=>{
+    document.getElementById('loginError').style.display='block';
+    document.getElementById('loginError').textContent='Network error';
   });
 }
 
-function handleCredentialResponse(response) {
-  fetch('/api/login/google', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ token: response.credential })
+function handleCredentialResponse(response){
+  fetch('/api/login/google',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({token:response.credential})
   })
-  .then(res => res.json())
-  .then(data => {
+  .then(r=>r.json())
+  .then(data=>{
     if(data.success){
-      document.getElementById('loginError').style.display='none';
-      currentUser = data.user;
-      currentUser.method = 'Google Account';
-      document.getElementById('loginScreen').style.display='none';
-      document.getElementById('app').style.display='block';
-      refreshUserUI();
-      renderAll();
-      showToast('Signed in with Google successfully!');
+      currentUser={...data.user,method:'Google Account'};
+      setLastLogin(currentUser.name);
+      enterApp();
+      showToast('Signed in with Google!');
     } else {
       document.getElementById('loginError').style.display='block';
-      document.getElementById('loginError').textContent = data.error || 'Google Login failed';
+      document.getElementById('loginError').textContent=data.error||'Google Login failed';
     }
   })
-  .catch(err => {
+  .catch(()=>{
     document.getElementById('loginError').style.display='block';
-    document.getElementById('loginError').textContent = 'Network error. Please try again.';
+    document.getElementById('loginError').textContent='Network error';
   });
+}
+
+function enterApp(){
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('app').style.display='block';
+  refreshUserUI();
+  renderAll();
 }
 
 function doLogout(){
-  currentUser = null;
+  currentUser=null;
   document.getElementById('app').style.display='none';
   document.getElementById('loginScreen').style.display='flex';
   document.getElementById('userMenu').classList.remove('open');
 }
 
 function refreshUserUI(){
-  if (!currentUser) return;
-  const initial = currentUser.name.charAt(0).toUpperCase();
-  document.getElementById('chipAvatar').textContent = initial;
-  document.getElementById('menuAvatar').textContent = initial;
-  document.getElementById('modalAvatar').textContent = initial;
-  document.getElementById('chipName').textContent = currentUser.name;
-  document.getElementById('menuName').textContent = currentUser.name;
-  document.getElementById('modalName').value = currentUser.name;
-  document.getElementById('modalMethod').value = currentUser.method || 'Email & Password';
+  if(!currentUser) return;
+  const name=currentUser.name;
+  const pic=getProfilePic(name);
 
-  const t = I18N[lang];
-  const roleBadge = document.getElementById('menuRoleBadge');
-  const modalRole = document.getElementById('modalRole');
-  
-  if (isPoongodi()) {
-    roleBadge.textContent = t.roleEditor;
-    roleBadge.className = 'role-badge editor';
-    modalRole.value = t.roleEditor;
-  } else {
-    roleBadge.textContent = t.roleViewer;
-    roleBadge.className = 'role-badge viewer';
-    modalRole.value = t.roleViewer;
-  }
+  // chip avatar
+  const chipAvatar=document.getElementById('chipAvatar');
+  if(pic){ chipAvatar.innerHTML=`<img src="${pic}" alt="${name}">`; }
+  else { chipAvatar.textContent=name.charAt(0).toUpperCase(); }
 
-  // Update Form Card Read-Only state for non-Poongodi users
-  const isEd = isPoongodi();
-  document.getElementById('readOnlyBanner').style.display = isEd ? 'none' : 'flex';
-  document.getElementById('formActions').style.display = isEd ? 'flex' : 'none';
-  
-  const formInputs = document.querySelectorAll('#page-add input, #page-add textarea');
-  formInputs.forEach(input => {
-    if (input.id !== 'editId') {
-      input.disabled = !isEd;
-    }
+  // menu avatar
+  renderAvatar(document.getElementById('menuAvatar'),name);
+  document.getElementById('chipName').textContent=getDisplayName(name);
+  document.getElementById('menuName').textContent=getDisplayName(name);
+
+  const isEd=isPoongodi();
+  const roleBadge=document.getElementById('menuRoleBadge');
+  roleBadge.textContent=isEd?T('roleEditor'):T('roleViewer');
+  roleBadge.className='role-badge '+(isEd?'editor':'viewer');
+
+  // Form access
+  document.getElementById('readOnlyBanner').style.display=isEd?'none':'flex';
+  document.getElementById('formActions').style.display=isEd?'flex':'none';
+  document.querySelectorAll('#page-add input,#page-add textarea').forEach(el=>{
+    if(el.id!=='editId') el.disabled=!isEd;
   });
 }
 
-/* ---------------- Menu / modal ---------------- */
+/* ===== MENU/MODAL ===== */
 function toggleUserMenu(e){
   e.stopPropagation();
   document.getElementById('userMenu').classList.toggle('open');
 }
-document.addEventListener('click', ()=> document.getElementById('userMenu').classList.remove('open'));
-
+document.addEventListener('click',()=>document.getElementById('userMenu').classList.remove('open'));
 function openModal(id){ document.getElementById(id).classList.add('open'); document.getElementById('userMenu').classList.remove('open'); }
 function closeModal(id){ document.getElementById(id).classList.remove('open'); }
 
-/* ---------------- Tabs ---------------- */
+function openAccountModal(){
+  const name=currentUser.name;
+  renderAvatar(document.getElementById('modalAvatarLarge'),name);
+  document.getElementById('modalAccName').textContent=getDisplayName(name);
+  const isEd=isPoongodi();
+  const roleEl=document.getElementById('modalAccRole');
+  roleEl.textContent=isEd?T('roleEditor'):T('roleViewer');
+  roleEl.className='role-badge '+(isEd?'editor':'viewer');
+  document.getElementById('modalMethod').value=currentUser.method||'Email & Password';
+  document.getElementById('modalEmail').value=currentUser.email||MEMBER_EMAILS[name]||'—';
+  openModal('accountModal');
+}
+
+function openEditProfileModal(){
+  if(!currentUser) return;
+  const name=currentUser.name;
+  renderAvatar(document.getElementById('editProfilePic'),name);
+  document.getElementById('epName').value=getDisplayName(name);
+  openModal('editProfileModal');
+}
+
+function handleProfilePicChange(event){
+  const file=event.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    const dataUrl=e.target.result;
+    setProfilePic(currentUser.name,dataUrl);
+    renderAvatar(document.getElementById('editProfilePic'),currentUser.name);
+    renderAvatar(document.getElementById('chipAvatar'),currentUser.name);
+    renderAvatar(document.getElementById('menuAvatar'),currentUser.name);
+    renderAvatar(document.getElementById('modalAvatarLarge'),currentUser.name);
+  };
+  reader.readAsDataURL(file);
+}
+
+function saveProfile(){
+  if(!currentUser) return;
+  const name=currentUser.name;
+  const newName=document.getElementById('epName').value.trim()||name;
+  setDisplayName(name,newName);
+  document.getElementById('chipName').textContent=newName;
+  document.getElementById('menuName').textContent=newName;
+  closeModal('editProfileModal');
+  showToast(T('profileSaved'));
+  renderMembersPage();
+}
+
+// Override openModal to handle account & editProfile
+const _origOpenModal = openModal;
+function openModal(id){
+  if(id==='accountModal'){ openAccountModal(); return; }
+  if(id==='editProfileModal'){ openEditProfileModal(); return; }
+  document.getElementById(id).classList.add('open');
+  document.getElementById('userMenu').classList.remove('open');
+}
+
+/* ===== TABS ===== */
 function showTab(tab){
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+tab).classList.add('active');
   if(tab==='history') renderHistory();
   if(tab==='reports') renderReports();
   if(tab==='dashboard') renderDashboard();
-  if(tab==='add') {
-    if (!isPoongodi() && !document.getElementById('editId').value) {
-      document.getElementById('addTitle').innerHTML = I18N[lang].addTitle;
-    }
+  if(tab==='members') renderMembersPage();
+}
+
+/* ===== FORM & CALCULATION ===== */
+const numFields=['quailProduced','quailEggsSold','quailEggRate','koliEggsProduced','koliEggsSold','koliEggRate',
+  'mortality','meatAvailable','meatSold','meatRate','medicine','trayStickers','otherExpenses'];
+
+function getF(id){ return parseFloat(document.getElementById(id).value)||0; }
+
+function recalcAll(){
+  const quailSales = getF('f_quailEggsSold') * getF('f_quailEggRate');
+  const koliSales  = getF('f_koliEggsSold')  * getF('f_koliEggRate');
+  const meatSales  = getF('f_meatSold')       * getF('f_meatRate');
+  const totalSales = quailSales + koliSales + meatSales;
+
+  const medicine  = getF('f_medicine');
+  const tray      = getF('f_trayStickers');
+  const other     = getF('f_otherExpenses');
+  const totalExp  = medicine + tray + other;
+
+  const net = totalSales - totalExp;
+
+  // Update total sales field
+  document.getElementById('f_totalSales').value = totalSales.toFixed(2);
+
+  // Update live calc panel
+  document.getElementById('cQuailSales').textContent = money(quailSales);
+  document.getElementById('cKoliSales').textContent  = money(koliSales);
+  document.getElementById('cMeatSales').textContent  = money(meatSales);
+  document.getElementById('cTotalSales').textContent = money(totalSales);
+  document.getElementById('cMedicine').textContent   = money(medicine);
+  document.getElementById('cTray').textContent       = money(tray);
+  document.getElementById('cOther').textContent      = money(other);
+  document.getElementById('cTotalExp').textContent   = money(totalExp);
+
+  const profitRow=document.getElementById('netProfitRow');
+  const lossRow=document.getElementById('netLossRow');
+  if(net>=0){
+    document.getElementById('cNetProfit').textContent=money(net);
+    profitRow.style.display='flex';
+    lossRow.style.display='none';
+  } else {
+    document.getElementById('cNetLoss').textContent=money(Math.abs(net));
+    profitRow.style.display='none';
+    lossRow.style.display='flex';
   }
 }
 
-/* ---------------- Form helpers ---------------- */
-const numFields = ['quailProduced','quailEggsSold','quailEggRate','koliEggsProduced','koliEggsSold','koliEggRate',
-  'mortality','meatAvailable','meatSold','meatRate','medicine','trayStickers','otherExpenses'];
-
 function getFormValues(){
-  const v = { date: document.getElementById('f_date').value };
-  numFields.forEach(f=>{ v[f] = parseFloat(document.getElementById('f_'+f).value) || 0; });
-  v.totalSales = parseFloat(document.getElementById('f_totalSales').value) || 0;
-  v.notes = document.getElementById('f_notes').value;
+  const v={date:document.getElementById('f_date').value};
+  numFields.forEach(f=>{ v[f]=parseFloat(document.getElementById('f_'+f).value)||0; });
+  // Recalculate correct totalSales from form values
+  v.totalSales=(v.quailEggsSold*v.quailEggRate)+(v.koliEggsSold*v.koliEggRate)+(v.meatSold*v.meatRate);
+  // Allow manual override if user typed something different
+  const manualSales=parseFloat(document.getElementById('f_totalSales').value)||0;
+  if(manualSales!==v.totalSales && document.getElementById('f_totalSales').dataset.manual==='1'){
+    v.totalSales=manualSales;
+  }
+  v.totalExpenses=(v.medicine||0)+(v.trayStickers||0)+(v.otherExpenses||0);
+  v.netProfit=v.totalSales-v.totalExpenses;
+  v.notes=document.getElementById('f_notes').value;
   return v;
 }
 
-function recalcTotal(){
-  const v = getFormValues();
-  const auto = (v.quailEggsSold*v.quailEggRate) + (v.koliEggsSold*v.koliEggRate) + (v.meatSold*v.meatRate) + v.trayStickers;
-  document.getElementById('f_totalSales').value = auto || '';
-}
-['quailEggsSold','quailEggRate','koliEggsSold','koliEggRate','meatSold','meatRate','trayStickers'].forEach(f=>{
-  const el = document.getElementById('f_'+f);
-  if(el) el.addEventListener('input', recalcTotal);
+// Mark totalSales as manually changed only if user directly edits it
+document.getElementById('f_totalSales').addEventListener('input',function(){
+  this.dataset.manual='1';
 });
 
 function clearForm(){
   document.getElementById('editId').value='';
-  document.getElementById('addTitle').innerHTML = I18N[lang].addTitle;
-  document.getElementById('f_date').value = new Date().toISOString().slice(0,10);
-  numFields.forEach(f=> document.getElementById('f_'+f).value='');
+  document.getElementById('addTitle').textContent=T('addTitle');
+  document.getElementById('f_date').value=todayStr();
+  numFields.forEach(f=>{ document.getElementById('f_'+f).value=''; });
   document.getElementById('f_totalSales').value='';
+  document.getElementById('f_totalSales').dataset.manual='';
   document.getElementById('f_notes').value='';
+  recalcAll();
 }
 
 async function saveRecord(){
-  if (!isPoongodi()) {
-    showToast(I18N[lang].poongodiOnlyError, true);
-    return;
-  }
-  const v = getFormValues();
-  if(!v.date){ showToast('Please choose a date', true); return; }
-  const editId = document.getElementById('editId').value;
-  
-  let url = '/api/records';
-  let method = 'POST';
-  const recordData = { ...v, updatedBy: currentUser.name, updatedAt: new Date().toISOString() };
-  
-  if(editId){
-    url = '/api/records/' + editId;
-    method = 'PUT';
-  } else {
-    recordData.id = 'r'+Date.now();
-  }
-
-  try {
-    const res = await fetch(url, {
-      method: method,
-      headers: {
-        'Content-Type': 'application/json',
-        'x-user-name': currentUser.name
-      },
-      body: JSON.stringify(recordData)
+  if(!isPoongodi()){ showToast(T('poongodiOnlyError'),true); return; }
+  const v=getFormValues();
+  if(!v.date){ showToast('Please choose a date',true); return; }
+  const editId=document.getElementById('editId').value;
+  let url='/api/records', method='POST';
+  const recordData={...v,updatedBy:currentUser.name,updatedAt:new Date().toISOString()};
+  if(editId){ url='/api/records/'+editId; method='PUT'; }
+  else { recordData.id='r'+Date.now(); }
+  try{
+    const res=await fetch(url,{
+      method,headers:{'Content-Type':'application/json','x-user-name':currentUser.name},
+      body:JSON.stringify(recordData)
     });
-    
-    const resData = await res.json();
-
+    const rd=await res.json();
     if(res.ok){
-      if(editId){
-        const idx = records.findIndex(r=>r.id===editId);
-        if(idx>-1) records[idx] = { ...records[idx], ...recordData };
-      } else {
-        records.unshift(recordData);
-      }
-      showToast(I18N[lang].savedSuccess);
+      if(editId){ const i=records.findIndex(r=>r.id===editId); if(i>-1) records[i]={...records[i],...recordData}; }
+      else { records.unshift(recordData); }
+      showToast(T('savedSuccess'));
       clearForm();
       renderAll();
       showTab('dashboard');
-    } else {
-      showToast(resData.error || 'Error saving data', true);
-    }
-  } catch(e) {
-    showToast('Network error', true);
-  }
+    } else { showToast(rd.error||'Error saving data',true); }
+  }catch(e){ showToast('Network error',true); }
 }
 
 function editRecord(id){
-  if (!isPoongodi()) {
-    showToast(I18N[lang].poongodiOnlyError, true);
-    return;
-  }
-  const r = records.find(x=>x.id===id);
+  if(!isPoongodi()){ showToast(T('poongodiOnlyError'),true); return; }
+  const r=records.find(x=>x.id===id);
   if(!r) return;
-  document.getElementById('editId').value = r.id;
-  document.getElementById('addTitle').innerHTML = '✏️ Editing record — ' + fmtDate(r.date);
-  document.getElementById('f_date').value = r.date;
-  numFields.forEach(f=> document.getElementById('f_'+f).value = r[f] || '');
-  document.getElementById('f_totalSales').value = r.totalSales || '';
-  document.getElementById('f_notes').value = r.notes || '';
+  document.getElementById('editId').value=r.id;
+  document.getElementById('addTitle').textContent='✏️ Editing — '+fmtDate(r.date);
+  document.getElementById('f_date').value=r.date;
+  numFields.forEach(f=>{ document.getElementById('f_'+f).value=r[f]||''; });
+  document.getElementById('f_totalSales').value=r.totalSales||'';
+  document.getElementById('f_notes').value=r.notes||'';
+  recalcAll();
   showTab('add');
 }
 
 async function deleteRecord(id){
-  if (!isPoongodi()) {
-    showToast(I18N[lang].poongodiOnlyError, true);
-    return;
-  }
+  if(!isPoongodi()){ showToast(T('poongodiOnlyError'),true); return; }
   if(!confirm('Delete this record? This cannot be undone.')) return;
-  try {
-    const res = await fetch('/api/records/' + id, {
-      method: 'DELETE',
-      headers: { 'x-user-name': currentUser.name }
-    });
-    const resData = await res.json();
-    if (res.ok) {
-      records = records.filter(r=>r.id!==id);
-      renderAll();
-      showToast(I18N[lang].deletedSuccess);
-    } else {
-      showToast(resData.error || 'Error deleting record', true);
-    }
-  } catch(e) {
-    showToast('Network error', true);
-  }
+  try{
+    const res=await fetch('/api/records/'+id,{method:'DELETE',headers:{'x-user-name':currentUser.name}});
+    const rd=await res.json();
+    if(res.ok){ records=records.filter(r=>r.id!==id); renderAll(); showToast(T('deletedSuccess')); }
+    else { showToast(rd.error||'Error deleting',true); }
+  }catch(e){ showToast('Network error',true); }
 }
 
-/* ---------------- Rendering ---------------- */
+/* ===== RENDERING ===== */
 function fmtDate(d){
   if(!d) return '';
-  const dt = new Date(d+'T00:00:00');
-  const locale = lang === 'ta' ? 'ta-IN' : 'en-GB';
-  return dt.toLocaleDateString(locale, { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+  return new Date(d+'T00:00:00').toLocaleDateString(lang==='ta'?'ta-IN':'en-GB',
+    {weekday:'long',day:'numeric',month:'long',year:'numeric'});
 }
-function money(n){ return '₹'+ (Math.round((n||0)*100)/100).toLocaleString('en-IN'); }
 
-function todayStr(){ return new Date().toISOString().slice(0,10); }
+function calcRecord(r){
+  const sales=(r.quailEggsSold||0)*(r.quailEggRate||0)+(r.koliEggsSold||0)*(r.koliEggRate||0)+(r.meatSold||0)*(r.meatRate||0);
+  const expenses=(r.medicine||0)+(r.trayStickers||0)+(r.otherExpenses||0);
+  const net=sales-expenses;
+  return {sales,expenses,net};
+}
 
 function renderDashboard(){
-  document.getElementById('todayDateLabel').textContent = fmtDate(todayStr());
-  const today = records.find(r=>r.date===todayStr());
-  document.getElementById('dashQuailEggs').textContent = today ? today.quailEggsSold : 0;
-  document.getElementById('dashKoliEggs').textContent = today ? today.koliEggsSold : 0;
-  document.getElementById('dashMeat').textContent = today ? today.meatSold : 0;
-  document.getElementById('dashSales').textContent = money(today ? today.totalSales : 0);
+  document.getElementById('todayDateLabel').textContent=fmtDate(todayStr());
+  const today=records.find(r=>r.date===todayStr());
+  document.getElementById('dashQuailEggs').textContent=today?today.quailEggsSold:0;
+  document.getElementById('dashKoliEggs').textContent=today?today.koliEggsSold:0;
+  document.getElementById('dashMeat').textContent=today?today.meatSold:0;
 
-  const totals = records.reduce((a,r)=>{
-    a.quailProduced += (r.quailProduced||0); a.quailEggsSold += (r.quailEggsSold||0);
-    a.koliEggsProduced += (r.koliEggsProduced||0); a.koliEggsSold += (r.koliEggsSold||0);
-    a.meatAvailable += (r.meatAvailable||0); a.meatSold += (r.meatSold||0);
+  if(today){
+    const {sales,expenses,net}=calcRecord(today);
+    document.getElementById('dashSales').textContent=money(sales);
+    document.getElementById('dashTodayProfit').textContent=net>=0?money(net):'₹0';
+    document.getElementById('dashTodayLoss').textContent=net<0?money(Math.abs(net)):'₹0';
+  } else {
+    document.getElementById('dashSales').textContent='₹0';
+    document.getElementById('dashTodayProfit').textContent='₹0';
+    document.getElementById('dashTodayLoss').textContent='₹0';
+  }
+
+  const totals=records.reduce((a,r)=>{
+    a.quailProduced+=(r.quailProduced||0); a.quailEggsSold+=(r.quailEggsSold||0);
+    a.koliEggsProduced+=(r.koliEggsProduced||0); a.koliEggsSold+=(r.koliEggsSold||0);
+    a.meatAvailable+=(r.meatAvailable||0); a.meatSold+=(r.meatSold||0);
     return a;
-  }, {quailProduced:0,quailEggsSold:0,koliEggsProduced:0,koliEggsSold:0,meatAvailable:0,meatSold:0});
+  },{quailProduced:0,quailEggsSold:0,koliEggsProduced:0,koliEggsSold:0,meatAvailable:0,meatSold:0});
 
-  document.getElementById('stockQuailEggs').textContent = Math.max(0, totals.quailProduced - totals.quailEggsSold);
-  document.getElementById('stockKoliEggs').textContent = Math.max(0, totals.koliEggsProduced - totals.koliEggsSold);
-  document.getElementById('stockMeat').textContent = Math.max(0, totals.meatAvailable - totals.meatSold);
+  document.getElementById('stockQuailEggs').textContent=Math.max(0,totals.quailProduced-totals.quailEggsSold);
+  document.getElementById('stockKoliEggs').textContent=Math.max(0,totals.koliEggsProduced-totals.koliEggsSold);
+  document.getElementById('stockMeat').textContent=(Math.max(0,totals.meatAvailable-totals.meatSold)).toFixed(2);
 }
 
 function renderHistory(){
-  const list = document.getElementById('historyList');
-  const t = I18N[lang];
+  const list=document.getElementById('historyList');
+  const isEd=isPoongodi();
   if(records.length===0){
-    list.innerHTML = `<div class="empty"><div class="e">🌾</div>${t.noRecords}</div>`;
+    list.innerHTML=`<div class="empty"><div class="e">🌾</div>${T('noRecords')}</div>`;
     return;
   }
-  const isEd = isPoongodi();
-  list.innerHTML = records.map(r=>{
-    const expenses = (r.medicine||0)+(r.trayStickers||0)+(r.otherExpenses||0);
-    const actionButtons = isEd ? `
-        <div class="hist-actions">
-          <button class="chip-btn edit" onclick="editRecord('${r.id}')">${t.btnEdit}</button>
-          <button class="chip-btn del" onclick="deleteRecord('${r.id}')">${t.btnDelete}</button>
-        </div>` : '';
-
+  list.innerHTML=records.map(r=>{
+    const {sales,expenses,net}=calcRecord(r);
+    const actionBtns=isEd?`
+      <div class="hist-actions">
+        <button class="chip-btn edit" onclick="editRecord('${r.id}')">${T('btnEdit')}</button>
+        <button class="chip-btn del" onclick="deleteRecord('${r.id}')">${T('btnDelete')}</button>
+      </div>`:'' ;
+    const netClass=net>=0?'profit-item':'loss-item';
     return `
     <div class="hist-card">
       <div class="hist-head">
         <div class="hist-date">📅 ${fmtDate(r.date)}</div>
-        ${actionButtons}
+        ${actionBtns}
       </div>
       <div class="hist-grid">
-        <div class="hist-item"><div class="l">${t.fQuailEggsSold}</div><div class="v">${r.quailEggsSold}</div></div>
-        <div class="hist-item"><div class="l">${t.fKoliEggsSold}</div><div class="v">${r.koliEggsSold}</div></div>
-        <div class="hist-item"><div class="l">${t.fMeatSold}</div><div class="v">${r.meatSold}</div></div>
-        <div class="hist-item"><div class="l">${t.repSales}</div><div class="v">${money(r.totalSales)}</div></div>
-        <div class="hist-item"><div class="l">${t.repExpenses}</div><div class="v">${money(expenses)}</div></div>
-        <div class="hist-item"><div class="l">${t.fMortality}</div><div class="v">${r.mortality}</div></div>
+        <div class="hist-item"><div class="l">${T('fQuailEggsSold')}</div><div class="v">${r.quailEggsSold||0}</div></div>
+        <div class="hist-item"><div class="l">${T('fKoliEggsSold')}</div><div class="v">${r.koliEggsSold||0}</div></div>
+        <div class="hist-item"><div class="l">${T('fMeatSold')}</div><div class="v">${r.meatSold||0} kg</div></div>
+        <div class="hist-item"><div class="l">${T('repSales')}</div><div class="v">${money(sales)}</div></div>
+        <div class="hist-item"><div class="l">${T('repExpenses')}</div><div class="v">${money(expenses)}</div></div>
+        <div class="hist-item ${netClass}"><div class="l">${net>=0?T('repProfit'):T('repLoss')}</div><div class="v">${money(Math.abs(net))}</div></div>
       </div>
       <div class="hist-foot">
-        <div>${t.updatedBy} <b>${r.updatedBy||'—'}</b></div>
-        <div>${t.updatedAt} <b>${r.updatedAt ? new Date(r.updatedAt).toLocaleString(lang === 'ta' ? 'ta-IN' : 'en-IN') : '—'}</b></div>
+        <div>${T('updatedBy')} <b>${r.updatedBy||'—'}</b></div>
+        <div>${T('updatedAt')} <b>${r.updatedAt?new Date(r.updatedAt).toLocaleString(lang==='ta'?'ta-IN':'en-IN'):'—'}</b></div>
       </div>
     </div>`;
   }).join('');
 }
 
 function renderReports(){
-  let totalSales=0, totalExpenses=0;
+  let totalSales=0,totalExpenses=0;
   records.forEach(r=>{
-    totalSales += (r.totalSales||0);
-    totalExpenses += (r.medicine||0)+(r.trayStickers||0)+(r.otherExpenses||0);
+    const {sales,expenses}=calcRecord(r);
+    totalSales+=sales;
+    totalExpenses+=expenses;
   });
-  const profit = totalSales - totalExpenses;
-  document.getElementById('repSalesVal').textContent = money(totalSales);
-  document.getElementById('repExpensesVal').textContent = money(totalExpenses);
-  document.getElementById('repProfitVal').textContent = money(Math.max(0,profit));
-  document.getElementById('repLossVal').textContent = money(profit<0 ? Math.abs(profit) : 0);
+  const profit=totalSales-totalExpenses;
+  document.getElementById('repSalesVal').textContent=money(totalSales);
+  document.getElementById('repExpensesVal').textContent=money(totalExpenses);
+  document.getElementById('repProfitVal').textContent=money(profit>=0?profit:0);
+  document.getElementById('repLossVal').textContent=money(profit<0?Math.abs(profit):0);
 
-  const body = document.getElementById('summaryBody');
+  const body=document.getElementById('summaryBody');
   if(records.length===0){
-    body.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--text-muted); padding:20px;">No data yet</td></tr>`;
+    body.innerHTML=`<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:20px;">No data yet</td></tr>`;
     return;
   }
-  body.innerHTML = records.map(r=>{
-    const expenses = (r.medicine||0)+(r.trayStickers||0)+(r.otherExpenses||0);
+  body.innerHTML=records.map(r=>{
+    const {sales,expenses,net}=calcRecord(r);
+    const netClass=net>=0?'td-profit':'td-loss';
     return `<tr>
-      <td>${r.date}</td><td>${r.quailEggsSold}</td><td>${r.koliEggsSold}</td>
-      <td>${r.mortality}</td><td>${r.meatSold}</td><td>${money(r.totalSales)}</td><td>${money(expenses)}</td>
+      <td>${r.date}</td><td>${r.quailEggsSold||0}</td><td>${r.koliEggsSold||0}</td>
+      <td>${r.meatSold||0}kg</td><td>${money(sales)}</td><td>${money(expenses)}</td>
+      <td class="${netClass}">${net>=0?money(net):'('+money(Math.abs(net))+')'}</td>
     </tr>`;
   }).join('');
 }
 
-function renderAll(){ renderDashboard(); renderHistory(); renderReports(); }
-
-/* ---------------- Toast ---------------- */
-let toastTimer;
-function showToast(msg, isError){
-  const t = document.getElementById('toast');
-  document.getElementById('toastMsg').textContent = msg;
-  t.querySelector('span').textContent = isError ? '⚠️' : '✅';
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=> t.classList.remove('show'), 2600);
+function renderMembersPage(){
+  const grid=document.getElementById('memberGrid');
+  const familyNames=['Prabakaran','Poongodi','Rajindharan','Sajindharan'];
+  grid.innerHTML=familyNames.map(name=>{
+    const isEditor=name.toLowerCase()==='poongodi';
+    const lastLogin=getLastLogin(name);
+    const isOnline=currentUser&&currentUser.name===name;
+    const pic=getProfilePic(name);
+    const avatarHtml=pic
+      ?`<img src="${pic}" alt="${name}">`
+      :`${name.charAt(0).toUpperCase()}`;
+    const lastStr=lastLogin
+      ?`${isOnline?'<span class="online-dot"></span>':''} ${new Date(lastLogin).toLocaleDateString(lang==='ta'?'ta-IN':'en-GB')}`
+      :'—';
+    return `
+    <div class="member-card">
+      <div class="m-pic">${avatarHtml}</div>
+      <div class="m-name">${getDisplayName(name)}</div>
+      <div class="m-role"><span class="role-badge ${isEditor?'editor':'viewer'}">${isEditor?T('roleEditor'):T('roleViewer')}</span></div>
+      <div class="m-last">${lastStr}</div>
+    </div>`;
+  }).join('');
 }
 
-/* ---------------- Init ---------------- */
+function renderAll(){ renderDashboard(); renderHistory(); renderReports(); renderMembersPage(); }
+
+/* ===== TOAST ===== */
+let toastTimer;
+function showToast(msg,isError){
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  t.querySelector('span').textContent=isError?'⚠️':'✅';
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+/* ===== INIT ===== */
 (async function init(){
   clearForm();
   applyLanguage();
