@@ -337,6 +337,7 @@
           <div class="stat-card"><div class="icon stock">🥚</div><div class="lbl" id="txt-lblStockQuailEggs">Quail Eggs Remaining</div><div class="val" id="stockQuailEggs">0</div></div>
           <div class="stat-card"><div class="icon stock">🥚</div><div class="lbl" id="txt-lblStockKoliEggs">Nattu Koli Eggs Remaining</div><div class="val" id="stockKoliEggs">0</div></div>
           <div class="stat-card"><div class="icon stock">🍖</div><div class="lbl" id="txt-lblStockMeat">Quail Meat Remaining (kg)</div><div class="val" id="stockMeat">0</div></div>
+          <div class="stat-card"><div class="icon stock">🩸</div><div class="lbl" id="txt-lblStockMortality">Quail Mortality Remaining</div><div class="val" id="stockMortality">0</div></div>
         </div>
       </div>
     </section>
@@ -356,7 +357,8 @@
           <div class="field"><label id="txt-fKoliEggsProduced">🥚 Nattu Koli Eggs Produced</label><input type="number" id="f_koliEggsProduced" placeholder="0" min="0" oninput="recalcAll()"></div>
           <div class="field"><label id="txt-fKoliEggsSold">🥚 Nattu Koli Eggs Sold</label><input type="number" id="f_koliEggsSold" placeholder="0" min="0" oninput="recalcAll()"></div>
           <div class="field"><label id="txt-fKoliEggRate">🥚 Nattu Koli Egg Rate (₹ each)</label><input type="number" id="f_koliEggRate" placeholder="e.g. 15" min="0" oninput="recalcAll()"></div>
-          <div class="field"><label id="txt-fMortality">🩸 Quail Mortality (count)</label><input type="number" id="f_mortality" placeholder="0" min="0" oninput="recalcAll()"></div>
+          <div class="field"><label id="txt-fMortalityAvailable">🩸 Quail Mortality Available (count)</label><input type="number" id="f_mortalityAvailable" placeholder="0" min="0" oninput="recalcAll()"></div>
+          <div class="field"><label id="txt-fMortalitySold">🩸 Quail Mortality Sold (count)</label><input type="number" id="f_mortalitySold" placeholder="0" min="0" oninput="recalcAll()"></div>
           <div class="field"><label id="txt-fMeatAvailable">🍖 Quail Meat Available (kg)</label><input type="number" id="f_meatAvailable" placeholder="0" min="0" oninput="recalcAll()"></div>
           <div class="field"><label id="txt-fMeatSold">🍗 Quail Meat Sold (kg)</label><input type="number" id="f_meatSold" placeholder="0" min="0" oninput="recalcAll()"></div>
           <div class="field"><label id="txt-fMeatRate">🍖 Quail Meat Rate (₹/kg)</label><input type="number" id="f_meatRate" placeholder="e.g. 700" min="0" oninput="recalcAll()"></div>
@@ -447,8 +449,11 @@
   <div class="modal">
     <h3><span id="txt-modalAccTitle">Account Details</span> <span class="x" onclick="closeModal('accountModal')">✕</span></h3>
     <div style="text-align:center;margin-bottom:16px;">
-      <div class="profile-pic" id="modalAvatarLarge" style="margin:0 auto 8px;width:80px;height:80px;font-size:28px;">P</div>
-      <b id="modalAccName" style="display:block;font-size:16px;color:var(--forest);"></b>
+      <div style="position:relative;display:inline-block;cursor:pointer;" onclick="closeModal('accountModal');openModal('editProfileModal')" title="Edit Profile Picture">
+        <div class="profile-pic" id="modalAvatarLarge" style="margin:0 auto;width:85px;height:85px;font-size:30px;">P</div>
+        <div class="profile-pic-edit">📷</div>
+      </div>
+      <b id="modalAccName" style="display:block;font-size:16px;color:var(--forest);margin-top:6px;"></b>
       <span class="role-badge" id="modalAccRole" style="margin-top:4px;display:inline-block;"></span>
     </div>
     <div class="modal-section">
@@ -456,8 +461,8 @@
       <div class="field"><label id="txt-mMethod">Login Method</label><input class="readonly" id="modalMethod" readonly></div>
       <div class="field"><label id="txt-mEmail">Email</label><input class="readonly" id="modalEmail" readonly></div>
     </div>
-    <button class="btn btn-primary" style="margin-top:4px;" onclick="closeModal('accountModal');openModal('editProfileModal')">✏️ <span id="txt-goEditProfile">Edit Profile</span></button>
-    <button class="btn btn-clear" style="margin-top:8px;" onclick="closeModal('accountModal')">Close</button>
+    <button class="btn btn-primary" style="margin-top:4px;width:100%;" onclick="closeModal('accountModal');openModal('editProfileModal')">✏️ <span id="txt-goEditProfile">Edit Profile (Picture & Name)</span></button>
+    <button class="btn btn-clear" style="margin-top:8px;width:100%;" onclick="closeModal('accountModal')">Close</button>
   </div>
 </div>
 
@@ -523,7 +528,10 @@ const I18N = {
     fDate:"📅 Date",fQuailProduced:"🐦 Quail Eggs Produced",
     fQuailEggsSold:"🥚 Quail Eggs Sold",fQuailEggRate:"🥚 Quail Egg Rate (₹ each)",
     fKoliEggsProduced:"🥚 Nattu Koli Eggs Produced",fKoliEggsSold:"🥚 Nattu Koli Eggs Sold",
-    fKoliEggRate:"🥚 Nattu Koli Egg Rate (₹ each)",fMortality:"🩸 Quail Mortality (count)",
+    fKoliEggRate:"🥚 Nattu Koli Egg Rate (₹ each)",
+    fMortalityAvailable:"🩸 Quail Mortality Available (count)",
+    fMortalitySold:"🩸 Quail Mortality Sold (count)",
+    lblStockMortality:"Quail Mortality Remaining",
     fMeatAvailable:"🍖 Quail Meat Available (kg)",fMeatSold:"🍗 Quail Meat Sold (kg)",
     fMeatRate:"🍖 Quail Meat Rate (₹/kg)",fMedicine:"💊 Medicine Expense (₹)",
     fTrayStickers:"🏷️ Tray / Sticker Expense (₹)",fOtherExpenses:"🌿 Other Expenses (₹)",
@@ -572,7 +580,10 @@ const I18N = {
     fDate:"📅 தேதி",fQuailProduced:"🐦 உற்பத்தி செய்த காடை முட்டைகள்",
     fQuailEggsSold:"🥚 விற்பனை செய்த காடை முட்டைகள்",fQuailEggRate:"🥚 காடை முட்டை விலை (₹ 1 எண்ணம்)",
     fKoliEggsProduced:"🥚 உற்பத்தி செய்த நாட்டுக்கோழி முட்டைகள்",fKoliEggsSold:"🥚 விற்பனை செய்த நாட்டுக்கோழி முட்டைகள்",
-    fKoliEggRate:"🥚 நாட்டுக்கோழி முட்டை விலை (₹ 1 எண்ணம்)",fMortality:"🩸 காடை இறப்பு (எண்ணிக்கை)",
+    fKoliEggRate:"🥚 நாட்டுக்கோழி முட்டை விலை (₹ 1 எண்ணம்)",
+    fMortalityAvailable:"🩸 இருப்பு காடை இறப்பு (எண்ணிக்கை)",
+    fMortalitySold:"🩸 விற்பனையான காடை இறப்பு (எண்ணிக்கை)",
+    lblStockMortality:"மீதமுள்ள காடை இறப்பு",
     fMeatAvailable:"🍖 இருப்பு காடை இறைச்சி (கிலோ)",fMeatSold:"🍗 விற்பனை செய்த காடை இறைச்சி (கிலோ)",
     fMeatRate:"🍖 காடை இறைச்சி விலை (₹/கிலோ)",fMedicine:"💊 மருந்து செலவு (₹)",
     fTrayStickers:"🏷️ அட்டை/ஸ்டிக்கர் செலவு (₹)",fOtherExpenses:"🌿 இதர செலவுகள் (₹)",
@@ -672,7 +683,9 @@ function applyLanguage(){
   setT('txt-fKoliEggsProduced',t.fKoliEggsProduced);
   setT('txt-fKoliEggsSold',t.fKoliEggsSold);
   setT('txt-fKoliEggRate',t.fKoliEggRate);
-  setT('txt-fMortality',t.fMortality);
+  setT('txt-fMortalityAvailable',t.fMortalityAvailable);
+  setT('txt-fMortalitySold',t.fMortalitySold);
+  setT('txt-lblStockMortality',t.lblStockMortality);
   setT('txt-fMeatAvailable',t.fMeatAvailable);
   setT('txt-fMeatSold',t.fMeatSold);
   setT('txt-fMeatRate',t.fMeatRate);
@@ -871,6 +884,7 @@ function openModal(id){ document.getElementById(id).classList.add('open'); docum
 function closeModal(id){ document.getElementById(id).classList.remove('open'); }
 
 function openAccountModal(){
+  if(!currentUser) return;
   const name=currentUser.name;
   renderAvatar(document.getElementById('modalAvatarLarge'),name);
   document.getElementById('modalAccName').textContent=getDisplayName(name);
@@ -880,7 +894,8 @@ function openAccountModal(){
   roleEl.className='role-badge '+(isEd?'editor':'viewer');
   document.getElementById('modalMethod').value=currentUser.method||'Email & Password';
   document.getElementById('modalEmail').value=currentUser.email||MEMBER_EMAILS[name]||'—';
-  openModal('accountModal');
+  document.getElementById('accountModal').classList.add('open');
+  document.getElementById('userMenu').classList.remove('open');
 }
 
 function openEditProfileModal(){
@@ -888,7 +903,8 @@ function openEditProfileModal(){
   const name=currentUser.name;
   renderAvatar(document.getElementById('editProfilePic'),name);
   document.getElementById('epName').value=getDisplayName(name);
-  openModal('editProfileModal');
+  document.getElementById('editProfileModal').classList.add('open');
+  document.getElementById('userMenu').classList.remove('open');
 }
 
 function handleProfilePicChange(event){
@@ -902,6 +918,7 @@ function handleProfilePicChange(event){
     renderAvatar(document.getElementById('chipAvatar'),currentUser.name);
     renderAvatar(document.getElementById('menuAvatar'),currentUser.name);
     renderAvatar(document.getElementById('modalAvatarLarge'),currentUser.name);
+    renderMembersPage();
   };
   reader.readAsDataURL(file);
 }
@@ -918,8 +935,6 @@ function saveProfile(){
   renderMembersPage();
 }
 
-// Override openModal to handle account & editProfile
-const _origOpenModal = openModal;
 function openModal(id){
   if(id==='accountModal'){ openAccountModal(); return; }
   if(id==='editProfileModal'){ openEditProfileModal(); return; }
@@ -940,7 +955,7 @@ function showTab(tab){
 
 /* ===== FORM & CALCULATION ===== */
 const numFields=['quailProduced','quailEggsSold','quailEggRate','koliEggsProduced','koliEggsSold','koliEggRate',
-  'mortality','meatAvailable','meatSold','meatRate','medicine','trayStickers','otherExpenses'];
+  'mortalityAvailable','mortalitySold','meatAvailable','meatSold','meatRate','medicine','trayStickers','otherExpenses'];
 
 function getF(id){ return parseFloat(document.getElementById(id).value)||0; }
 
@@ -1102,12 +1117,15 @@ function renderDashboard(){
     a.quailProduced+=(r.quailProduced||0); a.quailEggsSold+=(r.quailEggsSold||0);
     a.koliEggsProduced+=(r.koliEggsProduced||0); a.koliEggsSold+=(r.koliEggsSold||0);
     a.meatAvailable+=(r.meatAvailable||0); a.meatSold+=(r.meatSold||0);
+    a.mortalityAvailable+=(r.mortalityAvailable||r.mortality||0); a.mortalitySold+=(r.mortalitySold||0);
     return a;
-  },{quailProduced:0,quailEggsSold:0,koliEggsProduced:0,koliEggsSold:0,meatAvailable:0,meatSold:0});
+  },{quailProduced:0,quailEggsSold:0,koliEggsProduced:0,koliEggsSold:0,meatAvailable:0,meatSold:0,mortalityAvailable:0,mortalitySold:0});
 
   document.getElementById('stockQuailEggs').textContent=Math.max(0,totals.quailProduced-totals.quailEggsSold);
   document.getElementById('stockKoliEggs').textContent=Math.max(0,totals.koliEggsProduced-totals.koliEggsSold);
   document.getElementById('stockMeat').textContent=(Math.max(0,totals.meatAvailable-totals.meatSold)).toFixed(2);
+  const stockMort=document.getElementById('stockMortality');
+  if(stockMort) stockMort.textContent=Math.max(0,totals.mortalityAvailable-totals.mortalitySold);
 }
 
 function renderHistory(){
@@ -1135,6 +1153,7 @@ function renderHistory(){
         <div class="hist-item"><div class="l">${T('fQuailEggsSold')}</div><div class="v">${r.quailEggsSold||0}</div></div>
         <div class="hist-item"><div class="l">${T('fKoliEggsSold')}</div><div class="v">${r.koliEggsSold||0}</div></div>
         <div class="hist-item"><div class="l">${T('fMeatSold')}</div><div class="v">${r.meatSold||0} kg</div></div>
+        <div class="hist-item"><div class="l">${T('fMortalitySold')}</div><div class="v">${r.mortalitySold||0}</div></div>
         <div class="hist-item"><div class="l">${T('repSales')}</div><div class="v">${money(sales)}</div></div>
         <div class="hist-item"><div class="l">${T('repExpenses')}</div><div class="v">${money(expenses)}</div></div>
         <div class="hist-item ${netClass}"><div class="l">${net>=0?T('repProfit'):T('repLoss')}</div><div class="v">${money(Math.abs(net))}</div></div>

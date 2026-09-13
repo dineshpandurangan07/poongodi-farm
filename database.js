@@ -33,6 +33,8 @@ db.serialize(() => {
             koliEggsSold REAL,
             koliEggRate REAL,
             mortality REAL,
+            mortalityAvailable REAL,
+            mortalitySold REAL,
             meatAvailable REAL,
             meatSold REAL,
             meatRate REAL,
@@ -45,6 +47,10 @@ db.serialize(() => {
             updatedAt TEXT
         )
     `);
+
+    // Ensure columns exist if database was already created
+    db.run(`ALTER TABLE records ADD COLUMN mortalityAvailable REAL`, () => {});
+    db.run(`ALTER TABLE records ADD COLUMN mortalitySold REAL`, () => {});
 });
 
 module.exports = db;

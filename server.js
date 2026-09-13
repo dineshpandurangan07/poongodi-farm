@@ -95,9 +95,9 @@ app.get('/api/records', (req, res) => {
 app.post('/api/records', authorizePoongodi, (req, res) => {
     const r = req.body;
     db.run(
-        `INSERT INTO records (id, date, quailProduced, quailEggsSold, quailEggRate, koliEggsProduced, koliEggsSold, koliEggRate, mortality, meatAvailable, meatSold, meatRate, medicine, trayStickers, otherExpenses, totalSales, notes, updatedBy, updatedAt) 
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        [r.id, r.date, r.quailProduced, r.quailEggsSold, r.quailEggRate, r.koliEggsProduced, r.koliEggsSold, r.koliEggRate, r.mortality, r.meatAvailable, r.meatSold, r.meatRate, r.medicine, r.trayStickers, r.otherExpenses, r.totalSales, r.notes, r.updatedBy, r.updatedAt],
+        `INSERT INTO records (id, date, quailProduced, quailEggsSold, quailEggRate, koliEggsProduced, koliEggsSold, koliEggRate, mortality, mortalityAvailable, mortalitySold, meatAvailable, meatSold, meatRate, medicine, trayStickers, otherExpenses, totalSales, notes, updatedBy, updatedAt) 
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [r.id, r.date, r.quailProduced, r.quailEggsSold, r.quailEggRate, r.koliEggsProduced, r.koliEggsSold, r.koliEggRate, r.mortality || r.mortalityAvailable || 0, r.mortalityAvailable || 0, r.mortalitySold || 0, r.meatAvailable, r.meatSold, r.meatRate, r.medicine, r.trayStickers, r.otherExpenses, r.totalSales, r.notes, r.updatedBy, r.updatedAt],
         function(err) {
             if (err) {
                 return res.status(500).json({ error: err.message });
@@ -113,9 +113,9 @@ app.put('/api/records/:id', authorizePoongodi, (req, res) => {
     const r = req.body;
     db.run(
         `UPDATE records SET 
-         date = ?, quailProduced = ?, quailEggsSold = ?, quailEggRate = ?, koliEggsProduced = ?, koliEggsSold = ?, koliEggRate = ?, mortality = ?, meatAvailable = ?, meatSold = ?, meatRate = ?, medicine = ?, trayStickers = ?, otherExpenses = ?, totalSales = ?, notes = ?, updatedBy = ?, updatedAt = ? 
+         date = ?, quailProduced = ?, quailEggsSold = ?, quailEggRate = ?, koliEggsProduced = ?, koliEggsSold = ?, koliEggRate = ?, mortality = ?, mortalityAvailable = ?, mortalitySold = ?, meatAvailable = ?, meatSold = ?, meatRate = ?, medicine = ?, trayStickers = ?, otherExpenses = ?, totalSales = ?, notes = ?, updatedBy = ?, updatedAt = ? 
          WHERE id = ?`,
-        [r.date, r.quailProduced, r.quailEggsSold, r.quailEggRate, r.koliEggsProduced, r.koliEggsSold, r.koliEggRate, r.mortality, r.meatAvailable, r.meatSold, r.meatRate, r.medicine, r.trayStickers, r.otherExpenses, r.totalSales, r.notes, r.updatedBy, r.updatedAt, id],
+        [r.date, r.quailProduced, r.quailEggsSold, r.quailEggRate, r.koliEggsProduced, r.koliEggsSold, r.koliEggRate, r.mortality || r.mortalityAvailable || 0, r.mortalityAvailable || 0, r.mortalitySold || 0, r.meatAvailable, r.meatSold, r.meatRate, r.medicine, r.trayStickers, r.otherExpenses, r.totalSales, r.notes, r.updatedBy, r.updatedAt, id],
         function(err) {
             if (err) {
                 return res.status(500).json({ error: err.message });
